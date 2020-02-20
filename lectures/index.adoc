@@ -1,0 +1,19 @@
+= Lectures
+:toc:
+
+[%header, cols="10h,20,70"]
+|====
+| #
+| Date
+| Topic
+
+| 1.
+| 18th February 2020
+| xref:1-lorem-ipsum.adoc[Topic of the First Lecture]
+
+| 2.
+| 25th February 2020
+| link:files/2-dolor-sit-amet.pdf[Topic of the Second Lecture] (PDF)
+|====
+
+TIP: Lectures can also be in the form of PDF presentations. If you put PDF files directly in the _lectures_ directory (instead of _files_), they will appear in the navigation (the same as separate pages).

@@ -1,0 +1,28 @@
+= Classification
+:toc:
+
+TIP: Specify what system you use to classify students (e.g. https://grades.fit.cvut.cz[Grades]).
+
+
+== Assessment
+
+TIP: Fill in the conditions for obtaining the credit here.
+
+
+== Exam
+
+TIP: Fill in the conditions for passing the exam here.
+
+Evaluation scale according to https://www.cvut.cz/en/internal-ctu-regulations[The Study and Examination Code for Students of CTU in Prague]:
+
+[options="autowidth"]
+|====
+| Grade  | Points       | Evaluation in words
+
+| A      | 90 and more  | excellent
+| B      | 80 to 89     | very good
+| C      | 70 to 79     | good
+| D      | 60 to 69     | satisfactory
+| E      | 50 to 59     | sufficient
+| F      | less than 50 | failed
+|====

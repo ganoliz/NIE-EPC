@@ -1,0 +1,3 @@
+Directories named `files` and their contents are by default not displayed in
+the navigation on published pages. Place images, PDFs, and other files that you
+link from .adoc pages here.

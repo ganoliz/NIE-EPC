@@ -1,0 +1,4 @@
+= Tutorials
+:toc:
+
+TIP: Add the materials for the tutorials here; in a similar way as in the section xref:../lectures/index.adoc[]. If this course does not have tutorials, delete the entire _tutorials_ directory.

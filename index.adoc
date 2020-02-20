@@ -1,3 +1,10 @@
-= BI-AEC
+= Main Page
 
-Lorem ipsum...
+TIP: Write something about the course here and/or copy its description from KOS.
+
+IMPORTANT: This is a starter template that contains only a few basic pages with hints what should be there.
+It’s just a recommendation you may or may not follow.
+*As a first step, delete all these hints and pages you don’t need!*
+
+TIP: The Course Pages documentation can be found at https://help.fit.cvut.cz/courses/[help.fit.cvut.cz].
+The AsciiDoc syntax documentation, the syntax in which these pages are written, can be found at https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[docs.asciidoctor.org].

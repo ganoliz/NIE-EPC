@@ -1,0 +1,8 @@
+= Teachers
+
+TIP: Here provide a short list of the teachers. Everyone can also create their own page or set of pages, e.g. with information about consultation hours.
+
+|====
+| Teacher no. 1  | lecturer | email1@fit.cvut.cz | xref:novakjan.adoc[additional information]
+| Teacher no. 2  | tutor    | email2@fit.cvut.cz | xref:doejohn.adoc[additional information]
+|====
