@@ -13,7 +13,7 @@ TIP: Fill in the conditions for obtaining the credit here.
 
 TIP: Fill in the conditions for passing the exam here.
 
-Evaluation scale according to https://www.cvut.cz/en/internal-ctu-regulations[The Study and Examination Code for Students of CTU in Prague]:
+The conversion of the standard scoring scale to grades is described in the following table.
 
 [options="autowidth"]
 |====
@@ -26,3 +26,5 @@ Evaluation scale according to https://www.cvut.cz/en/internal-ctu-regulations[Th
 | E      | 50 to 59     | sufficient
 | F      | less than 50 | failed
 |====
+
+The evaluation is governed by the Study and Examination Rules for Students at CTU, which you can find on page https://www.cvut.cz/en/legislation-and-study-regulations[Legislation and Study Regulations].
