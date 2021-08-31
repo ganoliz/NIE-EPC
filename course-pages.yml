@@ -1,9 +1,9 @@
 course:
-  code: BI-NEW
-  name: Course Template
+  code: NIE-EPC
+  name: Effective C++ programming
 language: en
 repository:
-  gitlabPath: /course-pages/course-starter
+  gitlabPath: /NI-EPC/nie-epc
 navigation:
   hiddenFiles:
     - files/

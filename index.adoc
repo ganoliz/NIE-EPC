@@ -1,6 +1,7 @@
 = Main Page
 
-TIP: Write something about the course here and/or copy its description from KOS.
+Students learn how to use the modern features of contemporary versions of the C++ programming language for software development.
+The course focuses on programming effectivity and efficiency in the form of writing maintainable and portable source code and creating correct programs with low memory and processor time requirements.
 
 IMPORTANT: This is a starter template that contains only a few basic pages with hints what should be there.
 It’s just a recommendation you may or may not follow.
