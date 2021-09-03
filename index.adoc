@@ -6,7 +6,7 @@ WARNING: *Course pages are being updated for the winter semester 2021/2022.*
 
 == Annotation
 
-*Studenti se naučí využívat moderní rysy současných verzí jazyka {cpp} pro tvorbu softwaru. Důraz je kladen především na efektivitu, a to jak v podobě tvorby udržovatelných a přenositelných zdrojových kódů, tak v podobě korektních programů s nízkými nároky na paměť a procesorový čas.*
+*Students will learn how to use modern features of the current {cpp} language versions for creating software. The focus will be on effectivity and efficiency, both in the form of creating maintainable and portable source codes, and in the form of correct programs with low requirements for system memory and CPU runtime.*
 
 == Contents
 
@@ -21,7 +21,7 @@ Předmět NI-EPC je určen pro studenty, kteří mají *vážný zájem* o progr
 
 == Requirements
 
-NI-EPC tématicky navazuje na předměty *BI-PA1* a *BI-PA2* a u studentů se předpokládá *velmi dobrá znalost jejich látky*. U předmětu BI-PA2 může být určitou výhodou znalost _rozšiřujících materiálů_, která ale není vyžadována. Dále je předpokládána znalost vybraného učiva z předmětů *BI-SAP* a *BI-OSY*.
+NIE-EPC follows the *BIE-PA1* and *BIE-PA2* courses and students are supposed to *perfectly master their materials*. Further, a selected knowledge from the *BIE-SAP* and *BIE-OSY* courses are required as well.
 
 == Study materials
 
