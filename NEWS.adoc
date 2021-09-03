@@ -1,5 +1,0 @@
-= News
-
-TIP: Here you can write news for students which will be displayed on Signpost https://courses.fit.cvut.cz.
-Each news item is defined as a first level section (ie. `== News Title`).
-See more information https://gitlab.fit.cvut.cz/course-pages/course-pages/blob/master/man/NEWS.adoc.5.adoc[here].
