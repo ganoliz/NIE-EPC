@@ -1,11 +1,35 @@
-= Main Page
+= NIE-EPC
 
-Students learn how to use the modern features of contemporary versions of the C++ programming language for software development.
-The course focuses on programming effectivity and efficiency in the form of writing maintainable and portable source code and creating correct programs with low memory and processor time requirements.
+== News
 
-IMPORTANT: This is a starter template that contains only a few basic pages with hints what should be there.
-It’s just a recommendation you may or may not follow.
-*As a first step, delete all these hints and pages you don’t need!*
+WARNING: *Course pages are being updated for the winter semester 2021/2022.*
 
-TIP: The Course Pages documentation can be found at https://help.fit.cvut.cz/courses/[help.fit.cvut.cz].
-The AsciiDoc syntax documentation, the syntax in which these pages are written, can be found at https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[docs.asciidoctor.org].
+== Annotation
+
+*Studenti se naučí využívat moderní rysy současných verzí jazyka {cpp} pro tvorbu softwaru. Důraz je kladen především na efektivitu, a to jak v podobě tvorby udržovatelných a přenositelných zdrojových kódů, tak v podobě korektních programů s nízkými nároky na paměť a procesorový čas.*
+
+== Contents
+
+* xref:lectures/index#[]
+* xref:tutorials/index#[]
+* xref:semwork#[]
+* xref:classification#[]
+
+== Characteristics
+
+Předmět NI-EPC je určen pro studenty, kteří mají *vážný zájem* o programování v současných verzích jazyka {cpp}. Důraz je kladen na **moderní formu programování v {cpp} a efektivní využití tohoto programovacího jazyka**, ať už se jedná o efektivitu práce programů se systémovými prostředky a nebo efektivitu psaní kódu a jeho následné údržby. Cílem předmětu je i **pochopení „podstaty a fylozofie“ {cpp}**.
+
+== Requirements
+
+NI-EPC tématicky navazuje na předměty *BI-PA1* a *BI-PA2* a u studentů se předpokládá *velmi dobrá znalost jejich látky*. U předmětu BI-PA2 může být určitou výhodou znalost _rozšiřujících materiálů_, která ale není vyžadována. Dále je předpokládána znalost vybraného učiva z předmětů *BI-SAP* a *BI-OSY*.
+
+== Study materials
+
+Jako základní učební materiály mohou sloužit *slajdy z přednášek*. Další vhodné materiály jsou například:footnote:[Pro využití zmíněných zdrojů je zapotřebí základní znalost angličtiny na úrovni pochopení psaného odborného textu.]
+
+* *Referenční příručka jazyka {cpp}*: link:url[http://en.cppreference.com/w/cpp]footnote:[Neplést si s referenční příručkou http://www.cplusplus.com/reference/; ta obsahuje poměrně velké množství chyb a nepřesností.]. 
+* *Standard jazyka {cpp}*: celistvý, ale obtížněji čitelnější zdroj. Pokud jste na pochybách, vždy hledejte odpověď v{nbsp}přísušné verzi Standardu. Finální verze jsou placené, ale přístup k „draftovým“ verzím lze získat zdarma např. přes stránku https://isocpp.org/std/the-standard. Často využívaná je aktuální draftová online verze http://eel.is/c++draft/, u{nbsp}které lze získat odkazy na konkrétní sekce, odstavce, ale i věty.
+* **Diskuzní fórum Stack Overflow**: https://stackoverflow.com/. Pravděpodobně netřeba představovat; jedná se o{nbsp}neocenitelný zdroj informací pro řešení konkrétních problémů.
+* **Přednášky z konferencí CppCon**: https://www.youtube.com/user/CppCon/videos.
+* **{cpp} Core Guidelines**: http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines. Živý a relativně nový projekt, který má za úkol poskytnout sadu pravidel a doporučení pro efektivní využití moderního {cpp}. Editoři Bjarne Stoustrup a Herb Sutter zaručují vysokou kvalitu informací.
+* **Effective Modern {cpp}**: pokud bych měl doporučit jednu jedinou monografii, byla by to tato kniha od Scotta Meyerse popisující ve 42 bodech nejzásadnější rozdíly mezi „původním“ (98/03) a „moderním“ (11/14) {cpp}.
