@@ -1,4 +1,37 @@
 = Tutorials
-:toc:
 
-TIP: Add the materials for the tutorials here; in a similar way as in the section xref:../lectures/index.adoc[]. If this course does not have tutorials, delete the entire _tutorials_ directory.
+[cols="1,5" options="header"]
+|===
+| Tutorial | Assignment
+
+| 1.
+|
+//| xref:tutorial1#[Quick {cpp} Benchmark & Small String Optimization]
+//| link:https://web.microsoftstream.com/video/a335a1bc-f822-4146-b774-c237b5487b9b[ni-epc-tutorial-1-b201]
+
+| 2.
+|
+//| xref:../semwork/index#[Zadání semestrální práce]
+//| link:https://web.microsoftstream.com/video/b257128f-b0aa-4914-984b-50fa6cef6382[ni-epc-tutorial-2-b201]
+
+| 3. 
+|
+//| xref:tutorial3#[PIMPL — _pointer to implementation_ pro třídu `String`]
+//| link:https://web.microsoftstream.com/video/77f69c9c-6ee5-4dbf-a72b-d96acaf198a3[ni-epc-tutorial-3-b201]
+
+| 4.
+|
+//| xref:tutorial4#[Chyba Microsoft implementace C++?]
+//| link:https://web.microsoftstream.com/video/fd3c06e7-ab4f-4979-83f0-02496569cfd2[ni-epc-tutorial-4-b201]
+
+| 5.
+|
+//| xref:tutorial5#[Tuple]
+//| N/A ^({asterisk})^
+
+| 6.
+|
+//| xref:tutorial6#[Chytré ukazatele (_smart pointers_)]
+//| link:https://web.microsoftstream.com/video/7e41c968-b1e2-4bd5-89f7-ea3e19a810d2[ni-epc-tutorial-6-b201]
+
+|===
