@@ -1,19 +1,67 @@
 = Lectures
-:toc:
 
-[%header, cols="10h,20,70"]
-|====
-| #
-| Date
-| Topic
+[%header, cols="1h,10,6"]
+|===
+| # | Topic | Slides
 
-| 1.
-| 18th February 2020
-| xref:1-lorem-ipsum.adoc[Topic of the First Lecture]
+|1.
+|Introduction, observable behavior, as-if rule, optimizations, translation units, ABI
+|
+//|link:epc_lecture_01_cz_2020.pdf[epc_lecture_01_cz_2020.pdf]
 
-| 2.
-| 25th February 2020
-| link:files/2-dolor-sit-amet.pdf[Topic of the Second Lecture] (PDF)
-|====
+|2.
+|Translation units and observable behavior, ODR, internal linkage, inline, libraries, static and dynamic linking, PIMPL
+|
+//|link:epc_lecture_02_cz_2020.pdf[epc_lecture_02_cz_2020.pdf]
 
-TIP: Lectures can also be in the form of PDF presentations. If you put PDF files directly in the _lectures_ directory (instead of _files_), they will appear in the navigation (the same as separate pages).
+|3.
+|Undefined behavior, object lifetime, static and dynamic storage allocation, initialization and destruction
+|
+//|link:epc_lecture_03_cz_2020.pdf[epc_lecture_03_cz_2020.pdf]
+
+|4.
+|Costs of dynamic allocations, alignment, padding, placement new, owning objects
+|
+//|link:epc_lecture_04_cz_2020.pdf[epc_lecture_04_cz_2020.pdf]
+
+|5.
+|Small string optimization
+|
+//|link:epc_lecture_05_cz_2020.pdf[epc_lecture_05_cz_2020.pdf]
+
+|6.
+|Expressions new[] and delete[], object content, vector class
+|
+//|link:epc_lecture_06_cz_2020.pdf[epc_lecture_06_cz_2020.pdf]
+
+|7.
+|Value categories, types of references, reference binding, std::move
+|
+//|link:epc_lecture_07_cz_2020.pdf[epc_lecture_07_cz_2020.pdf]
+
+|8.
+|Emplace semantics, perfect forwarding, dispatching
+|
+//|link:epc_lecture_08_cz_2020.pdf[epc_lecture_08_cz_2020.pdf]
+
+|9.
+|Templates, template instantiation, template argument deduction, template specialization, variadic templates, template parameter pack
+|
+//|link:epc_lecture_09_cz_2020.pdf[epc_lecture_09_cz_2020.pdf]
+
+|10.
+|Function parameter pack, concepts and constraints, SFINAE
+|
+//|link:epc_lecture_10_cz_2020.pdf[epc_lecture_10_cz_2020.pdf]
+
+|11.
+|Exception safety, allocators, small buffer optimization, empty base optimization, type erasure
+|
+//|link:epc_lecture_11_cz_2020.pdf[epc_lecture_11_cz_2020.pdf]
+
+|12.
+|Type erasure, std::function, std::any, std::variant, CRTP, ADL
+|
+//|link:epc_lecture_12_cz_2020.pdf[epc_lecture_12_cz_2020.pdf]
+
+|===
