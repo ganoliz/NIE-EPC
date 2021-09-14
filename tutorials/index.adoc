@@ -5,14 +5,13 @@
 | Tutorial | Assignment
 
 | 1.
-|
-//| xref:tutorial1#[Quick {cpp} Benchmark & Small String Optimization]
-//| link:https://web.microsoftstream.com/video/a335a1bc-f822-4146-b774-c237b5487b9b[ni-epc-tutorial-1-b201]
+| xref:../semwork#[Semestral work assignment]
+//| link:https://web.microsoftstream.com/video/b257128f-b0aa-4914-984b-50fa6cef6382[ni-epc-tutorial-2-b201]
 
 | 2.
 |
-//| xref:../semwork/index#[Zadání semestrální práce]
-//| link:https://web.microsoftstream.com/video/b257128f-b0aa-4914-984b-50fa6cef6382[ni-epc-tutorial-2-b201]
+//| xref:tutorial1#[Quick {cpp} Benchmark & Small String Optimization]
+//| link:https://web.microsoftstream.com/video/a335a1bc-f822-4146-b774-c237b5487b9b[ni-epc-tutorial-1-b201]
 
 | 3. 
 |
