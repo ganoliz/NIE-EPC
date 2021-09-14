@@ -1,21 +1,46 @@
 = Classification
-:toc:
 
-TIP: Specify what system you use to classify students (e.g. https://grades.fit.cvut.cz[Grades]).
+*Actual classification* — see application link:https://grades.fit.cvut.cz/[**klAsifikace**].
 
+IMPORTANT: Optional assignment *classification comments* are located in the *Classification note* record. Do not forget to *check* it, especially in cases, where there is anything unclear about the classificaiton points.
 
-== Assessment
+== Tutorials and assessment requirements
 
-TIP: Fill in the conditions for obtaining the credit here.
+Tutorial classification consists of:
 
+. classification of *5 assignments resolved in the tutorials*,
+. classification of the *semestral work*.
 
-== Exam
+=== Tutorial assignments
 
-TIP: Fill in the conditions for passing the exam here.
+. There will be an assignment on 2nd, 3rd, 4th, 5th, and 6th tutorial, which will be resolved by each student individually.
+. The deadline for solution submission is *specified at each assignment*.
+. Each soluton will be awarded by 6 classification points at maximum.
+. In total, each student can obtail up to **30 points** from tutorial assignments.
 
-The conversion of the standard scoring scale to grades is described in the following table.
+=== Semestral work
 
-[options="autowidth"]
+. Semestral work will be assigned at the first tutorial.
+. Deadline for solution submission is *at the end of the last teaching week in the semester, namely on Sunday, December 19th (included)*.
+. Semestral work will be awarded by *20 points* at maximum.
+
+=== Assessment requirements
+
+. Active work in tutorials (submission of solution of tutorial assignments).
+. Submission of semestral work.
+. *Their classification of 25 points at minimum.*
+
+== Exam and requirements for its passing
+
+WARNING: *50 points at maximum* can be obtained from the final course exam. To successfully pass the exam, *at least 25 points* are required. In case that a student will obtain less than 25 points from the exam, that exam attempt will be classified with F.
+
+=== Exam form
+
+NOTE: The form of the final exam and insturctions for its passing will be provided before the start of the semester exam period.
+
+== Total classification
+
+[%header]
 |====
 | Grade  | Points       | Evaluation in words
 
