@@ -74,7 +74,7 @@ WARNING: The *final submission* is considered the *version of the `optional.h` h
 
 == Application programming interface (API)
 
-*Šablonová třída* `epc::optional`:
+*Class template* `epc::optional`:
 
 [source,c++]
 ----
@@ -93,32 +93,32 @@ class optional
 } // namespace epc
 ----
 
-=== Šablonové parametry
+=== Template parameters
 
-* `T` — *hodnotový typ (_value type_)*.
+* `T` — *value type*.
 
-=== Veřejné členské typy
+=== Public member types
 
-* `value_type` — *hodnotový typ* (_value type_) třídy (`T`).
+* `value_type` — *value type* of the class (`T`).
 
-=== Konstruktory a destruktor
+=== Constructors and destructor
 
-* `optional()` — *výchozí konstruktor*. Konstruuje objekt, který *neobsahuje hodnotu*.
+* `optional()` — *default constructor*. Constructs an object that *does not contain value*.
 
-* `optional(const optional& other)` — *kopírovací konstruktor*.
-** Pokud `other` *obsahuje hodnotu*, inicializuje hodnotu *pomocí výrazu `+*other+`*.
-** Pokud `other` *neobsahuje hodnotu*, konstruuje objekt, který *neobsahuje hodnotu* (podobně jako výchozí konstruktor).
+* `optional(const optional& other)` — *copy constructor*.
+** If `other` *does contain value*, initializes value *by the expression `+*other+`*.
+** If `other` *does not contain value*, constructs an object that *does not contain value* (similarly as default constructor).
 
-* `optional(optional&& other)` — *přesouvací konstruktor*.
-** Pokud `other` *obsahuje hodnotu*, inicializuje hodnotu *pomocí výrazu `+std::move(*other)+`*.
-** Pokud `other` *neobsahuje hondnotu*, konstruuje objekt, který *neobsahuje hodnotu* (podobně jako výchozí konstruktor).
+* `optional(optional&& other)` — *move constructor*.
+** If `other` *does contain value*, initializes value *by the expression `+std::move(*other)+`*.
+** If `other` *does not contain value*, constructs an object that *does not contain value* (similarly as default constructor).
 
-* `+template <typename... Ts> optional(std::in_place_t, Ts&&... args)+` — konverzní konstruktor.
-** Inicializuje hodnotu pomocí techniky *_perfect forwarding_ aplikované na argumenty* `+args...+`.
+* `+template <typename... Ts> optional(std::in_place_t, Ts&&... args)+` — *converting constructor*.
+** Initializes value by the *_perfect forwarding_ technique applied on arguments* `+args...+`.
 
-* `~optional()` — *destruktor*. 
-** Pokud aktuální objekt (`+*this+`) obsahuje hodnotu, tak ji *zdestruuje*.
-** V opačném případě neprovádí žádnou operaci.
+* `~optional()` — *destructor*. 
+** If the actual object (`+*this+`) does contain value, that is *destroyed*.
+** Otherwise, it does not perform any operation.
 
 === Přiřazovací operátory
 
