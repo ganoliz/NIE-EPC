@@ -136,32 +136,32 @@ class optional
 ** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the epxression  `+= std::move(*other)+`.
 ** Returns a reference to itself (_destination object_).
 
-=== Ostatní členské funkce
+=== Other member functions
 
-* `+const T* operator->() const+` — vrací *ukazatel na obsaženou hodnotu*. V případě, že obsažená není, vede na *nedefinované chování*.
-* `+T* operator->()+` — vrací *ukazatel na obsaženou hodnotu*. V případě, že obsažená není, vede na *nedefinované chování*.
+* `+const T* operator->() const+` — returns a *pointer to the contained value*. In case there is no value contained, yields *undefined behavior*.
+* `+T* operator->()+` —  returns a *pointer to the contained value*. In case there is no value contained, yields *undefined behavior*.
 
-* `+const T& operator*() const+` — vrací *referenci na obsaženou hodnotu*. V případě, že obsažená není, vede na *nedefinované chování*.
-* `+T& operator*()+` — vrací *referenci na obsaženou hodnotu*. V případě, že obsažená není, vede na *nedefinované chování*.
+* `+const T& operator*() const+` — returns a  *reference to the contained value*. In case there is no value contained, yields *undefined behavior*.
+* `+T& operator*()+` — returns a  *reference to the contained value*. In case there is no value contained, yields *undefined behavior*.
 
-* `operator bool() const` — vrací *`true` nebo `false`* v případě, že aktuální objekt (`+*this+`) *obsahuje nebo neobsahuje hodnotu*, v uvedeném pořadí.
+* `operator bool() const` — returns *`true` nebo `false`* in case that the actual object (`+*this+`) *does or does not contain value*, respectively.
 
-* `void swap(optional& other)` — *prohození obsahu* _cílového objektu_ (`+*this+`) a _zdrojového objektu_ (`other`).
-** Pokud _zdrojový objekt_ a _cílový objekt_ oba neobsahují hodnotu, nemá *žádný efekt*.
-** Pokud _cílový objekt_ obsahuje hodnotu a _zdrojový objekt_ ji neobsahuje, nejprve *inicializuje hodnotu _zdrojového objektu_* pomocí výrazu `+std::move(**this)+` a poté *zdestruuje* hodnotu _cílového objektu_.
-** Pokud _cílový objekt_ neobsahuje hodnotu a _zdrojový objekt_ ji obsahuje, nejprve *inicializuje hodnotu _cílového objektu_* pomocí výrazu `+std::move(*other)+` a poté *zdestruuje* hodnotu _zdrojového objektu_.
-** Pokud _zdrojový objekt_ i _cílový objekt_ oba objekty obsahují hodnotu, *prohodí jejich obsah* voláním `+using std::swap; swap(**this, *other);+`.
+* `void swap(optional& other)` — *swap content* of the _destination object_ (`+*this+`) and the _source object_ (`other`).
+** If the _source object_ and the _destination object_ both do not contain value, it has *no effect*.
+** If the _destination object_ does contain value and the _source object_ does not, first, *initializes the value of the _source object* by the expression `+std::move(**this)+`, and then, *destructs* the value of the _destination object_.
+** If the _destination object_ does not contain value and the _source object_ does, firts, *initializes the value of the _destination object* by the expression  `+std::move(*other)+`, and then, *destructs* the value of the _source object_.
+** If both the _source object_ and the _destination object_ do contain value, *swaps their content* byt calling `+using std::swap; swap(**this, *other);+`.
 
 * `void reset()`
-** Pokud aktuální objekt (`+*this+`) obsahuje hodnotu, tak ji *zdestruuje*.
-** Jinak nemá žádný efekt.
+** If the actual object (`+*this+`) does contain value, this is *destructed*.
+** Otherwise, it has no effect.
 
 * `+template <typename... Ts> void emplace(Ts...&& args)+`
-** Pokud aktuální objekt (`+*this+`) obsahuje hodnotu, tak ji nejprve *zdestruuje*.
-** Poté inicializuje novou hodnotu pomocí techinky *_perfect forwarding_ aplikované na argumenty* `+args...+`.
+** If the actual object (`+*this+`) does contain value, this is *destructed* first.
+** The, it initializs the new value by the *_perfect forwarding_ technique applied to the arguments* `+args...+`.
 
-=== Volné funkce
+=== Free functions
 
-* `template <typename T> void swap(optional<T>& a, optional<T>& b)` — *prohození obsahu* objektů `a` a `b` (efektivně ekvivalentní s voláním `a.swap(b)`).
+* `template <typename T> void swap(optional<T>& a, optional<T>& b)` — *swaps content* of the objects `a` a `b` (effectively equivalent with calling `a.swap(b)`).
 
-WARNING: Volné funkce se musí nacházet rovněž ve *jmenném prostoru* `epc`.
+WARNING: Free functions shall be in the same *namespace* `epc`.
