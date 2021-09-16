@@ -6,7 +6,7 @@ WARNING: *Course pages are being updated for the winter semester 2021/2022.*
 
 == Annotation
 
-*Students will learn how to use modern features of the current {cpp} language versions for creating software. The focus will be on effectivity and efficiency, both in the form of creating maintainable and portable source codes, and in the form of correct programs with low requirements for system memory and CPU runtime.*
+*Students will learn how to use modern features of the current {cpp} language versions for creating software. The main focus will be on effectivity and efficiency, whether it means writing portable and maintainable source code, or creating correct computer programs with low requirements for system memory and CPU runtime.*
 
 == Contents
 
@@ -17,19 +17,19 @@ WARNING: *Course pages are being updated for the winter semester 2021/2022.*
 
 == Characteristics
 
-The NIE-EPC course in intended for students with *true interest* in programming in current versions of the {cpp} language. The focus is put on *modern form of programming in {cpp} and the effective use of this programming language*, meaning both efficient utilization of computer system resources and effective of code writing and its subsequent maintenance. The goal of the course is also *understanding of “nature and philosophy” of {cpp}*.
+The NIE-EPC course in intended for students with *true interest* in programming in current versions of the {cpp} language. The focus is put on *modern form of programming in {cpp} and the effective use of this programming language*, meaning both efficient utilization of computer system resources and effective code writing and its subsequent maintenance. The goal of the course is also *understanding of “nature and philosophy” of {cpp}*.
 
 == Requirements
 
-NIE-EPC follows the *BIE-PA1* and *BIE-PA2* courses and students are supposed to *perfectly master their materials*. Further, a selected knowledge from the *BIE-SAP* and *BIE-OSY* courses are required as well.
+NIE-EPC follows the *BIE-PA1* and *BIE-PA2* courses and students are supposed to *perfectly master their material*. Besides, a selected knowledge from the *BIE-SAP* and *BIE-OSY* courses are required as well.
 
 == Study materials
 
-The primary study materials are the *lecture slides*. Other suitable material is, for instance:
+The primary study material are the *lecture slides*. Other suitable sources are, for instance:
 
 * *{cpp} Reference*: link:url[http://en.cppreference.com/w/cpp]footnote:[Not to be mistaken with the reference http://www.cplusplus.com/reference/, which includes a relatively large amount of incorrect and misleading information.]. 
-* *{cpp} language Standard*: compolete but hard-to-read source. If you are in doubts, always look for the answer in the corresponding version of the Standard. Final versions are paid, but the accesss to the “draft” versions may be obtained for free, for instance, via https://isocpp.org/std/the-standard webpage. Often, the actual draft online version http://eel.is/c++draft/ is used as well, which allows to be referenced at the level of sections, paragraphs, and even individual sentences.
+* *{cpp} language Standard*: complete but hard-to-read source. If you are in doubts, always look for the answer in the corresponding version of the Standard. Final versions are paid, but the accesss to the “draft” versions may be obtained for free, for instance, via https://isocpp.org/std/the-standard webpage. Frequently, the actual draft online version http://eel.is/c++draft/ is used as well, which allows to referecne individual sections, paragraphs, and even sentences.
 * *Stack Overflow forum*: https://stackoverflow.com/. Likely not needed to be introduced; it represents an invaluable source of information for solution of particular problems.
 * *CppCon conference lectures*: https://www.youtube.com/user/CppCon/videos.
-* **{cpp} Core Guidelines**: http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines. Timely and lively project having the goal of providing a set of rules and recommendatoins for effective use of modern {cpp}. The editors Bjarne Stroustrup and Herb Sutter guarantee high quality of the information.
-* **Effective Modern {cpp}**: if I should recommend a single book, it would be this one from Scott Mayers. It describes in detail the most fundamental differences between “old” (98/03) nad “modern” (11/14) {cpp}. 
+* **{cpp} Core Guidelines**: http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines. Timely and lively project with the goal of providing a set of rules and recommendatoins for effective use of modern {cpp}. The editors Bjarne Stroustrup and Herb Sutter guarantee high quality of information.
+* **Effective Modern {cpp}**: If I should recommend a single book, it would be this one written by Scott Mayers. It describes in detail the most fundamental differences between “old” (98/03) nad “modern” (11/14) {cpp}. 
