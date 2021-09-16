@@ -60,7 +60,7 @@
 //|link:epc_lecture_11_cz_2020.pdf[epc_lecture_11_cz_2020.pdf]
 
 |12.
-|Type erasure, std::function, std::any, std::variant, CRTP, ADL
+|Type erasure, std::function, any, variant, CRTP, swap, ADL
 |
 //|link:epc_lecture_12_cz_2020.pdf[epc_lecture_12_cz_2020.pdf]
 
