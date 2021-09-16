@@ -31,11 +31,14 @@
 - Write code in a *readable and understandable* way and *comment* it well if necessary.
 ====
 
-== Vypracování a odevzdání
+== Solution and submission
 
-- Veškerou *implementaci* — tj. definici šablonové třídy `epc::optional`, její členské funkce, a příslušné volné funkce — realizujte formou *jediného hlavičkového souboru* s názvem `optional.h`.
-- Vývojové verze *postupně ukládejte* do *větve s názvem _semwork_* vašeho *repozitáře předmětu NI-EPC na fakultní instanci Gitlab*.
+- All your *implementation* — that is, the definition of the `epc::optional` class template, its member functions, and corresponding free functions — create in the form of a *single header file* named `optional.h`.
+- Inidividual development versions *subsequently store* into the *branch called _semwork_* of your *repository of the NIE-EPC course on the faculty GitLab instance*.
+
+
 - *Odkaz na tento repozitář* je https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, kde *USERNAME* je vaše fakultní uživatelské jméno.
+
 - Vyvíjený hlavičkový soubor `optional.h` mějte přímo *v kořenovém adresáři větve _semwork_*.
 - *Termín pro odevzdání* semestrální práce je konec posledního výukového týdnu v semestru, tj. *neděle 19. prosince* (včetně).
 
