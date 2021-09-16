@@ -35,36 +35,34 @@
 
 - All your *implementation* — that is, the definition of the `epc::optional` class template, its member functions, and corresponding free functions — create in the form of a *single header file* named `optional.h`.
 - Inidividual development versions *subsequently store* into the *branch called _semwork_* of your *repository of the NIE-EPC course on the faculty GitLab instance*.
+- *Link to this repozitory* is https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, where *USERNAME* is you faculty username.
+- Keep the implemented header file `optional.h` directly inside *the root directory of the _semwork_ branch*.
+- *Deadline for submission* of the semestral work is the end of the last week of the semester teaching period, namely, *Sunday, December the 19th* (included).
 
-
-- *Odkaz na tento repozitář* je https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, kde *USERNAME* je vaše fakultní uživatelské jméno.
-
-- Vyvíjený hlavičkový soubor `optional.h` mějte přímo *v kořenovém adresáři větve _semwork_*.
-- *Termín pro odevzdání* semestrální práce je konec posledního výukového týdnu v semestru, tj. *neděle 19. prosince* (včetně).
-
-WARNING: Za **výsledné odevzdání** semestrální práce se považuje **verze souboru `optional.h` platná na konci tohoto termínu**. **Na pozdější úpravy nemusí být brán při hodnocení zřetel.**
+WARNING: The *final submission* is considered the *version of the `optional.h` header file present in the repozitory at this deadline date*. *Any further updates might not be taken into consideration for the classification.*
 
 [CAUTION]
 ====
-* *Diskuze nad odevzdaným řešením* bude součástí *ústní zkoušky*.
-* Závažné *podezření na nesamostatné vypracování* odevzdaného řešení může vést na *odebrání bodů* za hodnocení semestrální práce.*
+* *Part of the final course exam* will be also the *discussion about the submitted solution*.
+* Substantial *suspicion of non-individual development* of the submitted solution may result in *loss of points* for classification of semestral work.
 ====
 
 [NOTE]
-.Práce s fakultním GitLabem
+.Use of faculty GitLab
 ====
-- Pro práci se serverem gitlab.fit.cvut.cz je zapotřebí mít na tomto serveru založený *uživatelský účet*. Ten by měl mít automaticky každý student, který je *zaveden v USERMAPu*.
-- *Nahrávání a aktualizace souborů* jsou možné buď *přes webové rozhraní*, nebo pomocí *libovolného GIT klientského programu*. V druhém případě je nutné nahrát do nastavení účtu *veřejný SSH klíč* a *příslušný soukromý klíč* použít v klientském softwaru pro komunikaci se serverem.
-- Přes webové rozhraní probíhá *aktualizace zdrojového kódu* tak, že u souboru použijete *tlačítko „Edit“* a přepíšete zdrojový kód novou verzí. Poté *popíšete změnu do textového pole „Commit message“* a nakonec použijete *tlačítko „Commit changes“*.
-- Alternativně k tlačítku „Edit“ je možné použít *tlačítko „Replace“*, které umožní *stávající verzi souboru nahradit novou*, nahranou z počítače. I v tomto případě *uveďte příslušný popis změn*.
+- To use the gitlab.fit.cvut.cz server, a *user account* needs to be available there. Such an account should be available automatically to each student, who is *present in the USERMAP database*.
+- *Uploading and updating of files* are possible either via *web interface* or via an *arbitrary GIT client program*. In the second case, the user needs to upload into the account settings their *SSH public keys* and the *corresponding private key* needs to be used for the communication with the server.
+- *Updates of the source code* via the web interface works such that you use the *“Edit” button* and rewrite the source code by its new version. Then, *describe the changes into the “Commit message” text field* and, finally, use the *“Commit changes” button*.
+- An alternative for the “Edit” button is to use the *“Replace” button*, which allows to *replace the actual version of the file by the new one*, uploaded from the client computer system. Even in this case, *describe the corresponding file changes*.
 ====
 
 [IMPORTANT]
 ====
-- Jednotlivé „commity“ by měly odrážet *logické celky při vývoji* a měly by být podle toho *komentovány* v textovém poli *„Commit message“*.
-- Příklady *vhodných komentářů*: _„implementace kopírovacího konstruktoru“_, _„odstranění chyby v nesprávném zarovnání“_, _„iniciální implementace funkce emplace“_, atd.
-- Příklady *nevhodných komentářů*: _„aktualizace souboru“_, _„implementace dalších funkcí“_, _„nová verze“_, atd.
-- Komentáře commitů stejně jako komentáře v kódu piště v *českém nebo anglickém jazyce*.
+- Individual commits should reflect *logical develpment parts* and should be *commented* accordingly in the *“Commit message”* text field.
+
+- Examples of *suitable comments*: _“implementation of copy constructor”_, _“buffer misalignment corrected”_, _“initial emplace funciton implementation”_, etc.
+- Examples of *unsuitable comments*: _“file update”_, _“implementation of other functions”_, _“new version”_, etc.
+- Commit comments as well as comments in the code should be written in *English or Czech language*.
 ====
 
 == Hodnocení
