@@ -2,7 +2,7 @@
 
 *Actual classification* — see application link:https://grades.fit.cvut.cz/[**Grades (klAsifikace)**].
 
-IMPORTANT: Optional assignment *classification comments* are located in the *Classification note* record. Do not forget to *check* it, especially in cases, where there is anything unclear about the classificaiton points.
+IMPORTANT: Optional assignment *classification comments* are located in the *Classification note* record. Do not forget to *check* it, especially in cases, where there is anything unclear about the classification points.
 
 == Tutorials and assessment requirements
 
@@ -15,7 +15,7 @@ Tutorials classification consists of:
 
 . An *assignment* will be individually solved by students on the 2nd, 3rd, 4th, 5th, and 6th tutorial.
 . The deadline for solution submission is *specified at the corresponding tutorial page*.
-. Each submitted soluton will be awarded by *6 classification points* at maximum.
+. Each submitted solution will be awarded by *6 classification points* at maximum.
 . In total, each student can obtain up to *30 points* from tutorial assignments.
 
 === Semestral work
@@ -36,9 +36,9 @@ WARNING: *50 points at maximum* can be obtained from the final course exam. To s
 
 === Exam form
 
-NOTE: The form of the final exam and insturctions for its passing will be provided before the start of the semester exam period.
+NOTE: The form of the final exam and instructions for its passing will be provided before the start of the semester exam period.
 
-== Conditions for successfull passing the course
+== Conditions for successful passing the course
 
 [NOTE]
 ====
