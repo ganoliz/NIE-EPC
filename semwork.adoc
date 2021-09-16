@@ -2,7 +2,7 @@
 
 == News
 
-== Problem Assignment
+== Problem assignment
 
 * *Implement class template `optional`*, which will represent a simplified analogy of the `std::optional` class template (*optionally conatainted value*).
 * Class `optional` put into *the `epc` namespace*, such that its _fully-qualified name_ will be `::epc::optional`.
@@ -26,9 +26,9 @@
 
 [IMPORTANT]
 ====
-- Při implementaci dbejte obecných zásad pro *korektní a efektivní programování*. 
-- Snažte se o *maximální možnou efektivitu* z hlediska využití prostředků počítače, především *času procesoru a operační paměti*.
-- Dbejte na *čitelnost a přehlednost* zdrojového kódu, v případě potřeby kód příslušně *komentujte*.
+- During implemnetation, pay attention to general principles of *correct and effective programmin*.
+- Try to achive *maximum efficiency* from the perspective of utilization of computer resources, primarily *CPU time and system memory*.
+- Write code in a *readable and understandable* way and *comment* it well if necessary.
 ====
 
 == Vypracování a odevzdání
