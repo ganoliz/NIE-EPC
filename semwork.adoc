@@ -117,17 +117,17 @@ class optional
 ** Initializes value by the *_perfect forwarding_ technique applied on arguments* `+args...+`.
 
 * `~optional()` — *destructor*. 
-** If the actual object (`+*this+`) does contain value, that is *destroyed*.
+** If the actual object (`+*this+`) does contain value, that is *destructed*.
 ** Otherwise, it does not perform any operation.
 
-=== Přiřazovací operátory
+=== Assignment operators
 
-* `optional& operator=(const optional& other)` — *kopírovací přiřazovací operátor*.
-** Pokud _zdrojový objekt_ (`other`) a _cílový objekt_ (`+*this+`) oba neobsahují hodnotu, nemá *žádný efekt*.
-** Pokud _cílový objekt_ obsahuje hodnotu a _zdrojový objekt_ ji neobsahuje, je *hodnota _cílového objektu_ zdestruována*.
-** Pokud _cílový objekt_ neobsahuje hodnotu a _zdrojový objekt_ ji obsahuje, *inicializuje hodnotu _cílového objektu_* pomocí výrazu `+*other+`.
-** Pokud _zdrojový objekt_ i _cílový objekt_ oba obsahují hodnotu, je *hodnota _cílového objektu_ přiřazena hodnotě _zdrojového objektu_* pomocí výrazu `+= *other+`.
-** Vrací referenci na sebe sama (_cílový objekt_).
+* `optional& operator=(const optional& other)` — *copy assignment operator*.
+** If the _source object_ (`other`) a the _destination object_ (`+*this+`) both do not contain value, it has *no effect*.
+** If the _destination object_ does contain value and the _source object_ does no, the *value of the _destination object_ is destructed*.
+** If the _destination object_ does not contain value and the _source object_ does, *initializes the value of the _destination object_* by the expression `+*other+`.
+** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the epxression  `+= *other+`.
+** Returns a reference to itself (_destination object_).
 
 * `optional& operator=(optional&& other)` — *přesouvací přiřazovací operátor*.
 ** Pokud _zdrojový objekt_ (`other`) a _cílový objekt_ (`+*this+`) oba neobsahují hodnotu, nemá *žádný efekt*.
