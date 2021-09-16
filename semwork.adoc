@@ -59,20 +59,20 @@ WARNING: The *final submission* is considered the *version of the `optional.h` h
 [IMPORTANT]
 ====
 - Individual commits should reflect *logical develpment parts* and should be *commented* accordingly in the *“Commit message”* text field.
-
 - Examples of *suitable comments*: _“implementation of copy constructor”_, _“buffer misalignment corrected”_, _“initial emplace funciton implementation”_, etc.
 - Examples of *unsuitable comments*: _“file update”_, _“implementation of other functions”_, _“new version”_, etc.
 - Commit comments as well as comments in the code should be written in *English or Czech language*.
 ====
 
-== Hodnocení
+== Classificatoin
 
-* K hodnocení budou využity *testovací programy*, které ověří korektnost a funkčnost odevzdaného řešení.
-* Pokud odevzdaný kód *nepůjde přeložit* (tj. překlad skončí s chybou), bude hodnocení provedeno *na základě „_code review_“* (tj. na základě jeho vizuálního prozkoumání).
-** V takovém případě *nelze definovat objektivní kritéria pro bodové hodnocení*, a to bude tudíž provedeno *subjektivně bez jakýchkoliv bodových záruk*.
-* V opačném případě bude hodnocení vycházet z *úspěšnosti odevzdaného řešení v rámci testovacích programů*.
+* For classification, *test programs* will be used, which verify correctness and functionality of submitted solution.
+* In case that *it will not be possible to compile* the submitted solution (its compilation will result in an error), the classificatoin will be *base on the _“code review”_ (that is, based on its visual examination).
+** In such a case, there is *no possiblity to define objective criteria for points assessment*, and this will be made *on a subjective basis without any point guarantees*.
+* Otherwise, the point assessment will stem from the *success rate of the submitted solution with respect to the test programs set*.
 
-== Aplikační programové rozhraní (API)
+
+== Application programming interface (API)
 
 *Šablonová třída* `epc::optional`:
 
