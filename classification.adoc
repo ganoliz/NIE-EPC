@@ -4,29 +4,29 @@
 
 IMPORTANT: Optional assignment *classification comments* are located in the *Classification note* record. Do not forget to *check* it, especially in cases, where there is anything unclear about the classification points.
 
-== Tutorials and assessment requirements
+== Teaching period and assessment award requirements
 
-Tutorials classification consists of:
+Teaching period classification consists of:
 
-. classification of *5 assignments resolved within the tutorials*,
+. classification of *5 problems assigned within the practicals*,
 . classification of the *semestral work*.
 
-=== Tutorial assignments
+=== Problem assignments
 
-. An *assignment* will be individually solved by students on the 2nd, 3rd, 4th, 5th, and 6th tutorial.
-. The deadline for solution submission is *specified at the corresponding tutorial page*.
+. A *programming problem* will be assigned to students on the 2nd, 3rd, 4th, 5th, and 6th class.
+. The deadline for the submission of inidividual student solutions is *specified at the corresponding practical assignment page*.
 . Each submitted solution will be awarded by *6 classification points* at maximum.
-. In total, each student can obtain up to *30 points* from tutorial assignments.
+. In total, each student can obtain up to *30 points* with respect to problem assignments.
 
 === Semestral work
 
-. Semestral work will be assigned at the *first tutorial*.
+. Semestral work problem will be assigned on the *first practical class*.
 . Deadline for solution submission is *at the end of the last teaching week in the semester, namely on Sunday, December 19th (included)*.
 . Semestral work will be awarded by *20 points* at maximum.
 
 === Assessment requirements
 
-. Active tutorial work (submission of solutions of tutorial assignments).
+. Active work on practical classes (submission of solutions of problem assignments).
 . Submission of the solution of the semestral work.
 . *Their classification of 25 points at minimum.*
 
@@ -42,7 +42,7 @@ NOTE: The form of the final exam and instructions for its passing will be provid
 
 [NOTE]
 ====
-. *At least 25 classification points* from the semester.
+. *At least 25 classification points* from the teaching period.
 . *At least 25 classification points* from the final exam.
 ====
 
