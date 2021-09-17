@@ -2,31 +2,31 @@
 
 *Actual classification* — see application link:https://grades.fit.cvut.cz/[**Grades (klAsifikace)**].
 
-IMPORTANT: Optional assignment *classification comments* are located in the *Classification note* record. Do not forget to *check* it, especially in cases, where there is anything unclear about the classification points.
+// IMPORTANT: Optional assignment *classification comments* are located in the *Classification note* record. Do not forget to *check* it, especially in cases, where there is anything unclear about the classification points.
 
 == Teaching period and assessment award requirements
 
 Teaching period classification consists of:
 
-. classification of *5 programming problems assigned within the practicals*,
+. classification of *5 programming problems* assigned in practical classes,
 . classification of the *semestral work*.
 
-=== Problem assignments
+=== Programming problem assignments
 
-. A *programming problem* will be assigned to students on the 2nd, 3rd, 4th, 5th, and 6th class.
-. The deadline for the submission of inidividual student solutions is *specified at the corresponding practical assignment page*.
+. *Programming problems* will be assigned to students in the 2nd, 3rd, 4th, 5th, and 6th class.
+. The deadline for the submission of inidividual student solutions will be *specified on the corresponding practical class page*.
 . Each submitted solution will be awarded by *6 classification points* at maximum.
 . In total, each student can obtain up to *30 points* with respect to problem assignments.
 
 === Semestral work
 
-. Semestral work problem will be assigned on the *first practical class*.
+. Semestral work problem will be assigned in *first practical class*.
 . Deadline for solution submission is *at the end of the last teaching week in the semester, namely on Sunday, December 19th (included)*.
 . Semestral work will be awarded by *20 points* at maximum.
 
 === Assessment requirements
 
-. Active work on practical classes (submission of solutions of problem assignments).
+. Active work in practical classes (submission of solutions of programming problem assignments).
 . Submission of the solution of the semestral work.
 . *Their classification of 25 points at minimum.*
 
