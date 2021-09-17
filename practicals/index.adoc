@@ -5,7 +5,7 @@
 | Class | Problem assignment
 
 | 1.
-| xref:../semwork#[Semestral work]
+| xref:../semwork#[Semester project]
 //| link:https://web.microsoftstream.com/video/b257128f-b0aa-4914-984b-50fa6cef6382[ni-epc-tutorial-2-b201]
 
 | 2.
