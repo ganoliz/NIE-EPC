@@ -11,7 +11,7 @@ WARNING: *Course pages are being updated for the winter semester 2021/2022.*
 == Contents
 
 * xref:lectures/index#[]
-* xref:tutorials/index#[]
+* xref:practicals/index#[]
 * xref:semwork#[]
 * xref:classification#[]
 
