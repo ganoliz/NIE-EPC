@@ -122,14 +122,14 @@ class optional
 === Assignment operators
 
 * `optional& operator=(const optional& other)` — *copy assignment operator*.
-** If the _source object_ (`other`) a the _destination object_ (`+*this+`) both do not contain value, it has *no effect*.
+** If the _source object_ (`other`) and the _destination object_ (`+*this+`) both do not contain value, it has *no effect*.
 ** If the _destination object_ does contain value and the _source object_ does not, the *value of the _destination object_ is destructed*.
 ** If the _destination object_ does not contain value and the _source object_ does, *initializes the value of the _destination object_* by the expression `+*other+`.
 ** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the expression  `+= *other+`.
 ** Returns a reference to itself (_destination object_).
 
 * `optional& operator=(optional&& other)` — *move assignment operator*.
-** If the _source object_ (`other`) a the _destination object_ (`+*this+`) both do not contain value, it has *no effect*.
+** If the _source object_ (`other`) and the _destination object_ (`+*this+`) both do not contain value, it has *no effect*.
 ** If the _destination object_ does contain value and the _source object_ does not, the *value of the _destination object_ is destructed*.
 ** If the _destination object_ does not contain value and the _source object_ does, *initializes the value of the _destination object_* by the expression `+std::move(*other)+`.
 ** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the expression  `+= std::move(*other)+`.
