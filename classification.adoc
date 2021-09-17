@@ -16,7 +16,7 @@ Teaching period classification consists of:
 . *Programming problems* will be assigned to students in the 2nd, 3rd, 4th, 5th, and 6th class.
 . The deadline for the submission of inidividual student solutions will be *specified on the corresponding practical class page*.
 . Each submitted solution will be awarded by *6 classification points* at maximum.
-. In total, each student can obtain up to *30 points* with respect to problem assignments.
+. In total, each student can gain up to *30 points* with respect to problem assignments.
 
 === Semestral work
 
@@ -32,7 +32,7 @@ Teaching period classification consists of:
 
 == Exam and requirements for its passing
 
-WARNING: *50 points at maximum* can be obtained from the final course exam. To successfully pass the exam, *at least 25 points* are required. In case that a student will obtain less than 25 points from the exam, the corresponding exam attempt will be classified with F.
+WARNING: *50 points at maximum* can be gained from the final course exam. To successfully pass the exam, *at least 25 points* are required. In case that a student will obtain less than 25 points from the exam, the corresponding exam attempt will be classified with F.
 
 === Exam form
 
@@ -42,8 +42,8 @@ NOTE: The form of the final exam and instructions for its passing will be provid
 
 [NOTE]
 ====
-. *At least 25 classification points* from the teaching period.
-. *At least 25 classification points* from the final exam.
+. *At least 25 classification points* gained from the teaching period.
+. *At least 25 classification points* gained from the final exam.
 ====
 
 == Total classification
