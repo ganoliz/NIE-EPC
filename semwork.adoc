@@ -4,7 +4,7 @@
 
 == Problem assignment
 
-* *Implement class template `optional`*, which will represent a simplified analogy of the `std::optional` class template (*optionally conatainted value*).
+* *Implement class template `optional`*, which will represent a simplified analogy of the `std::optional` class template (*optionally containted value*).
 * Class `optional` put into *the `epc` namespace*, such that its _fully-qualified name_ will be `::epc::optional`.
 * Class `epc::optional<T>` will — similarly to `std::optional<T>` — implement *optionally contained/owned/managed value (object) of type `T`*.
 ** An object of type `epc::optional<T>` *may or may not contain/own* a value-object of type `T`.
@@ -17,29 +17,29 @@
 ====
 
 * Conditions, under which `optional` object *does not contain value*:
-** Initializatoin with the *default constructor*.
+** Initialization with the *default constructor*.
 ** *Initialization* by another `optional` object that *does not contain value* (with copy or move constructor).
-** *Assignment* another `optional` objeckt that *does not contain value* (with copy or move assignment operator).
+** *Assignment* another `optional` object that *does not contain value* (with copy or move assignment operator).
 ** *Swapping content* with another `optional` object that *does not contain value* (with member of free function `swap`).
 ** Calling member function `reset()`.
-* For implementaion use language dialect (standard) *{cpp}11, {cpp}14, {cpp}17, or {cpp}20*.
+* For implementation use language dialect (standard) *{cpp}11, {cpp}14, {cpp}17, or {cpp}20*.
 
 [IMPORTANT]
 ====
-- During implemnetation, pay attention to general principles of *correct and effective programmin*.
-- Try to achive *maximum efficiency* from the perspective of utilization of computer resources, primarily *CPU time and system memory*.
+- During implementation, pay attention to general principles of *correct and effective programming*.
+- Try to achieve *maximum efficiency* from the perspective of utilization of computer resources, primarily *CPU time and system memory*.
 - Write code in a *readable and understandable* way and *comment* it well if necessary.
 ====
 
 == Solution and submission
 
 - All your *implementation* — that is, the definition of the `epc::optional` class template, its member functions, and corresponding free functions — create in the form of a *single header file* named `optional.h`.
-- Inidividual development versions *subsequently store* into the *branch called _semwork_* of your *repository of the NIE-EPC course on the faculty GitLab instance*.
-- *Link to this repozitory* is https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, where *USERNAME* is you faculty username.
+- Individual development versions *subsequently store* into the *branch called _semwork_* of your *repository of the NIE-EPC course on the faculty GitLab instance*.
+- *Link to this repository* is https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, where *USERNAME* is you faculty username.
 - Keep the implemented header file `optional.h` directly inside *the root directory of the _semwork_ branch*.
 - *Deadline for submission* of the semestral work is the end of the last week of the semester teaching period, namely, *Sunday, December the 19th* (included).
 
-WARNING: The *final submission* is considered the *version of the `optional.h` header file present in the repozitory at this deadline date*. *Any further updates might not be taken into consideration for the classification.*
+WARNING: The *final submission* is considered the *version of the `optional.h` header file present in the repository at this deadline date*. *Any further updates might not be taken into consideration for the classification.*
 
 [CAUTION]
 ====
@@ -58,17 +58,17 @@ WARNING: The *final submission* is considered the *version of the `optional.h` h
 
 [IMPORTANT]
 ====
-- Individual commits should reflect *logical develpment parts* and should be *commented* accordingly in the *“Commit message”* text field.
-- Examples of *suitable comments*: _“implementation of copy constructor”_, _“buffer misalignment corrected”_, _“initial emplace funciton implementation”_, etc.
+- Individual commits should reflect *logical development parts* and should be *commented* accordingly in the *“Commit message”* text field.
+- Examples of *suitable comments*: _“implementation of copy constructor”_, _“buffer misalignment corrected”_, _“initial emplace function implementation”_, etc.
 - Examples of *unsuitable comments*: _“file update”_, _“implementation of other functions”_, _“new version”_, etc.
 - Commit comments as well as comments in the code should be written in *English or Czech language*.
 ====
 
-== Classificatoin
+== Classification
 
 * For classification, *test programs* will be used, which verify correctness and functionality of submitted solution.
-* In case that *it will not be possible to compile* the submitted solution (its compilation will result in an error), the classificatoin will be *base on the _“code review”_ (that is, based on its visual examination).
-** In such a case, there is *no possiblity to define objective criteria for points assessment*, and this will be made *on a subjective basis without any point guarantees*.
+* In case that *it will not be possible to compile* the submitted solution (its compilation will result in an error), the classification will be *base on the _“code review”_ (that is, based on its visual examination).
+** In such a case, there is *no possibility to define objective criteria for points assessment*, and this will be made *on a subjective basis without any point guarantees*.
 * Otherwise, the point assessment will stem from the *success rate of the submitted solution with respect to the test programs set*.
 
 
@@ -126,14 +126,14 @@ class optional
 ** If the _source object_ (`other`) a the _destination object_ (`+*this+`) both do not contain value, it has *no effect*.
 ** If the _destination object_ does contain value and the _source object_ does not, the *value of the _destination object_ is destructed*.
 ** If the _destination object_ does not contain value and the _source object_ does, *initializes the value of the _destination object_* by the expression `+*other+`.
-** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the epxression  `+= *other+`.
+** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the expression  `+= *other+`.
 ** Returns a reference to itself (_destination object_).
 
 * `optional& operator=(optional&& other)` — *move assignment operator*.
 ** If the _source object_ (`other`) a the _destination object_ (`+*this+`) both do not contain value, it has *no effect*.
 ** If the _destination object_ does contain value and the _source object_ does not, the *value of the _destination object_ is destructed*.
 ** If the _destination object_ does not contain value and the _source object_ does, *initializes the value of the _destination object_* by the expression `+std::move(*other)+`.
-** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the epxression  `+= std::move(*other)+`.
+** If both the _source object_ and the _destination object_ do contain value, the *value of the _destination object_ is assigned to the value of the _source object_* by the expression  `+= std::move(*other)+`.
 ** Returns a reference to itself (_destination object_).
 
 === Other member functions
@@ -144,13 +144,13 @@ class optional
 * `+const T& operator*() const+` — returns a  *reference to the contained value*. In case there is no value contained, yields *undefined behavior*.
 * `+T& operator*()+` — returns a  *reference to the contained value*. In case there is no value contained, yields *undefined behavior*.
 
-* `operator bool() const` — returns *`true` nebo `false`* in case that the actual object (`+*this+`) *does or does not contain value*, respectively.
+* `operator bool() const` — returns *`true` or `false`* in case that the actual object (`+*this+`) *does or does not contain value*, respectively.
 
 * `void swap(optional& other)` — *swap content* of the _destination object_ (`+*this+`) and the _source object_ (`other`).
 ** If the _source object_ and the _destination object_ both do not contain value, it has *no effect*.
-** If the _destination object_ does contain value and the _source object_ does not, first, *initializes the value of the _source object* by the expression `+std::move(**this)+`, and then, *destructs* the value of the _destination object_.
-** If the _destination object_ does not contain value and the _source object_ does, firts, *initializes the value of the _destination object* by the expression  `+std::move(*other)+`, and then, *destructs* the value of the _source object_.
-** If both the _source object_ and the _destination object_ do contain value, *swaps their content* byt calling `+using std::swap; swap(**this, *other);+`.
+** If the _destination object_ does contain value and the _source object_ does not, first, *initializes the value of the _source object_* by the expression `+std::move(**this)+`, and then, *destructs* the value of the _destination object_.
+** If the _destination object_ does not contain value and the _source object_ does, first, *initializes the value of the _destination object_* by the expression  `+std::move(*other)+`, and then, *destructs* the value of the _source object_.
+** If both the _source object_ and the _destination object_ do contain value, *swaps their content* by calling `+using std::swap; swap(**this, *other);+`.
 
 * `void reset()`
 ** If the actual object (`+*this+`) does contain value, this is *destructed*.
@@ -158,7 +158,7 @@ class optional
 
 * `+template <typename... Ts> void emplace(Ts...&& args)+`
 ** If the actual object (`+*this+`) does contain value, this is *destructed* first.
-** The, it initializs the new value by the *_perfect forwarding_ technique applied to the arguments* `+args...+`.
+** Then, it initializes the new value by the *_perfect forwarding_ technique applied to the arguments* `+args...+`.
 
 === Free functions
 
