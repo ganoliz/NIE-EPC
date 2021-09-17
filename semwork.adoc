@@ -5,7 +5,7 @@
 == Problem assignment
 
 * *Implement class template `optional`*, which will represent a simplified analogy of the `std::optional` class template (*optionally containted value*).
-* Class `optional` put into *the `epc` namespace*, such that its _fully-qualified name_ will be `::epc::optional`.
+* Put class `optional` into *the `epc` namespace*, such that its _fully-qualified name_ will be `::epc::optional`.
 * Class `epc::optional<T>` will — similarly to `std::optional<T>` — implement *optionally contained/owned/managed value (object) of type `T`*.
 ** An object of type `epc::optional<T>` *may or may not contain/own* a value-object of type `T`.
 
@@ -22,7 +22,7 @@
 ** *Assignment* another `optional` object that *does not contain value* (with copy or move assignment operator).
 ** *Swapping content* with another `optional` object that *does not contain value* (with member of free function `swap`).
 ** Calling member function `reset()`.
-* For implementation use language dialect (standard) *{cpp}11, {cpp}14, {cpp}17, or {cpp}20*.
+* For implementation use one of the following language dialects (standards): *{cpp}11, {cpp}14, {cpp}17, or {cpp}20*.
 
 [IMPORTANT]
 ====
@@ -35,25 +35,25 @@
 
 - All your *implementation* — that is, the definition of the `epc::optional` class template, its member functions, and corresponding free functions — create in the form of a *single header file* named `optional.h`.
 - Individual development versions *subsequently store* into the *branch called _semwork_* of your *repository of the NIE-EPC course on the faculty GitLab instance*.
-- *Link to this repository* is https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, where *USERNAME* is you faculty username.
+- *Link to this repository* is https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, where *USERNAME* is your faculty username.
 - Keep the implemented header file `optional.h` directly inside *the root directory of the _semwork_ branch*.
 - *Deadline for submission* of the semestral work is the end of the last week of the semester teaching period, namely, *Sunday, December the 19th* (included).
 
-WARNING: The *final submission* is considered the *version of the `optional.h` header file present in the repository at this deadline date*. *Any further updates might not be taken into consideration for the classification.*
+WARNING: The *final submission* is considered to be the *version of the `optional.h` header file present in the repository at this deadline date*. *Any further updates might not be taken into consideration for the classification.*
 
 [CAUTION]
 ====
-* *Part of the final course exam* will be also the *discussion about the submitted solution*.
+* *A part of the final course exam* will be also the *discussion about the submitted solution*.
 * Substantial *suspicion of non-individual development* of the submitted solution may result in *loss of points* for classification of semestral work.
 ====
 
 [NOTE]
 .Use of faculty GitLab
 ====
-- To use the gitlab.fit.cvut.cz server, a *user account* needs to be available there. Such an account should be available automatically to each student, who is *present in the USERMAP database*.
-- *Uploading and updating of files* are possible either via *web interface* or via an *arbitrary GIT client program*. In the second case, the user needs to upload into the account settings their *SSH public keys* and the *corresponding private key* needs to be used for the communication with the server.
-- *Updates of the source code* via the web interface works such that you use the *“Edit” button* and rewrite the source code by its new version. Then, *describe the changes into the “Commit message” text field* and, finally, use the *“Commit changes” button*.
-- An alternative for the “Edit” button is to use the *“Replace” button*, which allows to *replace the actual version of the file by the new one*, uploaded from the client computer system. Even in this case, *describe the corresponding file changes*.
+- A *user account* is required to use the gitlab.fit.cvut.cz server. Such an account should be available automatically for each student *present in the USERMAP database*.
+- *Uploading and updating files* is possible either via *web interface* or via an *arbitrary GIT client program*. In the second case, a user needs to upload — into their account settings — an *SSH public keys* and the *corresponding private key* needs to be used for the communication with the server.
+- *Updates of the source code* via the web interface works such that you use the *“Edit” button* and rewrite the source code by its new version. Then, *describe the changes into the “Commit message” text field* and, finally, hit the *“Commit changes” button*.
+- An alternative for the “Edit” button is to use the *“Replace” button*, which allows to *replace the actual version of the file by the a one*, uploaded from the client computer system. Even in this case, *describe the corresponding file changes*.
 ====
 
 [IMPORTANT]
@@ -66,11 +66,10 @@ WARNING: The *final submission* is considered the *version of the `optional.h` h
 
 == Classification
 
-* For classification, *test programs* will be used, which verify correctness and functionality of submitted solution.
-* In case that *it will not be possible to compile* the submitted solution (its compilation will result in an error), the classification will be *base on the _“code review”_ (that is, based on its visual examination).
-** In such a case, there is *no possibility to define objective criteria for points assessment*, and this will be made *on a subjective basis without any point guarantees*.
+* For classification, *test programs* will be used, which will verify correctness and functionality of the submitted solution.
+* In case that *it will not be possible to compile* the submitted solution (its compilation will result in errors), the classification will be *based on _“code review”_ (that is, based on code visual examination).
+** In such a case, there is *no possibility to define objective criteria for points assessment*, and this will be made *on subjective basis without any point guarantees*.
 * Otherwise, the point assessment will stem from the *success rate of the submitted solution with respect to the test programs set*.
-
 
 == Application programming interface (API)
 
