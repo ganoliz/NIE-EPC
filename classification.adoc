@@ -8,7 +8,7 @@ IMPORTANT: Optional assignment *classification comments* are located in the *Cla
 
 Teaching period classification consists of:
 
-. classification of *5 problems assigned within the practicals*,
+. classification of *5 programming problems assigned within the practicals*,
 . classification of the *semestral work*.
 
 === Problem assignments
