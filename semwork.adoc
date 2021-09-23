@@ -22,7 +22,7 @@
 ** *Assignment* another `optional` object that *does not contain value* (with copy or move assignment operator).
 ** *Swapping content* with another `optional` object that *does not contain value* (with member of free function `swap`).
 ** Calling member function `reset()`.
-* For implementation use one of the following language dialects (standards): *{cpp}11, {cpp}14, {cpp}17, or {cpp}20*.
+* For implementation use only “pure” {cpp}, namely its standard *{cpp}11 or {cpp}14*.
 
 [IMPORTANT]
 ====
