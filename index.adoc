@@ -1,8 +1,10 @@
 = NIE-EPC
 
+// WARNING: *Course pages are being updated for the winter semester 2021/2022.*
+
 == News
 
-WARNING: *Course pages are being updated for the winter semester 2021/2022.*
+* [28-Sep-2021] Lectures will, starting the second week of the semester, take place in **room no. T9:302** (instead of T9:348).
 
 == Annotation
 
