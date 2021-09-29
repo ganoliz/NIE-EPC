@@ -6,13 +6,13 @@
 
 |1.
 |Introduction, observable behavior, as-if rule, optimizations, translation units, ABI
-|
-//|link:epc_lecture_01_cz_2020.pdf[epc_lecture_01_cz_2020.pdf]
+|link:PDFs/epc_lecture_01_en_2021.pdf[epc_lecture_01_en_2021.pdf]
+ link:PDFs/epc_lecture_01_en_2021_handouts.pdf[epc_lecture_01_en_2021_handouts.pdf]
 
 |2.
 |Translation units and observable behavior, ODR, internal linkage, inline, libraries, static and dynamic linking, PIMPL
-|
-//|link:epc_lecture_02_cz_2020.pdf[epc_lecture_02_cz_2020.pdf]
+|link:PDFs/epc_lecture_02_en_2021.pdf[epc_lecture_02_en_2021.pdf]
+ link:PDFs/epc_lecture_02_en_2021_handouts.pdf[epc_lecture_02_en_2021_handouts.pdf]
 
 |3.
 |Undefined behavior, object lifetime, static and dynamic storage allocation, initialization and destruction
