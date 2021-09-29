@@ -6,4 +6,4 @@ repository:
   gitlabPath: /NI-EPC/nie-epc
 navigation:
   hiddenFiles:
-    - lectures/*.pdf
+    - lectures/PDFs/*
