@@ -16,8 +16,8 @@
 
 |3.
 |Undefined behavior, object lifetime, static and dynamic storage allocation, initialization and destruction
-|
-//|link:epc_lecture_03_cz_2020.pdf[epc_lecture_03_cz_2020.pdf]
+|link:PDFs/epc_lecture_03_en_2021.pdf[epc_lecture_03_en_2021.pdf]
+ link:PDFs/epc_lecture_03_en_2021_handouts.pdf[epc_lecture_03_en_2021_handouts.pdf]
 
 |4.
 |Costs of dynamic allocations, alignment, padding, placement new, owning objects
