@@ -113,17 +113,17 @@ IMPORTANT: With the correctly working PIMPL idiom, this update *must not require
 
 == Submission
 
-* Za *výsledné řešení* se považuje *obsah souborů `LookupTable.h` a `LookupTable.cpp`* umístěných v *kořenovém adresáři větve _practical2_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*.
-* Za *správné řešení* je považována:
-** *přeložitelná a funkční implementace* třídy `LookupTable` pomocí PIMPL idiomu *dle zadání výše*,
-** s *interně využitým kontejnerem typu* `std::unordered_map<int, std::string>`,
-** s *odstraněnými nepotřebnými vkládanými hlavičkovými soubory* z hlavičkového souboru `LookupTable.h`.
-* *Termín pro odevzdání* je *konec vašeho cvičení* (cvičení, které máte zapsané dle rozvrhu).
-* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical2_ do větve _master_* v rámci vašeho projektu.
+* As a *finel solution* is considered the *content of `LookupTable.h` and `LookupTable.cpp` files* placed in the *root folder of the _practical2_ branch* of your *course project/repository* on *the faculty GitLab instance*.
+* As s *correct solution* is considered:
+** *compilable and working implementation* of the `LookupTable` class with the PIMPL idiom *according to the assignment above*,
+** with *internally used container of type* `std::unordered_map<int, std::string>`,
+** with *removed all unnecessary inclusion of header files* from the `LookupTable.h` header file.
+* *The deadline for submission* is the *end of your practical class* (class according to your time table).
+* Register the submissing by *creating the _merge request_*, namely *from the _practical2_ branch into the _master_ branch* inside your project.
 
-NOTE: U nastavení požadavku _merge request_ *ponechte pole _Assignee_ prázdné* (nepřiřazujte zde nikoho konkrétního).
+NOTE: In the _merge request_ configuration, *leave the _Assignee_ field empty* (do not assign here anyone).
 
-== Testování
+== Testing
 
 * Pro účely testování bude použitý *program využívající framework Boost.Test*.
 * Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
