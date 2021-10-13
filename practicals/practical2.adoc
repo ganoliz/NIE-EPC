@@ -4,11 +4,9 @@
 
 == Introduction
 
+Consider the following implementation of the `LookupTable` class representing a *simple lookup table* that maps integers to strings. The implementation is split between:
 
-
-Uvažujte následující implementaci třídy `LookupTable`, která představuje *jednoduchou vyhledávací tabulku* mapující celá čísla na řetězce znaků. Implementace je rozdělena mezi:
-
-. *hlavičkový soubor* `LookupTable.h`, který obsahuje *definici třídy*:
+. `LookupTable.h` *header file*, which contains the *class definition*:
 
 [source,c++]
 ----
@@ -46,7 +44,7 @@ public:
 ----
 
 [start=2]
-. *zdrojový soubor* `LookupTable.cpp`, který obsahuje *dfinice členských funkcí*:
+. `LookupTable.cpp` *source file*, which contains *definitions of member functions*:
 
 [source,c++]
 ----
@@ -85,35 +83,35 @@ void LookupTable::clear()
 }
 ----
 
-== Zadání
+== Assignment
 
-. *Modifikujte obsah souborů* `LookupTable.h` a `LookupTable.cpp` tak aby třída `LookupTable` byla *implementována pomocí PIMPL idiomu*. 
+. *Modify the content * of `LookupTable.h` and `LookupTable.cpp` files such that the `LookupTable` class was *implemented by the PIMPL idiom*. 
 
-.Požadavky na implementaci
+.Requiremetns for implementation
 [IMPORTANT]
 ====
-* *Definice třídy rozhraní* s názvem `LookupTable` bude obsahovat *jedinou neveřejnou členskou proměnnou*, a to ukazatel na objekt implementační třídy.
-* Kromě této proměnné *nesmí* třída mít žádné *neveřejné členské funkce ani proměnné*.
-* Definice *neveřejného členského typu je povolena*.
+* *Definition of the interface class* called `LookupTable` will contain only a *single non-public member variable*, namely a pointer to the implementation class object.
+* Except this variable, the class *may have no non-public member functions and variables*.
+* Definition of a *non-public member type is allowed*.
 ====
 
 [NOTE]
 ====
-* Můžete použít jak *„obyčejný“ (_raw_) ukazatel* nebo *chytrý ukazatel* (_smart pointer_) typu `std::unique_ptr`.
-* V případě využití *chytrého ukazatele* může být implementace *o něco složitější* (viz například https://stackoverflow.com/q/9020372/580083[tento post]).
+* You may use either an *“ordinary” (_raw_) pointer* or a *smart pointer* of type `std::unique_ptr`.
+* In case of using a *smart pointer*, the implementation may be *more complex* (see, e.g., https://stackoverflow.com/q/9020372/580083[this post]).
 ====
 
 [start=2]
-. *Ověřte funkčnost vašeho řešení* tím, že *změníte typ kontejneru pro realizaci vyhledávací tabulky* z `std::map<int, std::string>` na `std::unordered_map<int, std::string>`.
+. *Verify the functionality of your solution* such that you *change the type for the lookup table container* from  `std::map<int, std::string>` to `std::unordered_map<int, std::string>`.
 
-WARNING: Nezapomeňte, že tato změna bude vyžadovat i *změnu vkládaných hlavičkových souborů*.
+WARNING: Don't forget that this update will require also an *update of included header files*.
 
-IMPORTANT: Při funkčním PIMPL idiomu tato změna *nesmí vyžadovat aktualizaci hlavičkového souboru `LookupTable.h`*.
+IMPORTANT: With the correctly working PIMPL idiom, this update *must not require any modificatoin of the `LookupTable.h` header file*.
 
 [start=3]
-. *Odstraňte* z hlavičkového souboru `LookupTable.h` veškerá *vkládání hlavičkových souborů* (direktivy `#include`), která tam po implementaci PIMPL idiomu *nejsou potřeba*.
+. From the `LookupTable.h` header file *remove* all *header files inclusion* (`#include` directives) that, are *unnecessary* after the PIMPL idiom implementation.
 
-== Odevzdání
+== Submission
 
 * Za *výsledné řešení* se považuje *obsah souborů `LookupTable.h` a `LookupTable.cpp`* umístěných v *kořenovém adresáři větve _practical2_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*.
 * Za *správné řešení* je považována:
