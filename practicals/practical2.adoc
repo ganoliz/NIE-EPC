@@ -85,7 +85,7 @@ void LookupTable::clear()
 
 == Assignment
 
-. *Modify the content * of `LookupTable.h` and `LookupTable.cpp` files such that the `LookupTable` class was *implemented by the PIMPL idiom*. 
+. *Modify the content* of `LookupTable.h` and `LookupTable.cpp` files such that the `LookupTable` class was *implemented by the PIMPL idiom*. 
 
 .Requiremetns for implementation
 [IMPORTANT]
@@ -98,7 +98,7 @@ void LookupTable::clear()
 [NOTE]
 ====
 * You may use either an *“ordinary” (_raw_) pointer* or a *smart pointer* of type `std::unique_ptr`.
-* In case of using a *smart pointer*, the implementation may be *more complex* (see, e.g., https://stackoverflow.com/q/9020372/580083[this post]).
+* In case of using a *smart pointer*, the implementation may be *more complicated* (see, e.g., https://stackoverflow.com/q/9020372/580083[this post]).
 ====
 
 [start=2]
@@ -106,44 +106,44 @@ void LookupTable::clear()
 
 WARNING: Don't forget that this update will require also an *update of included header files*.
 
-IMPORTANT: With the correctly working PIMPL idiom, this update *must not require any modificatoin of the `LookupTable.h` header file*.
+IMPORTANT: With the correctly working PIMPL idiom, this update *must not require any modification of the `LookupTable.h` header file*.
 
 [start=3]
-. From the `LookupTable.h` header file *remove* all *header files inclusion* (`#include` directives) that, are *unnecessary* after the PIMPL idiom implementation.
+. *Remove* from the `LookupTable.h` header file all *header files inclusion* (`#include` directives) that are *unnecessary* after the PIMPL idiom implementation.
 
 == Submission
 
-* As a *finel solution* is considered the *content of `LookupTable.h` and `LookupTable.cpp` files* placed in the *root folder of the _practical2_ branch* of your *course project/repository* on *the faculty GitLab instance*.
-* As s *correct solution* is considered:
-** *compilable and working implementation* of the `LookupTable` class with the PIMPL idiom *according to the assignment above*,
+* As a *final solution*, it is considered the *content of `LookupTable.h` and `LookupTable.cpp` files* placed in the *root folder of the _practical2_ branch* of your *course project/repository* on *the faculty GitLab instance*.
+* As a *correct solution*, it is considered:
+** a *compilable and working implementation* of the `LookupTable` class with the PIMPL idiom *according to the assignment above*,
 ** with *internally used container of type* `std::unordered_map<int, std::string>`,
 ** with *removed all unnecessary inclusion of header files* from the `LookupTable.h` header file.
-* *The deadline for submission* is the *end of your practical class* (class according to your time table).
-* Register the submissing by *creating the _merge request_*, namely *from the _practical2_ branch into the _master_ branch* inside your project.
+* *The deadline for submission* is the *end of your practical class* (according to your time table).
+* Register the submission by *creating the _merge request_*, namely *from the _practical2_ branch into the _master_ branch* inside your project.
 
 NOTE: In the _merge request_ configuration, *leave the _Assignee_ field empty* (do not assign here anyone).
 
 == Testing
 
-* Pro účely testování bude použitý *program využívající framework Boost.Test*.
-* Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
+* For testing purposes, a *program based on the Boost.Test framework* will be available.
+* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
 
 [NOTE]
 ====
-Pro *práci na řešení s využitím testovacího programu* jsou k dispozici následující základní možnosti:
+There are the following basic options for *using the test file during soluton development*:
 
-* Vývoj na *soukromém počítači* s instalovanou knihovnou Boost.
-* Vývoj přímo *v rámci GitLab projektu* s testováním pomocí *CI/CD mechanizmu* (_pipelines_, _jobs_),
-* Vývoj v *online IDE Godbolt* (odkaz na šablonu: https://godbolt.org/z/b473eqvev),
-* Vývoj v *online IDE Wandbox* (odkaz na šablonu: https://wandbox.org/permlink/4CQ3NGLligC8wzit).
+* Development on you *private computer* with installed Boost.
+* Direct development *inside the GitLab project* with the help of the *CI/CD mechanism* (_pipelines_, _jobs_),
+* Development in the *online IDE Godbolt* (link to the template: https://godbolt.org/z/b473eqvev),
+* Development in the *online IDE Wandbox* (link to the template: https://wandbox.org/permlink/4CQ3NGLligC8wzit).
 ====
 
-* Testovací program primárně funguje *funkčnost implementace třídy*.
-* Tato funkčnost musí být *zachována v celém rozsahu* při reimplementaci třídy pomocí PIMPL idiomu.
-* Součástí programu jsou i *dva testy na velikost uložiště třídy `LookupTable`*:
-** *První* testuje, zda třída obsahuje *členskou proměnnou typu `std::map<int, std::string>*.` Tento test *musí být*:
-*** *úspěšný* pro *originální verzi třídy*,
-*** *neúspěšný* pro *odevzdanou verzi třídy*.
-** *Druhý* testuje, zda třída obsahuje pouze *jedinou členskou proměnnou typu ukazatel*.` Tento test *musí být*:
-*** *neúspěšný* pro *originální verzi třídy*,
-*** *úspěšný* pro *odevzdanou verzi třídy*.
+* The test program primarily tests the *functionality of the class implementation*.
+* This functionality needs to be *fully preserved* while reimplementing the class by the PIMPL idiom.
+* A part of the test program are additionally *two tests for the byte size of the storage of the `LookupTable` class*:
+** The *first* one tests if the class contains a *member variable of the `std::map<int, std::string> type*.` This test *needs to*:
+*** *pass* for the *original class version*,
+*** *fail* for the *submitted class version*.
+** The *second* one tests if the class contains only a *single pointer member variable*.` This test *needs to*:
+*** *fail* for the *original class version*,
+*** *pass* for the *submitted class version*.
