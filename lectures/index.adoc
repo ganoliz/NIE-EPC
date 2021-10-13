@@ -21,8 +21,8 @@
 
 |4.
 |Costs of dynamic allocations, alignment, padding, placement new, owning objects
-|
-//|link:epc_lecture_04_cz_2020.pdf[epc_lecture_04_cz_2020.pdf]
+|link:PDFs/epc_lecture_04_en_2021.pdf[epc_lecture_04_en_2021.pdf]
+ link:PDFs/epc_lecture_04_en_2021_handouts.pdf[epc_lecture_04_en_2021_handouts.pdf]
 
 |5.
 |Small string optimization
