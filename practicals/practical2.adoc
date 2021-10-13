@@ -1,0 +1,151 @@
+= Practical 2
+
+*Pointer to IMPLementation (PIMPL)*
+
+== Introduction
+
+
+
+Uvažujte následující implementaci třídy `LookupTable`, která představuje *jednoduchou vyhledávací tabulku* mapující celá čísla na řetězce znaků. Implementace je rozdělena mezi:
+
+. *hlavičkový soubor* `LookupTable.h`, který obsahuje *definici třídy*:
+
+[source,c++]
+----
+#ifndef LOOKUPTABLE_H
+#define LOOKUPTABLE_H
+
+#include <cstdlib>
+#include <map>
+#include <string>
+
+class LookupTable
+{
+    std::map<int, std::string> data_;
+    
+public:
+    LookupTable() = default;
+    ~LookupTable() = default;
+    
+    // copy and move semantics deleted for sake of simplicity:
+    LookupTable(const LookupTable&) = delete;
+    LookupTable(LookupTable&&) = delete;
+    LookupTable& operator=(const LookupTable&) = delete;
+    LookupTable& operator=(LookupTable&&) = delete;
+    
+    void insert(int key, const std::string& name);
+    void remove(int key);
+    
+    const std::string* name(int key) const;
+    
+    size_t count() const;
+    void clear();
+};
+
+#endif
+----
+
+[start=2]
+. *zdrojový soubor* `LookupTable.cpp`, který obsahuje *dfinice členských funkcí*:
+
+[source,c++]
+----
+#include <cstdlib>
+#include <string>
+
+#include "LookupTable.h"
+
+void LookupTable::insert(int key, const std::string& name)
+{
+    data_.insert(std::make_pair(key, name));
+}
+
+void LookupTable::remove(int key)
+{
+    data_.erase(key);
+}
+
+const std::string* LookupTable::name(int key) const
+{
+    auto iter = data_.find(key);
+    if (iter != data_.end())
+       return &(iter->second);
+    else       
+       return nullptr;
+}
+
+size_t LookupTable::count() const
+{
+    return data_.size();
+}
+
+void LookupTable::clear() 
+{
+    data_.clear();
+}
+----
+
+== Zadání
+
+. *Modifikujte obsah souborů* `LookupTable.h` a `LookupTable.cpp` tak aby třída `LookupTable` byla *implementována pomocí PIMPL idiomu*. 
+
+.Požadavky na implementaci
+[IMPORTANT]
+====
+* *Definice třídy rozhraní* s názvem `LookupTable` bude obsahovat *jedinou neveřejnou členskou proměnnou*, a to ukazatel na objekt implementační třídy.
+* Kromě této proměnné *nesmí* třída mít žádné *neveřejné členské funkce ani proměnné*.
+* Definice *neveřejného členského typu je povolena*.
+====
+
+[NOTE]
+====
+* Můžete použít jak *„obyčejný“ (_raw_) ukazatel* nebo *chytrý ukazatel* (_smart pointer_) typu `std::unique_ptr`.
+* V případě využití *chytrého ukazatele* může být implementace *o něco složitější* (viz například https://stackoverflow.com/q/9020372/580083[tento post]).
+====
+
+[start=2]
+. *Ověřte funkčnost vašeho řešení* tím, že *změníte typ kontejneru pro realizaci vyhledávací tabulky* z `std::map<int, std::string>` na `std::unordered_map<int, std::string>`.
+
+WARNING: Nezapomeňte, že tato změna bude vyžadovat i *změnu vkládaných hlavičkových souborů*.
+
+IMPORTANT: Při funkčním PIMPL idiomu tato změna *nesmí vyžadovat aktualizaci hlavičkového souboru `LookupTable.h`*.
+
+[start=3]
+. *Odstraňte* z hlavičkového souboru `LookupTable.h` veškerá *vkládání hlavičkových souborů* (direktivy `#include`), která tam po implementaci PIMPL idiomu *nejsou potřeba*.
+
+== Odevzdání
+
+* Za *výsledné řešení* se považuje *obsah souborů `LookupTable.h` a `LookupTable.cpp`* umístěných v *kořenovém adresáři větve _practical2_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*.
+* Za *správné řešení* je považována:
+** *přeložitelná a funkční implementace* třídy `LookupTable` pomocí PIMPL idiomu *dle zadání výše*,
+** s *interně využitým kontejnerem typu* `std::unordered_map<int, std::string>`,
+** s *odstraněnými nepotřebnými vkládanými hlavičkovými soubory* z hlavičkového souboru `LookupTable.h`.
+* *Termín pro odevzdání* je *konec vašeho cvičení* (cvičení, které máte zapsané dle rozvrhu).
+* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical2_ do větve _master_* v rámci vašeho projektu.
+
+NOTE: U nastavení požadavku _merge request_ *ponechte pole _Assignee_ prázdné* (nepřiřazujte zde nikoho konkrétního).
+
+== Testování
+
+* Pro účely testování bude použitý *program využívající framework Boost.Test*.
+* Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
+
+[NOTE]
+====
+Pro *práci na řešení s využitím testovacího programu* jsou k dispozici následující základní možnosti:
+
+* Vývoj na *soukromém počítači* s instalovanou knihovnou Boost.
+* Vývoj přímo *v rámci GitLab projektu* s testováním pomocí *CI/CD mechanizmu* (_pipelines_, _jobs_),
+* Vývoj v *online IDE Godbolt* (odkaz na šablonu: https://godbolt.org/z/b473eqvev),
+* Vývoj v *online IDE Wandbox* (odkaz na šablonu: https://wandbox.org/permlink/4CQ3NGLligC8wzit).
+====
+
+* Testovací program primárně funguje *funkčnost implementace třídy*.
+* Tato funkčnost musí být *zachována v celém rozsahu* při reimplementaci třídy pomocí PIMPL idiomu.
+* Součástí programu jsou i *dva testy na velikost uložiště třídy `LookupTable`*:
+** *První* testuje, zda třída obsahuje *členskou proměnnou typu `std::map<int, std::string>*.` Tento test *musí být*:
+*** *úspěšný* pro *originální verzi třídy*,
+*** *neúspěšný* pro *odevzdanou verzi třídy*.
+** *Druhý* testuje, zda třída obsahuje pouze *jedinou členskou proměnnou typu ukazatel*.` Tento test *musí být*:
+*** *neúspěšný* pro *originální verzi třídy*,
+*** *úspěšný* pro *odevzdanou verzi třídy*.
