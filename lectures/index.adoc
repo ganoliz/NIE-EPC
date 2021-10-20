@@ -26,8 +26,8 @@
 
 |5.
 |Small string optimization
-|
-//|link:epc_lecture_05_cz_2020.pdf[epc_lecture_05_cz_2020.pdf]
+|link:PDFs/epc_lecture_05_en_2021.pdf[epc_lecture_05_en_2021.pdf]
+ link:PDFs/epc_lecture_05_en_2021_handouts.pdf[epc_lecture_05_en_2021_handouts.pdf]
 
 |6.
 |Expressions new[] and delete[], object content, vector class
