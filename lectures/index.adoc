@@ -31,8 +31,8 @@
 
 |6.
 |Expressions new[] and delete[], object content, vector class
-|
-//|link:epc_lecture_06_cz_2020.pdf[epc_lecture_06_cz_2020.pdf]
+|link:PDFs/epc_lecture_06_en_2021.pdf[epc_lecture_06_en_2021.pdf]
+ link:PDFs/epc_lecture_06_en_2021_handouts.pdf[epc_lecture_06_en_2021_handouts.pdf]
 
 |7.
 |Value categories, types of references, reference binding, std::move
