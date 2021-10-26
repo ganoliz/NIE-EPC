@@ -6,7 +6,7 @@
 
 [IMPORTANT]
 ====
-* The test program work with the `ns::optional` template, where the namespace alias `ns` is *by default set to `std`*.
+* The test program works with the `ns::optional` template, where the namespace alias `ns` is *by default set to `std`*.
 * To use own solution, *this alias needs to be reset to the `epc` namespace*.
 * For testing purposes, it is possible either to *download the test program* (copy its source code), or *copy own solution into the `optional.h` header file*.
 ====
