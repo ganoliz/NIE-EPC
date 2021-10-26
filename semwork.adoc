@@ -2,6 +2,17 @@
 
 == News
 
+* [26.10.2021] Link to the test program #1: https://godbolt.org/z/oEeoaM5Kb. Testing of the *default constructor* (must not create a value) and *storage of a value* created through the converting constructor in the *included storage*.
+
+[IMPORTANT]
+====
+* The test program work with the `ns::optional` template, where the namespace alias `ns` is *by default set to `std`*.
+* To use own solution, *this alias needs to be reset to the `epc` namespace*.
+* For testing purposes, it is possible either to *download the test program* (copy its source code), or *copy own solution into the `optional.h` header file*.
+====
+
+* [26.10.2021] *Corrected typo* in the interface of the `emplace` member function.
+
 == Problem assignment
 
 * *Implement class template `optional`*, which will represent a simplified analogy of the `std::optional` class template (*optionally containted value*).
@@ -164,7 +175,8 @@ struct in_place_t {
 ** If the actual object (`+*this+`) does contain value, this is *destructed*.
 ** Otherwise, it has no effect.
 
-* `+template <typename... Ts> void emplace(Ts...&& args)+`
+* [.line-through]#`+template <typename... Ts> void emplace(Ts...&& args)+`#
+* `+template <typename... Ts> void emplace(Ts&&... args)+`
 ** If the actual object (`+*this+`) does contain value, this is *destructed* first.
 ** Then, it initializes the new value by the *_perfect forwarding_ technique applied to the arguments* `+args...+`.
 
