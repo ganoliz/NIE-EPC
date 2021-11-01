@@ -36,8 +36,8 @@
 
 |7.
 |Value categories, types of references, reference binding, std::move
-|
-//|link:epc_lecture_07_cz_2020.pdf[epc_lecture_07_cz_2020.pdf]
+|link:PDFs/epc_lecture_07_en_2021.pdf[epc_lecture_07_en_2021.pdf]
+ link:PDFs/epc_lecture_07_en_2021_handouts.pdf[epc_lecture_07_en_2021_handouts.pdf]
 
 |8.
 |Emplace semantics, perfect forwarding, dispatching
