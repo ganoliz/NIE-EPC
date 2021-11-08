@@ -2,8 +2,8 @@
 
 == News
 
-* [26.10.2021] Link to the test program #2: https://godbolt.org/z/n9vvesT9G. Testing creation (initialization) of a value *by the correct constructor*.
-* [26.10.2021] Link to the test program #1: https://godbolt.org/z/oEeoaM5Kb. Testing of the *default constructor* (must not create a value) and *storage of a value* created through the converting constructor in the *included storage*.
+* [26.10.2021] Link to the test program #2: https://godbolt.org/z/z6xY6YbKT. Testing creation (initialization) of a value *by the correct constructor*.
+* [26.10.2021] Link to the test program #1: https://godbolt.org/z/9seo4x1Ks. Testing of the *default constructor* (must not create a value) and *storage of a value* created through the converting constructor in the *included storage*.
 
 [IMPORTANT]
 ====
