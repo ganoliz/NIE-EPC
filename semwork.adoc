@@ -2,6 +2,8 @@
 
 == News
 
+* [8.11.2021] Link to the test program #4: https://godbolt.org/z/9589q7nrx. Testing *copy and move constructor* by means of a value type *with copy and move semantics*.
+* [8.11.2021] Link to the test program #3: https://godbolt.org/z/h77qnd1n7. Testování *copy and move constructor* by means of a value type *without move semantics*.
 * [26.10.2021] Link to the test program #2: https://godbolt.org/z/z6xY6YbKT. Testing creation (initialization) of a value *by the correct constructor*.
 * [26.10.2021] Link to the test program #1: https://godbolt.org/z/9seo4x1Ks. Testing of the *default constructor* (must not create a value) and *storage of a value* created through the converting constructor in the *included storage*.
 
