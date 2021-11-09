@@ -65,7 +65,7 @@ long PairInt::destructed_ = 0;
 * The `PairIntOwner` class will be implemented *in the `PairIntOwner.h` header file*.
 
 
-NOTE: To avoid the violation of ODR (_one definition rule_), the member functions needs to be defined either *inside the class definition* or *outside with the `inline` specifier*.
+NOTE: To avoid violation of the ODR (_one definition rule_), the member functions needs to be defined either *inside the class definition* or *outside with the `inline` specifier*.
 
 === Class interface
 
