@@ -137,17 +137,17 @@ public:
 #endif
 ----
 
-== Odevzdání
+== Submission
 
-* Za *výsledné řešení* se považuje *obsah souboru `PairIntOwner.h`* umístěného v *kořenovém adresáři větve _practical3_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*.
-* Za *správné řešení* je považována *přeložitelná a funkční implementace* třídy `PairIntOwner` *dle zadání výše*,
-* *Termín pro odevzdání* je *konec vašeho cvičení* (cvičení, které máte zapsané dle rozvrhu).
+* As a *final solution*, it is considered the *content of the `PairIntOwner.h` file* placed in the *root folder of the _practical3_ branch* of your *course project/repository* on *the faculty GitLab instance*.
+* As a *correct solution*, it is considered a *compilable and working implementation* of the `PairIntOwner` class *according to the assignment above*,
+* *The deadline for submission* is the *end of your practical class* (according to your time table).
 
-CAUTION: Úlohu je možné odevzat i do *24 hodin po termínu*; v takovém případě ale bude hodnocena *nejvýše 4 body*.
+CAUTION: A solution may be submitted even up to *24 hours after the deadline*; in such a case it will be awarded with *at most 4 classification points*.
 
-* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical3_ do větve _master_* v rámci vašeho projektu.
+* Register the submission by *creating the _merge request_*, namely *from the _practical3_ branch into the _master_ branch* inside your project.
 
-== Testování
+== Testing
 
 * Pro účely testování bude použitý *program využívající framework Boost.Test*.
 * Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
