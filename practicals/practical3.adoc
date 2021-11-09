@@ -1,0 +1,107 @@
+= Cvičení 4
+
+*Hodnotový ukazatel `ValuePtr`*
+
+== Úvod
+
+Standardní knihovna {cpp} obsahuje pouze chytré ukazatele (_smart pointers_), které jsou schopny *kopírovat či přenášet vlastnictví konkrétního objektu*. Neobsahuje ale žádný chytrý ukazatel, který by byl schopen *vytvářet nové objekty* a zároveň přitom *kopírovat či přesouvat jejich obsah*. 
+
+== Zadání
+
+* *Implementujete třídní šablonu `ValuePtr`*, která slouží jako *chytrý ukazatel* s možností *vytváření nových objektů se současným kopírováním či přesouváním obsahu*. 
+* Obsahem objektu třídy `ValuePtr<T>` je *vlastnictví objektu typu `T`*.
+* Toto vlastnictví je *volitelné*, podobně jako u například u knihovního chytrého ukazatele `std::unique_ptr<T>`.
+* Třídní šablonu `ValuePtr` implementujte *v hlavičkovém souboru `ValuePtr.h`*.
+
+=== Rozhraní třídní šablony
+
+* `ValuePtr()` -- *výchozí konstruktor*. Neinicializuje žádný objekt typu `T`.
+
+* `ValuePtr(T* ptr)` -- *konverzní konstruktor*. *Převezme vlastnictví objektu*, na který ukazuje parametr `ptr`.
+
+CAUTION: Předpokládá se, že objekt převzatý do vlastnictví byl *incializován -- a jeho uložiště alokováno -- pomocí výrazu `new`*.
+
+* `ValuePtr(const ValuePtr& other)` -- *kopírovací konstruktor*.
+** Pokud `other` *nevlastní žádný objekt typu `T`*, konstruovaný objekt `+*this+` rovněž nebude vlastnit žádný objekt typu `T`.
+** Pokud `other` *vlastní objekt typu `T`*, konstruovaný objekt `+*this+` bude vlastnit objekt typu `T`, který vznikne *kopírováním obsahu objektu `+*other+`*.
+
+* `ValuePtr(ValuePtr&& other)` -- *přesouvací konstruktor*.
+** Pokud `other` *nevlastní žádný objekt typu `T`*, konstruovaný objekt `+*this+` rovněž nebude vlastnit žádný objekt typu `T`.
+** Pokud `other` *vlastní objekt typu `T`*, konstruovaný objekt `+*this+` bude vlastnit objekt typu `T`, který vznikne *přesunem obsahu objektu `+*other+`*.
+
+* `~ValuePtr()` -- *destruktor*.
+** V případě, že destruovaný objekt `+*this+` *vlastní objekt typu `T`*, tak ho *zdestruuje a uvolní jeho uložiště*.
+** V opačném případě nemá žádný efekt.
+
+* `T& operator*()` -- *operátor dereference*. Vrací *referenci na vlastněný objekt*, pokud existuje. Jinak způsobí nedefinované chování.
+
+* `+T* operator->()+` -- *operátor členského přístupu*. Vrací *ukazatel na vlastněný objekt*, pokud existuje. Jinak způsobí nedefinované chování.
+
+* `T* get()` -- vrací *ukazatel na vlastněný objekt*, pokud existuje. V *opačném případě vrací `nullptr`*.
+
+NOTE: Z důvodu jednoduchosti je *zakázán kopírovací i přesouvací přiřazovací operátor*.
+
+== Další požadavky
+
+* Dbejte na to, aby použití třídní šablony `ValuePtr` bylo *co nejefektivnější*, a to z pohledu *časových (procesorových) i paměťových zdrojů*.
+
+[IMPORTANT]
+====
+* Pro implementaci *nepoužívejte žádné entity ze standardní knihovny C++* (ani z žádné jiné knihovny) *s výjimkou funkce (funkční šablony) `std::move`*.
+====
+
+CAUTION: Nijak *nemodifikujte obsah souboru se zdrojovým kódem testovacího programu* (viz níže).
+
+=== Šablona
+
+Pro implemnetaci můžete využít *šablonu definovanou následovně*:
+
+[source,c++]
+----
+#ifndef VALUE_PTR_H
+#define VALUE_PTR_H
+
+template <typename T>
+class ValuePtr
+{
+
+public:
+    ValuePtr() { }
+
+    ValuePtr(T* ptr) { }
+
+    ValuePtr(const ValuePtr& other) { }
+
+    ValuePtr(ValuePtr&& other) { }
+
+    ~ValuePtr() { }
+
+    ValuePtr& operator=(const ValuePtr&) = delete;
+    ValuePtr& operator=(ValuePtr&&) = delete;
+
+    T& operator*() { }
+
+    T* operator->() { }
+
+    T* get() { }
+};
+
+#endif
+----
+
+== Odevzdání
+
+* Za *výsledné řešení* se považuje *obsah souboru `ValuePtr.h`* umístěného v *kořenovém adresáři větve _practical4_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*.
+* Za *správné řešení* je považována *přeložitelná a funkční implementace* třídní šablony `ValuePtr` *dle zadání výše*.
+* *Termín pro odevzdání* je *konec vašeho cvičení* (cvičení, které máte zapsané dle rozvrhu).
+
+CAUTION: Úlohu je možné odevzat i do *24 hodin po termínu*; v takovém případě ale bude hodnocena *nejvýše 4 body*.
+
+* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical4_ do větve _master_* v rámci vašeho projektu.
+
+== Testování
+
+* Pro účely testování bude použitý *program využívající framework Boost.Test*.
+* Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
+* Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/eW5fPYfK6.
+* Odkaz na šablonu projektu s testovacím programem do online IDE Wandbox: https://wandbox.org/permlink/lbpHEf26bsS8Bdxe.
