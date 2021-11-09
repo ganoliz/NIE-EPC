@@ -149,7 +149,7 @@ CAUTION: A solution may be submitted even up to *24 hours after the deadline*; i
 
 == Testing
 
-* Pro účely testování bude použitý *program využívající framework Boost.Test*.
-* Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
-* Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/Gqj491ddG.
-* Odkaz na šablonu projektu s testovacím programem do online IDE Wandbox: https://wandbox.org/permlink/r5QZoft6R60qRRjS.
+* For testing purposes, a *program based on the Boost.Test framework* will be available.
+* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
+* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/Gqj491ddG.
+* A Wandbox online IDE link to the project template with the test program: https://wandbox.org/permlink/r5QZoft6R60qRRjS.
