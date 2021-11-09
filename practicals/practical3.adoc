@@ -85,7 +85,7 @@ NOTE: For the sake of simplicity, all the *special member functions for copying/
 
 === Further requirements
 
-* Implement the class in such a way that *when the owned object is accessed* (by using the member function `value()`) *no branching would be necessary*.
+* Implement the class in such a way that *when the owned object is accessed* (by using the member function `value()`) *no branching is necessary*.
 * At the same time, try to make the *size of the class objects storage* (size of its binary representation) *as small as possible*, that is, avoid unnecessary member variables.
 
 
