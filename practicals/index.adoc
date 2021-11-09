@@ -6,15 +6,12 @@
 
 | 1.
 | xref:../semwork#[Semester project]
-//| link:https://web.microsoftstream.com/video/b257128f-b0aa-4914-984b-50fa6cef6382[ni-epc-tutorial-2-b201]
 
 | 2.
 | xref:practical2#[Problem assignment: PIMPL]
 
 | 3. 
-|
-//| xref:tutorial3#[PIMPL — _pointer to implementation_ pro třídu `String`]
-//| link:https://web.microsoftstream.com/video/77f69c9c-6ee5-4dbf-a72b-d96acaf198a3[ni-epc-tutorial-3-b201]
+| xref:practical3#[Included _vs_ dynamically allocated storage]
 
 | 4.
 |
