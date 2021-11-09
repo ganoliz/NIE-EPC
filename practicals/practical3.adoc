@@ -69,21 +69,21 @@ NOTE: To avoid the violation of ODR (_one definition rule_), the member function
 
 === Class interface
 
-* `enum Storage { INCLUDED, DYNAMIC }` -- konstanty využívané níže.
+* `enum Storage { INCLUDED, DYNAMIC }` -- constants used below.
 
-* `PairIntOwner()` -- *výchozí konstruktor*. *Neinicializuje žádný objekt* typu `PairInt`.
+* `PairIntOwner()` -- *default constructor*. *Does not initialize any object* of type `PairInt`.
 
-* `PairIntOwner(Storage s , int a, int b)` -- *konverzní konstruktor*. *Vytvoří objekt typu `PairInt`* inicializovaný parametry `a` a `b` *v uložišti*, které:
-** bude *vložené v rámci uložiště objektu vlastníka* `+*this+` v případě, že `s` má hodnotu `INCLUDED`;
-** bude *dynamicky alokované* v případě, že `s` má hodnotu `DYNAMIC`.
+* `PairIntOwner(Storage s , int a, int b)` -- *converting constructor*. *Creates an object of type `PairInt`* initialized by the `a` and `b` parameters *in storage* that:
+** will be *included inside the storage of the owner object* `+*this+` in case when `s` equals `INCLUDED`;
+** will be *dynamically allocated* in case when `s` equals `DYNAMIC`.
 
-* `~PairIntOwner()` -- *destruktor*. V případě, že vlastník `+*this+` inicializoval/vlastní objekt typu `PairInt`, tak ho *zdestruuje* (nezávisle na tom, v jakém uložišti se nachází).
+* `~PairIntOwner()` -- *destructor*. If the owner `+*this+` has initialized/owns an object of type `PairInt` then this is *destructed* (independnelty of in which storage it is).
 
-* `PariInt& value()` -- pokud vlastník `+*this+` vlastní objekt typu `PairInt`, *vrátí na něj referneci*. V opačném případě způsobí *nedefinované chování*.
+* `PariInt& value()` -- if the owner `+*this+` owns an object of type `PairInt`, *returns a reference bound to it*. Otherwise causes *undefined behavior*.
 
-NOTE: Z důvodu jednoduchosti jsou dále *zakázány veškeré speciální členské funkce* týkající se *kopírovací a přesouvací sémantiky*, tj. _kopírovací konstruktor_, _přesouvací konstruktor_, _kopírovací přiřazovací operátror_ a _přesouvací přiřazovací operátor_.
+NOTE: For the sake of simplicity, all the *special member functions for copying/moving content are disabled*, namely _copy constructor_, _move constructor_, _copy assignment operator_, and _move assignment operator_.
 
-=== Další požadavky
+=== Further requirements
 
 * Implementujte třídu pokud možno tak, aby *při přístupu k vlastněnému objektu* (pomocí členské funkce `value()`) *nebylo potřeba větvení kódu*.
 * Zároveň dbejte na to, aby *velikost uložiště třídy* (velikost binární reprezentace) byla *co nejmenší*, tj. aby neobsahovala zbytečné členské proměnné.
