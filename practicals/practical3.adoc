@@ -85,25 +85,22 @@ NOTE: For the sake of simplicity, all the *special member functions for copying/
 
 === Further requirements
 
-* Implementujte třídu pokud možno tak, aby *při přístupu k vlastněnému objektu* (pomocí členské funkce `value()`) *nebylo potřeba větvení kódu*.
-* Zároveň dbejte na to, aby *velikost uložiště třídy* (velikost binární reprezentace) byla *co nejmenší*, tj. aby neobsahovala zbytečné členské proměnné.
+* Implement the class in such a way that *when the owned object is accessed* (by using the member function `value()`) *no branching would be necessary*.
+* At the same time, try to make the *size of the class objects storage* (size of its binary representation) *as small as possible*, that is, avoid unnecessary member variables.
+
 
 [IMPORTANT]
 ====
-* Pro implementaci *nepoužívejte žádné entity ze standardní knihovny C++* (ani z žádné jiné knihovny).
-//* Pro implementaci nepoužívejte žádné entity ze standardní knihovny C++ (ani z žádné jiné knihovny) s výjimkou níže jmenovaných.
-* Soubor `PairIntOwner.h` by měl obsahovat *vložení jediného hlavičkového souboru, a to `PairInt.h`*.
-//* Povolené výjimky (pro implementaci nejsou potřeba):
-//** `std::aligned_storage` včetně `std::aligned_storage_t`,
-//** `std::constuct_at`,
-//** `std::destroy_at`.
+* For implementation, *do not use any entities from the C++ standard library* (nor any other library).
+* The `PairIntOwner.h` file should contain *only a single header file inclusion, namely of `PairInt.h`*.
+
 ====
 
-CAUTION: Nijak *nemodifikujte obsah souborů* `PairInt.h`, `PairInt.cpp`, ani souboru se *zdrojovým kódem testovacího programu* (viz níže).
+CAUTION: *Do not modify the content of* the `PairInt.h` and `PairInt.cpp` file, nor the file with the *source code of the test program* (see below).
 
-=== Šablona
+=== Template
 
-Pro implemnetaci můžete využít *šablonu definovanou následovně*:
+For implementation, you can use the *template defined as follows*:.
 
 [source,c++]
 ----
