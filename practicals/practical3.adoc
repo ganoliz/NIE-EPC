@@ -62,7 +62,7 @@ long PairInt::destructed_ = 0;
 == Assignment
 
 * *Implement the `PairIntOwner` class* that serves as an *optional owner of an object of type `PairInt`*, while the owned object will be upon request stored *either in the included or dynamically allocated storage*.
-* The `PairIntOwner` class implement *in the `PairIntOwner.h` header file*.
+* The `PairIntOwner` class will be implemented *in the `PairIntOwner.h` header file*.
 
 
 NOTE: To avoid the violation of ODR (_one definition rule_), the member functions needs to be defined either *inside the class definition* or *outside with the `inline` specifier*.
