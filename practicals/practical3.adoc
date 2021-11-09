@@ -2,9 +2,9 @@
 
 *Included _vs_ dynamically allocated storage*
 
-== Úvod
+== Introduction
 
-Uvažujte třídu `PairInt`, která reprezentuje *dvojici celých čísel*. Třída je definovaná *v hlavičkovém souboru `PairInt.h`* s následujícím obsahem:
+Consider the `PairInt` class that represents a *pair of integer numbers*. This class is defined in the *`PairInt.h` header file* with the following content:
 
 [source,c++]
 ----
@@ -48,7 +48,7 @@ public:
 #endif
 ----
 
-*Statické členské proměnné* jsou dále definované ve *zdrojovém souboru `PairInt.cpp`* s následujícím obsahem:
+The *static member variables* are further defined in the *`PairInt.cpp` source file` with the following content:
 
 [source,c++]
 ----
@@ -59,14 +59,15 @@ long PairInt::alive_ = 0;
 long PairInt::destructed_ = 0;
 ----
 
-== Zadání
+== Assignment
 
-* *Implementujte třídu `PairIntOwner`*, která slouží jako *volitelný vlastník objektu typu `PairInt`*, přičemž vlastněný objekt se bude dle požadavků *nacházet buď ve vloženém nebo v dynamicky alokovaném uložišti*.
-* Třídu `PairIntOwner` implementujte *v hlavičkovém souboru `PairIntOwner.h`*.
+* *Implement the `PairIntOwner` class* that servers as an *optional owner of an object of type `PairInt`*, while the owned object will be upon reques stored *either in the included or dynamically allocated storage*.
+* The `PairIntOwner` class implement *in the `PairIntOwner.h` header file*.
 
-NOTE: Pro zamezení porušení ODR (_one definition rule_) musí být *členské funkce* buď definované *uvnitř definice třídy* nebo *vně se specifikátorem `inline`*.
 
-=== Rozhraní třídy
+NOTE: To avoid the violation of ODR (_one definition rule_), the member functions needs to be defined either *inside the class definition* or *outside with the `inline` specifier*.
+
+=== Class interface
 
 * `enum Storage { INCLUDED, DYNAMIC }` -- konstanty využívané níže.
 
