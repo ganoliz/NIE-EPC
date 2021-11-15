@@ -2,7 +2,7 @@
 
 == News
 
-* [15.11.2021] Link to the test program #5: https://godbolt.org/z/4f6GPYhvM. Testing *copy assignment operator*.
+* [15.11.2021] Link to the test program #5: https://godbolt.org/z/P98G5sbcY. Testing *copy assignment operator*.
 * [8.11.2021] Link to the test program #4: https://godbolt.org/z/9589q7nrx. Testing *copy and move constructor* by means of a value type *with copy and move semantics*.
 * [8.11.2021] Link to the test program #3: https://godbolt.org/z/h77qnd1n7. Testing *copy and move constructor* by means of a value type *without move semantics*.
 * [26.10.2021] Link to the test program #2: https://godbolt.org/z/z6xY6YbKT. Testing creation (initialization) of a value *by the correct constructor*.
