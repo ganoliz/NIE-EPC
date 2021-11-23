@@ -1,8 +1,8 @@
-= Cvičení 5
+= Practical 4.2
 
-*Přiřazovací operátory*
+*Assignment operators*
 
-== Úvod
+== Introduction
 
 *Přiřazovací operátory* se dají implementovat v *různých formách*. Uvažujme násleující implementaci *hodnotového ukazatele `ValuePtr<T>`*:
 
@@ -90,13 +90,13 @@ ValuePtr& operator=(ValuePtr other) {
 
 NOTE: Jednotný přiřazovací operátor je technicky *forma kopírovacího přiřazovacího operátoru*.
 
-== Zadání
+== Assignment
 
-=== Část I.
+=== Part I.
 
 * Zjistěte, zda se výše definované formy přiřazovacích operátorů třídní šablony `ValuePtr` v případech *Case 2* (C&S) a *Case 3* (jednotná forma) *chovají efektivně stejně nebo odlišně než v případě Case 1* (přímá forma).
 
-=== Část II.
+=== Part II.
 
 * Uvažujte následující definici *třídy `X`*:
 
@@ -165,7 +165,7 @@ void swap(X& a, X& b) { a.swap(b); }
 ** *prohození obashu* pomocí funkce `std::swap`,
 ** *prohození obsahu* pomocí funkce `swap` přidružené ke třídě `X`.
 
-== Testovací program
+== Test Program
 
 Podoba testovacího programu:
 
@@ -200,7 +200,7 @@ int main() {
 
 NOTE: *Výběr varianty formy přiřazovacích operátorů* lze snadno *volit při překladu*, například příkazem `gcc -DCASE1 -o test_case1 test.cpp`.
 
-== Odevzdání
+== Sumbission
 
 * Soubor `X.h` s implementací všech forem přiřazovacích operátorů umístěte do *kořenového adresáře větve _practical5_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*. 
 * Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical5_ do větve _master_* v rámci vašeho projektu.
@@ -208,7 +208,7 @@ NOTE: *Výběr varianty formy přiřazovacích operátorů* lze snadno *volit p�
 * Dále do tohoto komentáře uveďte *odpověď na otázku z Části I. zadání*. V případě záporné odpovědi dále uveďte *zdůvodnění proč je chování jiné*.
 * *Termín pro odevzdání* je *konec týdne, ve kterém cvičení probíhá* (cvičení, které máte zapsané dle rozvrhu).
 
-== Testování
+== Testing
 
 * Testovací program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
 * Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/1rsv6bT59.
