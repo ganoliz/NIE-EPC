@@ -163,7 +163,7 @@ void swap(X& a, X& b) { a.swap(b); }
 
 == Test Program
 
-Podoba testovacího programu:
+Test program code:
 
 [source,c++]
 ----
@@ -194,17 +194,17 @@ int main() {
 }
 ----
 
-NOTE: *Výběr varianty formy přiřazovacích operátorů* lze snadno *volit při překladu*, například příkazem `gcc -DCASE1 -o test_case1 test.cpp`.
+NOTE: *The form of assignment operators* can be easily *chosen during compilation*, for example, by the following command: `gcc -DCASE1 -o test_case1 test.cpp`.
 
 == Sumbission
 
-* Soubor `X.h` s implementací všech forem přiřazovacích operátorů umístěte do *kořenového adresáře větve _practical5_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*. 
-* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical5_ do větve _master_* v rámci vašeho projektu.
-* *Výstup testovacího programu* pro *všechny tři formy přiřazovacích operátorů* zkopírujte do *komentáře k vytvořenému požadavku merge request*.
-* Dále do tohoto komentáře uveďte *odpověď na otázku z Části I. zadání*. V případě záporné odpovědi dále uveďte *zdůvodnění proč je chování jiné*.
-* *Termín pro odevzdání* je *konec týdne, ve kterém cvičení probíhá* (cvičení, které máte zapsané dle rozvrhu).
+* The `X.h` file with the implemnetation of all the forms of assignment operators put into the *root folder of the _practical5_ branch* of your *course project/repository* on *the faculty GitLab instance*.
+* Register the submission by *creating the _merge request_*, namely *from the _practical5_ branch into the _master_ branch* inside your project.
+* Copy the *output of the test program* for *all the three forms of assigment operators* into the *description text filed of the merge request*.
+* Put into this description your *answer to the question from the Part I. of the assignment*. In case of negative answer, *give reasons why the behavior is different*.
+* *The deadline for submission* is the *end of the week after the week with your practical class* (according to your time table).
 
 == Testing
 
-* Testovací program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
-* Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/1rsv6bT59.
+* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
+* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/Gqj491ddG.
