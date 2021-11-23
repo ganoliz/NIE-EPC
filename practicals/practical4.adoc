@@ -43,18 +43,18 @@ NOTE: For the sake of simplicity, the *copy assignment and move assignment opera
 
 == Other requirements
 
-* Dbejte na to, aby použití třídní šablony `ValuePtr` bylo *co nejefektivnější*, a to z pohledu *časových (procesorových) i paměťových zdrojů*.
+* Try to implement the `ValuePtr` class template such that it would be as *efficient as possible* from the perspective of *runtime and memory resources costs*.
 
 [IMPORTANT]
 ====
-* Pro implementaci *nepoužívejte žádné entity ze standardní knihovny C++* (ani z žádné jiné knihovny) *s výjimkou funkce (funkční šablony) `std::move`*.
+* For implementation, *do not use any entities from the C++ standard library (nor any other library) with the *exception of the `std::move` function (template)*.
 ====
 
-CAUTION: Nijak *nemodifikujte obsah souboru se zdrojovým kódem testovacího programu* (viz níže).
+CAUTION: *Do not modify the content of the test program* (see below).
 
 === Template
 
-Pro implemnetaci můžete využít *šablonu definovanou následovně*:
+For implementation, you can use the *following code template*:
 
 [source,c++]
 ----
@@ -91,17 +91,14 @@ public:
 
 == Assignment
 
-* Za *výsledné řešení* se považuje *obsah souboru `ValuePtr.h`* umístěného v *kořenovém adresáři větve _practical4_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*.
-* Za *správné řešení* je považována *přeložitelná a funkční implementace* třídní šablony `ValuePtr` *dle zadání výše*.
-* *Termín pro odevzdání* je *konec vašeho cvičení* (cvičení, které máte zapsané dle rozvrhu).
-
-CAUTION: Úlohu je možné odevzat i do *24 hodin po termínu*; v takovém případě ale bude hodnocena *nejvýše 4 body*.
-
-* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical4_ do větve _master_* v rámci vašeho projektu.
+* As a *final solution*, it is considered the *content of the `ValuePtr.h` file* placed in the *root folder of the _practical4_ branch* of your *course project/repository* on *the faculty GitLab instance*.
+* As a *correct solution*, it is considered a *compilable and working implementation* of the `ValuePtr` class template *according to the assignment above*,
+* *The deadline for submission* is the *end of the week after the week with your practical class* (according to your time table).
+* Register the submission by *creating the _merge request_*, namely *from the _practical4_ branch into the _master_ branch* inside your project.
 
 == Testing
 
-* Pro účely testování bude použitý *program využívající framework Boost.Test*.
-* Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
-* Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/eW5fPYfK6.
-* Odkaz na šablonu projektu s testovacím programem do online IDE Wandbox: https://wandbox.org/permlink/lbpHEf26bsS8Bdxe.
+* For testing purposes, a *program based on the Boost.Test framework* will be available.
+* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
+* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/eW5fPYfK6.
+* A Wandbox online IDE link to the project template with the test program: https://wandbox.org/permlink/lbpHEf26bsS8Bdxe.
