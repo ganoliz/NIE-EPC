@@ -207,4 +207,4 @@ NOTE: *The form of assignment operators* can be easily *chosen during compilatio
 == Testing
 
 * This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
-* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/Gqj491ddG.
+* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/1rsv6bT59.
