@@ -46,8 +46,8 @@
 
 |9.
 |Templates, template instantiation, template argument deduction, template specialization, variadic templates, template parameter pack
-|
-//|link:epc_lecture_09_cz_2020.pdf[epc_lecture_09_cz_2020.pdf]
+|link:PDFs/epc_lecture_09_en_2021.pdf[epc_lecture_09_en_2021.pdf]
+ link:PDFs/epc_lecture_09_en_2021_handouts.pdf[epc_lecture_09_en_2021_handouts.pdf]
 
 |10.
 |Function parameter pack, concepts and constraints, SFINAE
