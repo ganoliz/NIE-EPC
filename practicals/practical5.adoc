@@ -1,0 +1,214 @@
+= Cvičení 5
+
+*Přiřazovací operátory*
+
+== Úvod
+
+*Přiřazovací operátory* se dají implementovat v *různých formách*. Uvažujme násleující implementaci *hodnotového ukazatele `ValuePtr<T>`*:
+
+[source,c++]
+----
+template <typename T>
+class ValuePtr {
+  T* ptr_;
+  
+public:
+  ValuePtr() : ptr_(nullptr) { }
+  ValuePtr(T* ptr) : ptr_(ptr) { }
+  
+  ValuePtr(const ValuePtr& other)
+    : ptr_( other.ptr_ ? new T(*other.ptr_) : nullptr ) { }
+
+  ValuePtr(ValuePtr&& other)
+    : ptr_( other.ptr_ ? new T(std::move(*other.ptr_)) : nullptr ) { }
+
+  ~ValuePtr() { delete ptr_; }
+  
+  void swap(ValuePtr& other) { std::swap(ptr_, other.ptr_); }
+
+  ...  // other member functions
+};
+----
+
+=== Case 1
+
+*Základní „přímá“ implementace přiřazovacíh operátorů* by mohla vypadat například následovně:
+
+[source,c++]
+----
+ValuePtr& operator=(const ValuePtr& other) {
+  if (this != &other) {
+    if (ptr_ && other.ptr_) *ptr_ = *other.ptr_;
+    else if (other.ptr_) ptr_ = new T(*other.ptr_);
+    else if (ptr_) { delete ptr_; ptr_ = nullptr; }
+  }
+  return *this;
+}
+
+ValuePtr& operator=(ValuePtr&& other) {
+  if (this != &other) {
+    if (ptr_ && other.ptr_) *ptr_ = std::move(*other.ptr_);
+    else if (other.ptr_) ptr_ = new T(std::move(*other.ptr_));
+    else if (ptr_) { delete ptr_; ptr_ = nullptr_; }
+  }
+  return *this;
+}
+----
+
+=== Case 2
+
+Další možností je implementovat oba operátory pomocí *copy-and-swap (C&S) idiomu*: 
+
+[source,c++]
+----
+ValuePtr& operator=(const ValuePtr& other) {
+  ValuePtr temp(other);
+  swap(temp);
+  return *this;
+}
+
+ValuePtr& operator=(ValuePtr&& other) {
+  ValuePtr temp(std::move(other));
+  swap(temp);
+  return *this;
+}
+----
+
+//CAUTION: V této formě se operátory *chovají odlišně od první varianty* v případě, že *zdrojový i cílový ukazatel vlastní/spravuje objekt typu `T`*.
+
+=== Case 3 
+
+Třetí možností je spojit oba operátory do tzv. *„jednotného přiřazovacího operátoru“ (unified/unifying assignment operator)*, kdy roli pomocného objektu `temp` *převezme parametr operátoru*:
+
+[source,c++]
+----
+ValuePtr& operator=(ValuePtr other) {
+  swap(other);
+  return *this;
+}
+----
+
+NOTE: Jednotný přiřazovací operátor je technicky *forma kopírovacího přiřazovacího operátoru*.
+
+== Zadání
+
+=== Část I.
+
+* Zjistěte, zda se výše definované formy přiřazovacích operátorů třídní šablony `ValuePtr` v případech *Case 2* (C&S) a *Case 3* (jednotná forma) *chovají efektivně stejně nebo odlišně než v případě Case 1* (přímá forma).
+
+=== Část II.
+
+* Uvažujte následující definici *třídy `X`*:
+
+[source,c++]
+----
+class X {
+  int i_;                       // non-negative values represent content...
+  static const int EMPTY = -1;  // -1 represents no content
+
+  void destroy() { i_ = EMPTY; }
+
+public:
+  X(int i) : i_(i) { }
+  ~X() { destroy(); }
+
+  X(const X& other) : i_(other.i_)  {
+    std::cout << "(CC)";
+  }
+
+  X(X&& other) : i_(other.i_) {
+    other.destroy();
+    std::cout << "(MC)";
+  }
+
+  void swap(X& other) { std::swap(i_, other.i_); }
+  
+#ifdef CASE1
+  X& operator=(const X& other) {
+      std::cout << "(CA)";
+      // ... to be implemented
+    }
+
+  X& operator=(X&& other) {
+      std::cout << "(MA)";
+      // ... to be implemented
+  }
+#elif defined CASE2
+  X& operator=(const X& other) {
+    std::cout << "(CA)";
+    // ... to be implemented
+  }
+  
+  X& operator=(X&& other) {
+    std::cout << "(MA)";
+    // ... to be implemented
+  }
+#elif defined CASE3
+  X& operator=(X other) {
+    std::cout << "(UA)";
+    // ... to be implemented
+  }
+#endif
+};
+
+void swap(X& a, X& b) { a.swap(b); }
+----
+
+* Do této třídy *doimplementujte přiřazovací operátory* v:
+** *přímé formě* pokud je definován *symbol preprocesoru `CASE1`*;
+** *C&S formě* pokud je definován *symbol preprocesoru `CASE2`*;
+** *jednotné formě* pokud je definován *symbol preprocesoru `CASE3`*.
+* Třídu `X` implementujte v *hlavičkovém souboru `X.h`*.
+* Zjistěte, která volání kopírovacích a přesouvacích speciálních členských funkcí se účastní následujích operací:
+** *kopírovací přiřazení*,
+** *přesouvací přiřazení*,
+** *prohození obashu* pomocí funkce `std::swap`,
+** *prohození obsahu* pomocí funkce `swap` přidružené ke třídě `X`.
+
+== Testovací program
+
+Podoba testovacího programu:
+
+[source,c++]
+----
+#include <iostream>
+#include <utility>
+
+#include "X.h"
+
+int main() {
+  X x1(1);
+  X x2(2);
+
+  std::cout << "copy assignment: ";
+  x1 = x2;  
+  std::cout << std::endl;
+  
+  std::cout << "move assignment: ";
+  x1 = std::move(x2);
+  std::cout << std::endl;
+
+  std::cout << "std::swap: ";
+  std::swap(x1, x2);
+  std::cout << std::endl;
+
+  std::cout << "custom swap: ";
+  swap(x1, x2);
+  std::cout << std::endl;
+}
+----
+
+NOTE: *Výběr varianty formy přiřazovacích operátorů* lze snadno *volit při překladu*, například příkazem `gcc -DCASE1 -o test_case1 test.cpp`.
+
+== Odevzdání
+
+* Soubor `X.h` s implementací všech forem přiřazovacích operátorů umístěte do *kořenového adresáře větve _practical5_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*. 
+* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical5_ do větve _master_* v rámci vašeho projektu.
+* *Výstup testovacího programu* pro *všechny tři formy přiřazovacích operátorů* zkopírujte do *komentáře k vytvořenému požadavku merge request*.
+* Dále do tohoto komentáře uveďte *odpověď na otázku z Části I. zadání*. V případě záporné odpovědi dále uveďte *zdůvodnění proč je chování jiné*.
+* *Termín pro odevzdání* je *konec týdne, ve kterém cvičení probíhá* (cvičení, které máte zapsané dle rozvrhu).
+
+== Testování
+
+* Testovací program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
+* Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/1rsv6bT59.
