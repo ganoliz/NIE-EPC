@@ -1,19 +1,19 @@
-= Cvičení 4
+= Practical 4.1
 
-*Hodnotový ukazatel `ValuePtr`*
+*Value pointer `ValuePtr`*
 
-== Úvod
+== Introduction
 
 Standardní knihovna {cpp} obsahuje pouze chytré ukazatele (_smart pointers_), které jsou schopny *kopírovat či přenášet vlastnictví konkrétního objektu*. Neobsahuje ale žádný chytrý ukazatel, který by byl schopen *vytvářet nové objekty* a zároveň přitom *kopírovat či přesouvat jejich obsah*. 
 
-== Zadání
+== Assignment
 
 * *Implementujete třídní šablonu `ValuePtr`*, která slouží jako *chytrý ukazatel* s možností *vytváření nových objektů se současným kopírováním či přesouváním obsahu*. 
 * Obsahem objektu třídy `ValuePtr<T>` je *vlastnictví objektu typu `T`*.
 * Toto vlastnictví je *volitelné*, podobně jako u například u knihovního chytrého ukazatele `std::unique_ptr<T>`.
 * Třídní šablonu `ValuePtr` implementujte *v hlavičkovém souboru `ValuePtr.h`*.
 
-=== Rozhraní třídní šablony
+=== Class Template Interface
 
 * `ValuePtr()` -- *výchozí konstruktor*. Neinicializuje žádný objekt typu `T`.
 
@@ -52,7 +52,7 @@ NOTE: Z důvodu jednoduchosti je *zakázán kopírovací i přesouvací přiřaz
 
 CAUTION: Nijak *nemodifikujte obsah souboru se zdrojovým kódem testovacího programu* (viz níže).
 
-=== Šablona
+=== Template
 
 Pro implemnetaci můžete využít *šablonu definovanou následovně*:
 
@@ -89,7 +89,7 @@ public:
 #endif
 ----
 
-== Odevzdání
+== Assignment
 
 * Za *výsledné řešení* se považuje *obsah souboru `ValuePtr.h`* umístěného v *kořenovém adresáři větve _practical4_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*.
 * Za *správné řešení* je považována *přeložitelná a funkční implementace* třídní šablony `ValuePtr` *dle zadání výše*.
@@ -99,7 +99,7 @@ CAUTION: Úlohu je možné odevzat i do *24 hodin po termínu*; v takovém pří
 
 * Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical4_ do větve _master_* v rámci vašeho projektu.
 
-== Testování
+== Testing
 
 * Pro účely testování bude použitý *program využívající framework Boost.Test*.
 * Tento program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
