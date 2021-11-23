@@ -14,18 +14,9 @@
 | xref:practical3#[Included _vs_ dynamically allocated storage]
 
 | 4.
-|
-//| xref:tutorial4#[Chyba Microsoft implementace C++?]
-//| link:https://web.microsoftstream.com/video/fd3c06e7-ab4f-4979-83f0-02496569cfd2[ni-epc-tutorial-4-b201]
+| xref:practical4#[Value pointer `ValuePtr`] +
+  xref:practical5#[Assignment operators]
 
 | 5.
-|
-//| xref:tutorial5#[Tuple]
-//| N/A ^({asterisk})^
-
-| 6.
-|
-//| xref:tutorial6#[Chytré ukazatele (_smart pointers_)]
-//| link:https://web.microsoftstream.com/video/7e41c968-b1e2-4bd5-89f7-ea3e19a810d2[ni-epc-tutorial-6-b201]
 
 |===
