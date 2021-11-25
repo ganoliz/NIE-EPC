@@ -47,7 +47,7 @@ NOTE: For the sake of simplicity, the *copy assignment and move assignment opera
 
 [IMPORTANT]
 ====
-* For implementation, *do not use any entities from the C++ standard library (nor any other library) with the *exception of the `std::move` function (template)*.
+* For implementation, *do not use any entities from the C++ standard library* (nor any other library) with the *exception of the `std::move` function (template)*.
 ====
 
 CAUTION: *Do not modify the content of the test program* (see below).
