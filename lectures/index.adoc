@@ -51,8 +51,8 @@
 
 |10.
 |Function parameter pack, concepts and constraints, SFINAE
-|
-//|link:epc_lecture_10_cz_2020.pdf[epc_lecture_10_cz_2020.pdf]
+|link:PDFs/epc_lecture_10_en_2021.pdf[epc_lecture_10_en_2021.pdf]
+ link:PDFs/epc_lecture_10_en_2021_handouts.pdf[epc_lecture_10_en_2021_handouts.pdf]
 
 |11.
 |Exception safety, allocators, small buffer optimization, empty base optimization, type erasure
