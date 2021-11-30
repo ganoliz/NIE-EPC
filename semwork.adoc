@@ -2,6 +2,7 @@
 
 == News
 
+* [30.11.2021] *Submission deadline* for semestr project was extended to *Sunday, December the 26th* (included).
 * [25.11.2021] Link to the test program #6: https://godbolt.org/z/c5We3dKxo. Testing *move assignment operator*.
 * [15.11.2021] Link to the test program #5: https://godbolt.org/z/P98G5sbcY. Testing *copy assignment operator*.
 * [8.11.2021] Link to the test program #4: https://godbolt.org/z/9589q7nrx. Testing *copy and move constructor* by means of a value type *with copy and move semantics*.
@@ -53,7 +54,7 @@
 - Individual development versions *subsequently store* into the *branch called _semwork_* of your *repository of the NIE-EPC course on the faculty GitLab instance*.
 - *Link to this repository* is https://gitlab.fit.cvut.cz/NI-EPC/B211/USERNAME, where *USERNAME* is your faculty username.
 - Keep the implemented header file `optional.h` directly inside *the root directory of the _semwork_ branch*.
-- *Deadline for submission* of the semestral work is the end of the last week of the semester teaching period, namely, *Sunday, December the 19th* (included).
+- *Deadline for submission* of the semestral work is [.line-through]#the end of the last week of the semester teaching period, namely, *Sunday, December the 19th*# *Sunday, December the 26th* (included).
 
 WARNING: The *final submission* is considered to be the *version of the `optional.h` header file present in the repository at this deadline date*. *Any further updates might not be taken into consideration for the classification.*
 
