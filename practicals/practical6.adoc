@@ -6,7 +6,7 @@
 
 === Case 1
 
-Uvažujme následující definici *funkční šalbony `std::make_unique`*:
+Consider the following definition of the *function template `std::make_unique`*:
 
 [source,c++]
 ----
@@ -19,7 +19,7 @@ unique_ptr<T> make_unique(Ts&&... params)
 }
 ----
 
-Otázkou je, zda její použití obnáší nějakou *časovou režii* (_runtime overhead_). Příklad:
+The question is whetehr its use brings some *runtime overhead*. Example:
 
 [source,c++]
 ----
@@ -27,20 +27,20 @@ std::unique_ptr<int> upi { new int(1) };  // option (1)
 auto upi = std::make_unique<int>(1);      // option (2)
 ----
 
-V případě (1) vzniká objekt `upi` *přímo pomocí konverzního konstruktoru*. Oproti tomu, v případě (2) je situace složitější:
+In case (1), the object `upi` is initialized *directly by the converting constructor*. On the contrary, in case (2), the situation is much more complicated:
 
-. Nejprve vzniká *dočasný objekt* pomocí konverzního konstruktoru.
-. Poté je tímto dočasným objektem inicializována *návratová hodnota* pomocí přesouvacího konstruktoru.
-. Návratovou hodnotou je nakonec inicializován *objekt `upi`* pomocí přesouavcího konstruktoru.
+. First, a *temporary object* is initialized by the converting constructor.
+. Then, the *return value* is initialized from that temporary object by the move constructor.
+. Finally, the *object `upi`* is initialized from the return value by the move constructor.
 
-Optimalizační technika nazvaná *copy elision* zde umožňuje *eliminovat ono dvojí volání přesouvacího konstruktoru* a inicializačním výrazem `new T(std::forward<Ts>(params)...)` efektivně *zkonstruovat přímo objekt `upi`*. 
+The *copy elision* optimization techinque allows here to *elide/eliminate thost two move constructor calls* and effectively *directly initialize the `upi` object* by the initializataion expression `new T(std::forward<Ts>(params)...)`. 
 
-CAUTION: Tato optimalizace je možná i v případě, že přesouvací (nebo kopírovací) konstruktory *mají vedlejší pozorovatelné efekty*. V takovém případě efektivně *modifikuje pozorovatelné chování programu*.
+CAUTION: This optimization is enabled even in cases where move (or copy) constructors *have observable side effects*. In such cases it effectively *modifies observable behavior of the program*.
 
-Optimalizační technika copy elision má obecně více podob. Podoba aplikovaná výše se nazývá *return value optimization (RVO)*. RVO je:
+Generally, the copy elision optimization technique has multiple forms. The form applied above is called *return value optimization (RVO)*. RVO is:
 
-- *volitelné před standardem {cpp}17*,
-- *povinné od standardu {cpp}17*.
+- *optional until {cpp}17*,
+- *mandatory {cpp}17*.
 
 === Case 2
 
