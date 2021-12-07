@@ -96,7 +96,7 @@ WARNING: This argument disables copy elision only *if its application is not man
 
 == Assignment
 
-Uvažujte následující definici *třídy `X`* umístěnou v *hlavičkovém souboru* `X.h`:
+Consider the following definition of the *class `X`* stored in the `X.h` header file:
 
 [source,c++]
 ----
@@ -112,21 +112,21 @@ struct X
 };
 ----
 
-Implementujte *tři varianty volné funkční šablony `make_X`*, která:
+Implement *three variants of the free function template `make_X`* that:
 
-- na vstupu vezme *libovolný počet argumentů libovolných typů*,
-- *vrátí* objekt typu `X` inicializovaný *konverzním konstruktorem*,
-- kterému jsou *předány veškeré argumenty pomocí techniky perfect forwarding*.
+- takes an *arbitrary number of arguments of any types*,
+- *returns* an object of type `X` initialized by the *converting constructor*
+- to which *all the arguments are perfectly forwarded*.
 
-NOTE: Podobným způsobem pracuje např. funkce `std::make_optional` pro *vytváření objektů typu `std::optional`*.
+NOTE: Similarly, the `std::make_optional` works for *making objects of type `std::optional`*.
 
-Tyto tři varianty budou *odpovídat případům Case 1, Case 2 a Case 3* pro šablonu `make_unique` ukázanou výše. Konkrétně:
+These three variants will *correspond with the Case 1, Case 2, and Case 3 cases* for `make_unique` template shown above. Namely:
 
-- v prvním případě bude vrácen *dočasný objekt* typu `X`.
-- ve druhém případě bude vrácena *lokální proměnná* typu `X`,
-- ve třetím případě bude vrácena *lokální proměnná* typu `X` *„obalená“ voláním funkce `std::move`*.
+- in the first case, a *temporary object* of type `X` will be returned;
+- in the second case, a *local variable* of type `X` will be returned;
+- in the third case, a *local variable* of type `X` *wrapped by the `std::move` call* will be returned.
 
-Všechny 3 varianty *doplňte do hlavičkového souboru `X.h`*, kde jejich „volba“ bude *umožněna definicí symbolů preprocesoru* `CASE1`, `CASE2` a `CASE3`:
+All these 3 variants *put into the `X.h` header file`, where their “choice” will be *enabled by definition of the preprocessor symbols* `CASE1`, `CASE2` and `CASE3`:
 
 [source,c++]
 ----
@@ -154,7 +154,7 @@ X make_X(Ts&&... params) {
 #endif
 ----
 
-=== Testovací program
+=== Test program
 
 Na následujícím testoavcím programu vyzkoušejte, jak se budou *jednotlivé varianty* chovat při *zapnuté a vypnuté optimalizaci copy elision* při *inicializaci objekty typu X*:
 
