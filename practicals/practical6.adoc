@@ -1,0 +1,189 @@
+= Practical 6
+
+*Copy elision*
+
+== Introduction
+
+=== Case 1
+
+Uvažujme následující definici *funkční šalbony `std::make_unique`*:
+
+[source,c++]
+----
+// in std namespace: 
+
+template <typename T, typename... Ts>
+unique_ptr<T> make_unique(Ts&&... params)
+{
+  return unique_ptr<T>(new T(forward<Ts>(params)...));
+}
+----
+
+Otázkou je, zda její použití obnáší nějakou *časovou režii* (_runtime overhead_). Příklad:
+
+[source,c++]
+----
+std::unique_ptr<int> upi { new int(1) };  // option (1)
+auto upi = std::make_unique<int>(1);      // option (2)
+----
+
+V případě (1) vzniká objekt `upi` *přímo pomocí konverzního konstruktoru*. Oproti tomu, v případě (2) je situace složitější:
+
+. Nejprve vzniká *dočasný objekt* pomocí konverzního konstruktoru.
+. Poté je tímto dočasným objektem inicializována *návratová hodnota* pomocí přesouvacího konstruktoru.
+. Návratovou hodnotou je nakonec inicializován *objekt `upi`* pomocí přesouavcího konstruktoru.
+
+Optimalizační technika nazvaná *copy elision* zde umožňuje *eliminovat ono dvojí volání přesouvacího konstruktoru* a inicializačním výrazem `new T(std::forward<Ts>(params)...)` efektivně *zkonstruovat přímo objekt `upi`*. 
+
+CAUTION: Tato optimalizace je možná i v případě, že přesouvací (nebo kopírovací) konstruktory *mají vedlejší pozorovatelné efekty*. V takovém případě efektivně *modifikuje pozorovatelné chování programu*.
+
+Optimalizační technika copy elision má obecně více podob. Podoba aplikovaná výše se nazývá *return value optimization (RVO)*. RVO je:
+
+- *volitelné před standardem {cpp}17*,
+- *povinné od standardu {cpp}17*.
+
+=== Case 2
+
+Jak se změní situace, pokud podobu funkční šablony `std::make_unique` *přepíšeme takto*?
+
+[source,c++]
+----
+template <typename T, typename... Ts>
+unique_ptr<T> make_unique(Ts&&... params)
+{
+  unique_ptr<T> temp{new T(forward<Ts>(params)...)};
+  return temp;
+}
+----
+
+*Bez aplikace optimalizační techniky copy elision* je situace pro případ (2) podobná:
+
+. Nejprve vzniká *pomocná proměnná `temp`* pomocí konverzního konstruktoru.
+. Poté je touto proměnnou inicializována *návratová hodnota* pomocí _přesouvacího konstruktoru_.
+. Návratovou hodnotou je nakonec inicializován *objekt `upi`* pomocí přesouavcího konstruktoru.
+
+CAUTION: Jak je možné, že je návratová hodnota inicializována *přesouvacím konstruktorem*, když inicializační výraz `temp` je *lhodnota*?
+
+Optimializační technika copy elision může být aplikována i na tento případ. Jelikož je inicializační výraz návratové hodnoty pojmenovaná proměnná, nazývá se tato podoba *named return value optimization (NRVO)*. NRVO je:
+
+- *volitelné před standardem C++17*,
+- *volitelné od standardu C++17*.
+
+=== Case 3
+
+Existuje ještě *třetí možnost* jak funkční šablonu `make_unique` implementovat:
+
+[source,c++]
+----
+template <typename T, typename... Ts>
+unique_ptr<T> make_unique(Ts&&... params)
+{
+  unique_ptr<T> temp{new T(forward<Ts>(params)...)};
+  return std::move(temp);  // "make rvalue" from temp
+}
+----
+
+Bez aplikace copy elision je tato varianta *efektivně ekvivalentní s předchozí variantou* (bez `std::move`). Jak se ale bude chovat pokud je *aplikována techinka copy elision*? Ve skutečnosti použití `std::move` této optimalizaci *brání*.
+
+CAUTION: Použití `std::move` pro inicializační výraz návratové hodnoty je zde *špatný z hlediska efektivity*.
+
+=== Kontrola copy elision
+
+- Implemnetace *GCC a Clang* aplikují copy elision i při *vypnutých optimalizacích* pomocí přepínače `-O0`. 
+- Pro deaktivaci copy elision je potřeba použít *speciání přepínač* `-fno-elide-constructors`.
+
+WARNING: Tento přepínač deaktivuje copy elision pouze *pokud její aplikace není povinná*. To nastává v *určitých případech od {cpp}17*.
+
+== Zadání
+
+Uvažujte následující definici *třídy `X`* umístěnou v *hlavičkovém souboru* `X.h`:
+
+[source,c++]
+----
+struct in_place_t { };
+
+struct X
+{
+  template <typename... Ts>
+  X(in_place_t, Ts&&...) { }  // converting-forwarding constructor
+  
+  X(const X&) { std::cout << "(CC)"; }  // copy constructor
+  X(X&&) { std::cout << "(MC)"; }       // move constructor
+};
+----
+
+Implementujte *tři varianty volné funkční šablony `make_X`*, která:
+
+- na vstupu vezme *libovolný počet argumentů libovolných typů*,
+- *vrátí* objekt typu `X` inicializovaný *konverzním konstruktorem*,
+- kterému jsou *předány veškeré argumenty pomocí techniky perfect forwarding*.
+
+NOTE: Podobným způsobem pracuje např. funkce `std::make_optional` pro *vytváření objektů typu `std::optional`*.
+
+Tyto tři varianty budou *odpovídat případům Case 1, Case 2 a Case 3* pro šablonu `make_unique` ukázanou výše. Konkrétně:
+
+- v prvním případě bude vrácen *dočasný objekt* typu `X`.
+- ve druhém případě bude vrácena *lokální proměnná* typu `X`,
+- ve třetím případě bude vrácena *lokální proměnná* typu `X` *„obalená“ voláním funkce `std::move`*.
+
+Všechny 3 varianty *doplňte do hlavičkového souboru `X.h`*, kde jejich „volba“ bude *umožněna definicí symbolů preprocesoru* `CASE1`, `CASE2` a `CASE3`:
+
+[source,c++]
+----
+#ifdef CASE1
+
+template <typename... Ts>
+X make_X(Ts&&... params) {
+  // ... to be implemented
+}
+
+#elif defined CASE2
+
+template <typename... Ts>
+X make_X(Ts&&... params) {
+  // ... to be implemented
+}
+
+#elif defined CASE3
+
+template <typename... Ts>
+X make_X(Ts&&... params) {
+  // ... to be implemented
+}
+
+#endif
+----
+
+=== Testovací program
+
+Na následujícím testoavcím programu vyzkoušejte, jak se budou *jednotlivé varianty* chovat při *zapnuté a vypnuté optimalizaci copy elision* při *inicializaci objekty typu X*:
+
+[source,c++]
+----
+#include <iostream>
+#include "X.h"
+
+int main()
+{
+  int i = 1;
+  auto x = make_X(i, true);
+  std::cout << std::endl;
+}
+----
+
+IMPORTANT: Z důvodu nemožnosti deaktivovat RVO v {cpp}17 *použijte pro testování standard {cpp}11 nebo {cpp}14*. U implementací *GCC a Clang* k tomu slouží *přepínače* `pass:[-std=c++14]` a `pass:[-std=c++17]`.
+
+Dále *zdůvodněte*, proč se v případě Case 2 *použije pro inicializaci návratové hodnoty přesouvací a nikoliv kopírovací konstruktor*. Zdůvodnění hledejte v *aktuálním draftu standardu {cpp}*, konkrétně v části *[class.copy.elison]*; odkaz: http://eel.is/c++draft/class.copy.elision.
+
+== Odevzdání
+
+* Implementaci *všech tří verzí funkční šablony `make_X`* proveďte v rámci *hlavičkového souboru `X.h`* umístěného v *kořenovém adresáři větve _practical6_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*. 
+* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical6_ do větve _master_* v rámci vašeho projektu.
+* *Výstup testovacího programu* pro *všechny tři varianty funkční šablony `make_X`* pro *vypnutou i zapnutou aplikaci copy elision* zkopírujte do *popisu (description) k vytvořenému požadavku merge request*.
+* Dále do tohoto popisu uveďte *zdůvodnění* použití *přesouvacího konstruktoru* v případě Case 2.
+* *Termín pro odevzdání* je *konec týdne, ve kterém cvičení probíhá* (cvičení, které máte zapsané dle rozvrhu).
+
+== Testování
+
+* Testovací program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
+* Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/qexMjxnr4.
