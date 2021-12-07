@@ -71,7 +71,7 @@ The copy elision optimization technique can be applied in this case as well. Sin
 
 === Case 3
 
-Existuje ještě *třetí možnost* jak funkční šablonu `make_unique` implementovat:
+There is a *third option* how to implement the function template`make_unique`:
 
 [source,c++]
 ----
@@ -83,18 +83,18 @@ unique_ptr<T> make_unique(Ts&&... params)
 }
 ----
 
-Bez aplikace copy elision je tato varianta *efektivně ekvivalentní s předchozí variantou* (bez `std::move`). Jak se ale bude chovat pokud je *aplikována techinka copy elision*? Ve skutečnosti použití `std::move` této optimalizaci *brání*.
+Without the application of copy elision is this form *effectively equivalent with the previous form* (without `std::move`). But what if copy elision is applied? Then, the use of `std::move` in fact *hinders* this optimization.
 
-CAUTION: Použití `std::move` pro inicializační výraz návratové hodnoty je zde *špatný z hlediska efektivity*.
+CAUTION: The use of `std::move` for initialization of the return value is here *wrong from the perspective of efficiency*.
 
-=== Kontrola copy elision
+=== Copy elision control
 
-- Implemnetace *GCC a Clang* aplikují copy elision i při *vypnutých optimalizacích* pomocí přepínače `-O0`. 
-- Pro deaktivaci copy elision je potřeba použít *speciání přepínač* `-fno-elide-constructors`.
+- The *GCC a Clang* implementations do apply copy elision even when *optimizations are disable* by the `-O0` compiler command line argument. 
+- To disable copy elision, one needs to use a *special command line argument* `-fno-elide-constructors`.
 
-WARNING: Tento přepínač deaktivuje copy elision pouze *pokud její aplikace není povinná*. To nastává v *určitých případech od {cpp}17*.
+WARNING: This argument disables copy elision only *if its application is not mandatory*. This happens *in some cases since {cpp}17*.
 
-== Zadání
+== Assignment
 
 Uvažujte následující definici *třídy `X`* umístěnou v *hlavičkovém souboru* `X.h`:
 
