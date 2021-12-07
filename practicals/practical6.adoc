@@ -171,7 +171,7 @@ int main()
 }
 ----
 
-IMPORTANT: For the reason of the inability to disable RVO in {cpp}17, *use for testing either {cpp}11 or {cpp14}*. With the *GCC and Clang* implementations, this can be accomplished by the `pass:[-std=c++14]` and `pass:[-std=c++17]` command line arguments.
+IMPORTANT: For the reason of the inability to disable RVO in {cpp}17, *use for testing either {cpp}11 or {cpp}14*. With the *GCC and Clang* implementations, this can be accomplished by the `pass:[-std=c++14]` and `pass:[-std=c++17]` command line arguments.
 
 Then, *explain* why in the Case 2 *the move constructor instead of the copy constructor is used for initialization of the return value*. Look for the explanation in the *actual {cpp} draft standard*, namely in its part *[class.copy.elison]*; link: http://eel.is/c++draft/class.copy.elision.
 
