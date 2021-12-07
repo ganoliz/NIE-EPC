@@ -156,7 +156,7 @@ X make_X(Ts&&... params) {
 
 === Test program
 
-Na následujícím testoavcím programu vyzkoušejte, jak se budou *jednotlivé varianty* chovat při *zapnuté a vypnuté optimalizaci copy elision* při *inicializaci objekty typu X*:
+With the following test program, show how *particular variatns* will behave with *enabled and disabled copy elision optimization technique* when an *object of type `X`* is initialized.
 
 [source,c++]
 ----
@@ -171,11 +171,11 @@ int main()
 }
 ----
 
-IMPORTANT: Z důvodu nemožnosti deaktivovat RVO v {cpp}17 *použijte pro testování standard {cpp}11 nebo {cpp}14*. U implementací *GCC a Clang* k tomu slouží *přepínače* `pass:[-std=c++14]` a `pass:[-std=c++17]`.
+IMPORTANT: For the reason of the inability to disable RVO in {cpp}17, *use for testing either {cpp}11 or {cpp14}*. With the *GCC and Clang* implementations, this can be accomplished by the `pass:[-std=c++14]` and `pass:[-std=c++17]` command line arguments.
 
-Dále *zdůvodněte*, proč se v případě Case 2 *použije pro inicializaci návratové hodnoty přesouvací a nikoliv kopírovací konstruktor*. Zdůvodnění hledejte v *aktuálním draftu standardu {cpp}*, konkrétně v části *[class.copy.elison]*; odkaz: http://eel.is/c++draft/class.copy.elision.
+Then, *explain* why in the Case 2 *the move constructor instead of the copy constructor is used for initialization of the return value*. Look for the explanation in the *actual {cpp} draft standard*, namely in its part *[class.copy.elison]*; link: http://eel.is/c++draft/class.copy.elision.
 
-== Odevzdání
+== Submission
 
 * Implementaci *všech tří verzí funkční šablony `make_X`* proveďte v rámci *hlavičkového souboru `X.h`* umístěného v *kořenovém adresáři větve _practical6_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*. 
 * Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical6_ do větve _master_* v rámci vašeho projektu.
