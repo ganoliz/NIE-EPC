@@ -177,13 +177,13 @@ Then, *explain* why in the Case 2 *the move constructor instead of the copy cons
 
 == Submission
 
-* Implementaci *všech tří verzí funkční šablony `make_X`* proveďte v rámci *hlavičkového souboru `X.h`* umístěného v *kořenovém adresáři větve _practical6_* vašeho *předmětového projektu/repozitáře* na *fakultní instanci GitLab*. 
-* Odezvdání realizujte formou *vytvoření požadavku _merge request_*, a to *z větve _practical6_ do větve _master_* v rámci vašeho projektu.
-* *Výstup testovacího programu* pro *všechny tři varianty funkční šablony `make_X`* pro *vypnutou i zapnutou aplikaci copy elision* zkopírujte do *popisu (description) k vytvořenému požadavku merge request*.
-* Dále do tohoto popisu uveďte *zdůvodnění* použití *přesouvacího konstruktoru* v případě Case 2.
-* *Termín pro odevzdání* je *konec týdne, ve kterém cvičení probíhá* (cvičení, které máte zapsané dle rozvrhu).
+* Your implementation of *all three variants of the function template `make_X`* put into the *`X.h` header file* located in the *root folder of the _practical6_ branch* of your *course project/repository* on *the faculty GitLab instance*.
+* Register the submission by *creating the _merge request_*, namely *from the _practical6_ branch into the _master_ branch* inside your project.
+* Copy the *output of the test program* for *all the three variants of `make_X`* and both *disabled and enabled application of copy elision* into the *description text filed of the merge request*.
+* Put into this desription the *explanation* for the *use of the move constructor* in Case 2.
+* *The deadline for submission* is the *end of the week after the week with your practical class* (according to your time table).
 
-== Testování
+== Testing
 
-* Testovací program bude *součástí vašeho projektu/repozitáře* a bude *automaticky přeložen a spouštěn při každé změně* v souborech ze zdrojovým kódem.
-* Odkaz na šablonu projektu s testovacím programem do online IDE Godbolt: https://godbolt.org/z/qexMjxnr4.
+* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
+* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/qexMjxnr4.
