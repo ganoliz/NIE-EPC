@@ -44,7 +44,7 @@ Generally, the copy elision optimization technique has multiple forms. The form 
 
 === Case 2
 
-Jak se změní situace, pokud podobu funkční šablony `std::make_unique` *přepíšeme takto*?
+How the situation changes if we *rewrite* the function template `std::make_unique` *as follows*?
 
 [source,c++]
 ----
@@ -56,18 +56,18 @@ unique_ptr<T> make_unique(Ts&&... params)
 }
 ----
 
-*Bez aplikace optimalizační techniky copy elision* je situace pro případ (2) podobná:
+*Without application of copy elision*, the situation for case (2) is similar:
 
-. Nejprve vzniká *pomocná proměnná `temp`* pomocí konverzního konstruktoru.
-. Poté je touto proměnnou inicializována *návratová hodnota* pomocí _přesouvacího konstruktoru_.
-. Návratovou hodnotou je nakonec inicializován *objekt `upi`* pomocí přesouavcího konstruktoru.
+. First, the *temporary variable `temp`* is initialized by the converting constructor.
+. The, the *return value* is initialized from `temp` by the _move constructor_.
+. Finally, the *`upi` object* is initialized from the return value by the move constructor.
 
-CAUTION: Jak je možné, že je návratová hodnota inicializována *přesouvacím konstruktorem*, když inicializační výraz `temp` je *lhodnota*?
+CAUTION: How is it possible that the return value is initialized by the *move constructor* when the value cateogry of the initialization expression `temp` is *lvalue*?
 
-Optimializační technika copy elision může být aplikována i na tento případ. Jelikož je inicializační výraz návratové hodnoty pojmenovaná proměnná, nazývá se tato podoba *named return value optimization (NRVO)*. NRVO je:
+The copy elision optimization technique can be applied in this case as well. Since the initialization expression of the return value is a named variable, this form of copy elision is called *named return value optimization (NRVO)*. NRVO is:
 
-- *volitelné před standardem C++17*,
-- *volitelné od standardu C++17*.
+- *optional until C++17*,
+- *optional since C++17*.
 
 === Case 3
 
