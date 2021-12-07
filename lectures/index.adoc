@@ -56,8 +56,8 @@
 
 |11.
 |Exception safety, allocators, small buffer optimization, empty base optimization, type erasure
-|
-//|link:epc_lecture_11_cz_2020.pdf[epc_lecture_11_cz_2020.pdf]
+|link:PDFs/epc_lecture_11_en_2021.pdf[epc_lecture_11_en_2021.pdf]
+ link:PDFs/epc_lecture_11_en_2021_handouts.pdf[epc_lecture_11_en_2021_handouts.pdf]
 
 |12.
 |Type erasure, std::function, any, variant, CRTP, swap, ADL
