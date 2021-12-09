@@ -33,14 +33,14 @@ In case (1), the object `upi` is initialized *directly by the converting constru
 . Then, the *return value* is initialized from that temporary object by the move constructor.
 . Finally, the *object `upi`* is initialized from the return value by the move constructor.
 
-The *copy elision* optimization techinque allows here to *elide/eliminate thost two move constructor calls* and effectively *directly initialize the `upi` object* by the initializataion expression `new T(std::forward<Ts>(params)...)`. 
+The *copy elision* optimization techinque allows here to *elide/eliminate those two move constructor calls* and effectively *directly initialize the `upi` object* by the initializataion expression `new T(std::forward<Ts>(params)...)`. 
 
 CAUTION: This optimization is enabled even in cases where move (or copy) constructors *have observable side effects*. In such cases it effectively *modifies observable behavior of the program*.
 
 Generally, the copy elision optimization technique has multiple forms. The form applied above is called *return value optimization (RVO)*. RVO is:
 
 - *optional until {cpp}17*,
-- *mandatory {cpp}17*.
+- *mandatory since {cpp}17*.
 
 === Case 2
 
@@ -71,7 +71,7 @@ The copy elision optimization technique can be applied in this case as well. Sin
 
 === Case 3
 
-There is a *third option* how to implement the function template`make_unique`:
+There is a *third option* how to implement the function template `make_unique`:
 
 [source,c++]
 ----
@@ -126,7 +126,7 @@ These three variants will *correspond with the Case 1, Case 2, and Case 3 cases*
 - in the second case, a *local variable* of type `X` will be returned;
 - in the third case, a *local variable* of type `X` *wrapped by the `std::move` call* will be returned.
 
-All these 3 variants *put into the `X.h` header file`, where their “choice” will be *enabled by definition of the preprocessor symbols* `CASE1`, `CASE2` and `CASE3`:
+All these 3 variants *put into the `X.h` header file`*, where their “choice” will be *enabled by definition of the preprocessor symbols* `CASE1`, `CASE2` and `CASE3`:
 
 [source,c++]
 ----
