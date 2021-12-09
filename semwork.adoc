@@ -2,6 +2,8 @@
 
 == News
 
+* [9.12.2021] Link to the test program #8: https://godbolt.org/z/vb9v93W5K. Testing *swapping content with value type from custom namespace and with custom `swap` function*.
+* [9.12.2021] Link to the test program #7: https://godbolt.org/z/5nzqhjs78. Testing *swapping content with value type without a custom `swap` function*.
 * [30.11.2021] *Submission deadline* for the semestr project was extended to *Sunday, December the 26th* (included).
 * [25.11.2021] Link to the test program #6: https://godbolt.org/z/c5We3dKxo. Testing *move assignment operator*.
 * [15.11.2021] Link to the test program #5: https://godbolt.org/z/P98G5sbcY. Testing *copy assignment operator*.
