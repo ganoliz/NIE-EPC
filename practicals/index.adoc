@@ -18,5 +18,6 @@
   xref:practical5#[Assignment operators]
 
 | 5.
+| xref:practical6#[Copy elision]
 
 |===
