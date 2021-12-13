@@ -36,7 +36,16 @@ WARNING: *50 points at maximum* can be gained from the final course exam. To suc
 
 === Exam form
 
-NOTE: The form of the final exam and instructions for its passing will be provided before the start of the semester exam period.
+. The exam will take place in a *computer lab* and its form will consists of a *written test* followed by an *optional individual meeting*.
+. Students are supposed to perform the exam *individualy with the help of below enumerated tools*.
+. During elaboration of the test, students may use a *university computer (only university, not own)* with the preset OS image. In this image, a *{cpp} development environment* and a *web browser* will be available.
+. Except this university computer, students are not allowed to use *any other electronic devices*.
+. The web browser may be used exclusively for the purpose of *finding information and testing code* (searching, reading documentation, reference manuals, standards, discussion forums, lecture slides and video recordings, using online IDE, etc.).
+. Any *“offline” materials* are allowed as well (lecture notes, literature, etc.).
+. During exam, it is *strictly forbidden to communicate with other persons* (phone, SMS, social networks, e-mail, chat, etc.) including asking questions in discussion forums and similar services with the purpose of getting answers from another person.
+. Also, *any form of sharing information regarding exam problems and their solutions* (cloud services, publishing files, etc.) is forbidden.
+
+IMPORTANT: Violation of these rules will result in exam classification F.
 
 == Conditions for successful passing the course
 
