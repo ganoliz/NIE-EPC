@@ -26,9 +26,12 @@ Teaching period classification consists of:
 
 === Assessment requirements
 
+////
 . Active work in practical classes (submission of solutions of programming problem assignments).
 . Submission of the solution of the semester project.
 . *Their classification of 25 points at minimum.*
+////
+- *Classification of 25 points at minimum* from the submitted solutoins of the programming problems and the semestr project.
 
 == Exam and requirements for its passing
 
