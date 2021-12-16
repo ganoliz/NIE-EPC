@@ -2,7 +2,7 @@
 
 == News
 
-* [15.12.2021] Link to the *final summary test program*: https://godbolt.org/z/W7zYzj8Ks.
+* [15.12.2021] Link to the *final summary test program*: https://godbolt.org/z/dWf1T7vvq.
 * [13.12.2021] Link to the test program #9: https://godbolt.org/z/aYGrnTGe9. Testing *functions `emplace`, `reset` and operators for accessing the value*.
 * [9.12.2021] Link to the test program #8: https://godbolt.org/z/vb9v93W5K. Testing *swapping content with value type from custom namespace and with custom `swap` function*.
 * [9.12.2021] Link to the test program #7: https://godbolt.org/z/5nzqhjs78. Testing *swapping content with value type without a custom `swap` function*.
