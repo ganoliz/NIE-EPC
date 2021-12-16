@@ -21,7 +21,7 @@ Teaching period classification consists of:
 === Semester project
 
 . Semester project problem will be assigned in *first practical class*.
-. Deadline for solution submission is *at the end of the last teaching week in the semester, namely on Sunday, December 19th (included)*.
+. Deadline for solution submission is [.line-through]#*at the end of the last teaching week in the semester, namely on Sunday, December 19th*# *Sunday, December the 26th* (included).
 . Semester project will be awarded by *20 points* at maximum.
 
 === Assessment requirements
