@@ -2,6 +2,7 @@
 
 == News
 
+* [17.12.2021] *Section <<_classification,Classification>>* below was updated *according to the final test program*.
 * [15.12.2021] Link to the *final summary test program*: https://godbolt.org/z/xP7nMbbzb.
 * [13.12.2021] Link to the test program #9: https://godbolt.org/z/aYGrnTGe9. Testing *functions `emplace`, `reset` and operators for accessing the value*.
 * [9.12.2021] Link to the test program #8: https://godbolt.org/z/vb9v93W5K. Testing *swapping content with value type from custom namespace and with custom `swap` function*.
@@ -88,9 +89,74 @@ WARNING: The *final submission* is considered to be the *version of the `optiona
 == Classification
 
 * For classification, *test programs* will be used, which will verify correctness and functionality of the submitted solution.
-* In case that *it will not be possible to compile* the submitted solution (its compilation will result in errors), the classification will be *based on _“code review”_ (that is, based on code visual examination).
+* In case that *it will not be possible to compile* the submitted solution (its compilation will result in errors), the classification will be *based on _“code review”_* (that is, based on code visual examination).
 ** In such a case, there is *no possibility to define objective criteria for points assessment*, and this will be made *on subjective basis without any point guarantees*.
 * Otherwise, the point assessment will stem from the *success rate of the submitted solution with respect to the test programs set*.
+
+---
+
+The test program contains *10 test cases* in total where each one is defined by the `BOOST_AUTO_TEST_CASE` macro. Each test case *tests the selected functionality* and according to its complexity, the *classification points* from the following table are assigned to it:
+
+[cols="2,5,3" options="header"]
+|===
+| Order | Test case | Classification points
+
+| 1.
+| `empty_optional_test` 
+| 1
+
+| 2.
+| `default_constructor_test` 
+| 1
+
+| 3.
+| `converting_constructor_test` 
+| 2
+
+| 4.
+| `included_storage_test` 
+| 2
+
+| 5.
+| `emplace_reset_test` 
+| 2
+
+| 6.
+| `copy_constructor_test` 
+| 1
+
+| 7.
+| `move_constructor_test` 
+| 1
+
+| 8.
+| `copy_assignment_test` 
+| 3
+
+| 9.
+| `move_assignment_test` 
+| 3
+
+| 10.
+| `swap_test` 
+| 4
+
+|===
+
+NOTE: The total amount of points *corresponds with the maximum number of classification points* for the semester project, that is, 20 points.
+
+*The final classification* of the semestr work will be evaluated according to the *following rules*:
+
+- Each test case *consists of multiple tests* (defined by the `BOOST_TEST` macro).
+- If *any of these tests fails*, then the *points for that test case will not be assigned*.
+- In some cases, their *partial amount may be assigned* based on the *severity of the failure causes*.
+
+[IMPORTANT]
+====
+- In case that *no severe errors will be found* in the submitted implementation, the *final classification* will correspond with the *sum of the points awarded for individual test cases*.
+- If some *severe errors will be found*, the final classification will be *shortened according the their severity*.
+- An example of such errors is, for instance, resulting *undefined behavior*, which, genereally, *cannot be revealed by tests*.
+====
 
 == Application programming interface (API)
 
