@@ -6,31 +6,17 @@
 
 == Teaching period and assessment award requirements
 
-Teaching period classification consists of:
-
-. classification of *5 programming problems* assigned in practical classes,
-. classification of the *semester project/work*.
+Teaching period classification consists of the classification of *5 programming problems* assigned in practical classes.
 
 === Programming problem assignments
 
-. *Programming problems* will be assigned to students in the 2nd, 3rd, 4th, 5th, and 6th class.
+. *Programming problems* will be assigned to students in the 1st, 2nd, 3rd, 4th, and 5th.
 . The deadline for the submission of inidividual student solutions will be *specified on the corresponding practical class page*.
-. Each submitted solution will be awarded by *6 classification points* at maximum.
-. In total, each student can gain up to *30 points* with respect to problem assignments.
-
-=== Semester project
-
-. Semester project problem will be assigned in *first practical class*.
-. Deadline for solution submission is [.line-through]#*at the end of the last teaching week in the semester, namely on Sunday, December 19th*# *Sunday, December the 26th* (included).
-. Semester project will be awarded by *20 points* at maximum.
+. Each submitted solution will be awarded by *10 classification points* at maximum.
+. In total, each student can gain up to *50 points* with respect to problem assignments.
 
 === Assessment requirements
 
-////
-. Active work in practical classes (submission of solutions of programming problem assignments).
-. Submission of the solution of the semester project.
-. *Their classification of 25 points at minimum.*
-////
 - *Classification of 25 points at minimum* from the submitted solutoins of the programming problems and the semestr project.
 
 == Exam and requirements for its passing
