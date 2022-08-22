@@ -2,7 +2,7 @@
 
 [cols="1,5" options="header"]
 |===
-| Class | Problem assignment
+| Class | Contents
 
 | 1.
 // | xref:practical1#[]
