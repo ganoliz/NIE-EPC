@@ -1,10 +1,10 @@
 = Practical 1
 
-**`vector` and `new[] expression`: Implementation of a simple form of a vector class with the `new[]` expression; how `vector` is not supposed to be implemented.**
+**`vector` and `new[] expression`: Implementation of a simple form of a vector class with the `new[]` expression — how `vector` is not supposed to be implemented.**
 
-== Zadání
+== Assignment
 
-Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a proveďte měření její efektivity:
+Implement the class template `vector` in the `epc` namespace with the following interface and measure its efficiency:
 
 [source,c++]
 ----
@@ -32,42 +32,42 @@ public:
 };
 ----
 
-<1> Výchozí konstruktor
-<2> Kopírovací konstruktor
-<3> Kopírovací přiřazovací operátor
-<4> Destruktor
-<5> Ukazatel na první prvek
-<6> Reference na požadovaný prvek
-<7> Vložení prvku 
-<8> Informace o kapacitě
-<9> Informace o počtu prvků
+<1> Default constructor
+<2> Copy constructor
+<3> Copy assignment operator
+<4> Destructor
+<5> Pointer to first element
+<6> Reference to desired element
+<7> Element insertion
+<8> Information about capacity
+<9> Information about number of elements
 
-NOTE: Podrobné informace o rozhraní jsou uvedeny v následující sekci.
+NOTE: Details about the interface are in the following section.
 
-== Aplikační programové rozhraní (API)
+== Application programming interface (API)
 
-=== Šablonové parametry
+=== Template parameters
 
-* `T` — *hodnotový typ (_value type_)*.
+* `T` — *value type*.
 
-=== Konstruktory a destruktor
+=== Constructors and destructor
 
-* `vector()` — *výchozí konstruktor*.
-** Nastaví vektor do prázdného stavu, tj. stavu, kdy neobsahuje žádné prvky a jeho kapacita je nulová.
-** Nesmí vyhodit výjimku.
+* `vector()` — *default constructor*.
+** Sets a vector into the empty state, i.e., state, where it does not contain any elements and its capacity is zero.
+** Must not throw an exception.
 
-IMPORTANT: Z výše uvedeného požadavku vyplývá, že výchozí konstruktor nesmí vytvářet žádné objekty hodnotového typu ani alokovat paměť.
+IMPORTANT: From the above requirements, it implies that the default constructor may not create any objects of the value type nor allocate memory.
 
-* `vector(const vector&)` — *kopírovací konstruktor*.
-** Kopírovací konstruktor je definovaný jako zakázaný (_deleted_).
+* `vector(const vector&)` — *copy constructor*.
+** Copy constructor is defined as deleted.
 
-* `operator=(const vector&)` — *kopírovací přiřazovací operátor*.
-** Kopírovací přiřazovací operátor je definovaný jako zakázaný (_deleted_).
+* `operator=(const vector&)` — *copy assignment operator*.
+** Copy assignment operator is defined as deleted.
 
-NOTE: Explicitní zakázání výše uvedených speciálních členských funkcí zabrání automatickému generování přesouvacího konstruktoru a přesouvacího přiřazovacího operátoru.
+NOTE: Explicit deletion of the above-mentioned special member functions supresses the generation of the move constructor and the move assignment operator.
 
-* `~vector()` — *destruktor*. 
-** V případě potřeby destruuje všechny prvky vektoru a dealokuje alokovanou paměť.
+* `~vector()` — *destructor*. 
+** If needed, destructs all the vector elements and deallocates memory.
 
 === Přístup k prvkům
 
