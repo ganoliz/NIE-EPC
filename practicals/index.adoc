@@ -47,4 +47,29 @@
 
 WARNING: The following rules apply if not said otherwise on the page for a particular practical class.
 
+=== Testing 
+
+* A part of the relevant project branch may be a test program, which will verify the functionality of the submitted solution.
+* In such a case, this program is automatically built and run by the GitLab _CI/CD_ after each update of the project branch content.
+* The results of the test program run is accessible via the GitLab _CI/CD jobs/pipelines_.
+
+[NOTE]
+====
+* The test programs can be used for the verification of the functionality also outside of the GitLab system.
+* These programs are build upon the _Boost.Test_ test library, which is required for building and execution.
+* On the classroom computers, this library is available in the Linux environment.
+====
+
+=== Performance/efficiency measurements
+
+* A part of the relevant project branch may be a benchmark program (programs), which serves for the measurement of efficiency of the submitted solution.
+* For the final measurements, this program is required to be build and run on the classroom computers in the Linux environment.
+
+NOTE: A reason behind this requirement is the homogenous hardware on classroom computers, which allows comparing solutions submitted by different students among themselves.
+
+[NOTE]
+====
+* Benchmark programs for measurement of efficiency of solutions are based on the Google Benchmark library, which is required for building and execution.
+* On the classroom computers, this library is available in the Linux environment.
+====
 
