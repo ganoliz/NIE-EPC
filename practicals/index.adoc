@@ -5,27 +5,33 @@
 | Class | Contents
 
 | 1.
-// | xref:practical1#[]
-|
+| xref:practical1#[vector and new expression]
 
 | 2.
 // | xref:practical2#[]
 |
 
 | 3. 
-// | xref:practical3#[]
 |
+// | xref:practical3#[]
+
 
 | 4.
-// | xref:practical4#[] 
 |
+// | xref:practical4#[] 
+
 
 | 5.
-// | xref:practical5#[]
 |
+// | xref:practical5#[]
+
 
 | 6.
-// | xref:practical6#[]
 |
+// | xref:practical6#[]
+
 
 |===
+
+== Generic rules
+
