@@ -1,0 +1,187 @@
+= Practical 1
+
+**`vector` and `new[] expression`: Implementation of a simple form of a vector class with the `new[]` expression; how `vector` is not supposed to be implemented.**
+
+== Zadání
+
+Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a proveďte měření její efektivity:
+
+[source,c++]
+----
+template <typename T>
+class vector
+{
+public:
+  vector() noexcept; // <1>
+
+  vector(const vector&) = delete; // <2>
+  vector& operator=(const vector&) = delete; // <3>
+
+  ~vector(); // <4>
+
+  T* data(); // <5>
+  const T* data() const; // <5>
+
+  T& operator[](size_t); // <6>
+  const T& operator[](size_t) const; // <6>
+
+  void push_back(const T&); // <7>
+
+  size_t capacity() const; // <8>
+  size_t size() const; // <9>
+};
+----
+
+<1> Výchozí konstruktor
+<2> Kopírovací konstruktor
+<3> Kopírovací přiřazovací operátor
+<4> Destruktor
+<5> Ukazatel na první prvek
+<6> Reference na požadovaný prvek
+<7> Vložení prvku 
+<8> Informace o kapacitě
+<9> Informace o počtu prvků
+
+NOTE: Podrobné informace o rozhraní jsou uvedeny v následující sekci.
+
+== Aplikační programové rozhraní (API)
+
+=== Šablonové parametry
+
+* `T` — *hodnotový typ (_value type_)*.
+
+=== Konstruktory a destruktor
+
+* `vector()` — *výchozí konstruktor*.
+** Nastaví vektor do prázdného stavu, tj. stavu, kdy neobsahuje žádné prvky a jeho kapacita je nulová.
+** Nesmí vyhodit výjimku.
+
+IMPORTANT: Z výše uvedeného požadavku vyplývá, že výchozí konstruktor nesmí vytvářet žádné objekty hodnotového typu ani alokovat paměť.
+
+* `vector(const vector&)` — *kopírovací konstruktor*.
+** Kopírovací konstruktor je definovaný jako zakázaný (_deleted_).
+
+* `operator=(const vector&)` — *kopírovací přiřazovací operátor*.
+** Kopírovací přiřazovací operátor je definovaný jako zakázaný (_deleted_).
+
+NOTE: Explicitní zakázání výše uvedených speciálních členských funkcí zabrání automatickému generování přesouvacího konstruktoru a přesouvacího přiřazovacího operátoru.
+
+* `~vector()` — *destruktor*. 
+** V případě potřeby destruuje všechny prvky vektoru a dealokuje alokovanou paměť.
+
+=== Přístup k prvkům
+
+* `data()` — *ukazatel na první prvek*.
+** Pokud vektor obsahuje nějaké prvky, vrací ukazatel na první z nich. 
+** [.line-through]#V opačném případě způsobí nedefinované chování.#
+** V opačném případě vrátí nulový ukazatel.
+
+NOTE: Funkce existuje ve dvou variantách, tj. jako _(nekonstantní) členská funkce_ a _konstantní členská funkce_.
+
+* `operator[]` — *refernce na požadovaný prvek*.
+** Pokud vektor obsahuje prvek s indexem `i`, vrátí referenci, která je na něj navázána.
+** V opačném případě způsobí nedefinované chování.
+
+NOTE: Operátor existuje ve dvou variantách, tj. jako _(nekonstantní) členská funkce_ a _konstantní členská funkce_.
+
+=== Informace o vektoru
+
+* `capacity()` — *informace o kapacitě*.
+** Vrátí informaci o kapacitě vektoru, tj. velikosti pole naposledy alokovaného pomocí výrazu `new[]` v rámci funkce `push_back`.
+
+* `size()` — *informace o počtu prvků*.
+** Vrátí informaci o velikosti vektoru, tj. počtu prvků, které do něj byly vloženy pomocí funkce `push_back`.
+
+=== Vložení prvků
+
+* `push_back(const T& value)` — *vložení prvku*.
+** Vloží na konec vektoru kopii objektu, na který je navázána reference `value`.
+** Pokud je před přidáním prvku velikost vektoru rovna jeho kapacitě, je nejprve (před vložením kopie prvku) potřeba kapacitu navýšit pomocí tzv. „realokace“. Ta probíhá v následících krocích:
+... Je alokováno nové dynamické pole objektů hodnotového typu pomocí výrazu `new T[n]`, kde `n` je obecně rovno dvojnásobku stávající kapacity. Pouze v případě, že je stávající kapacita nulová, je `n` nastaveno na hodnotu 1.
+... Stávající prvky jsou zkopírovány z původního pole do nově alokovaného pole pomocí kopírovacího přiřazovacího operátoru.
+... Stávající pole je korektně uvolněno/dealokováno pomocí výrazu `delete[]`.
+... Interní proměnné vektoru jsou přenastaveny tak, aby stav odopvídal novému poli a nové kapacitě vektoru.
+
+[NOTE]
+====
+Takováto forma vektoru a jeho realokace vychází z popisu implementace dynamického pole v rámci předmětu BI-PA2. Kopie příslušného slajdu z přednášek předmětu, který se týká funkce `push_back`:
+
+image::images/pa2_l04_p44.png[width=600,align="center"]
+====
+
+CAUTION: V ukázané implementaci je kapacita navyšována jinak, než vyžadují výše uvedené požadavky pro rozhraní třídní šablony `epc::vector`.
+
+[WARNING]
+====
+* Ukázaná implementace vůbec neřeší výjimky.
+* Korektní ošetřování výjimek při implemnetaci vektoru bude předmětem dalších cvičení; zde ho řešit nemusíte.
+==== 
+
+== Požadavky na implementaci
+
+* Implementaci proveďte v rámci jediného hlavičkového souboru `vector.h`.
+* Pro implemntaci použijte standard {cpp}11 nebo novější.
+
+[WARNING]
+====
+* Volba standardu musí umožnit překlad testovacího a měřícího programu.
+* Testovací program se překládá automaticky v rámci systému GitLab pomocí implementace GCC verze 11 v prostředí Alpine Linux verze 3.16.
+* Měřící program je nutné přeložit na učebnových počítačích v linuxovém prostředí; dostupné verze překladačů zde lze zjistit příkazy `g{plus}{plus} --version` a `clang{plus}{plus} --version`).
+* Podpora jednotlivých vlastností  standardů různými implementacemi {cpp} viz https://en.cppreference.com/w/cpp/compiler_support či dokumentace k jednotlivým implementacím.
+====
+
+== Řešení
+
+* Řešení zadané úlohy se skládá ze dvou částí:
+.. implementace třídní šablony `epc::vector`,
+.. zprávy z měření efektivity této implementace.
+
+=== Implementace
+
+* Za výsledné řešení se považuje obsah souboru `vector.h` umístěného v kořenovém adresáři větve _practical1_ vašeho předmětového projektu na fakultní instanci GitLab.
+
+NOTE: Větev _practical1_ vašeho projektového adresáře obsahuje předpřipravenou šablonu hlavičkového souboru `vector.h`.
+
+* Za správné řešení je považována přeložitelná a funkční implementace třídní šablony `epc::vector` dle zadání výše.
+* Funkčnost řešení je automaticky testována pomocí testovacího programu.
+* Volbu standardu pro testování lze provést aktualizací souboru `config.mk`.
+
+CAUTION: Ve větvi _practical1_ vašeho předmětového projektu neměňte obsah žádného z existujících souborů s výjimkou souborů `vector.h` a `config.mk`.
+
+=== Měření efektivity
+
+* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
+* Program porovnává na vybraných operacích efektivitu vaší implementace s třemi různými existujícími implementacemi vektorové třídy:
+.. `std::vector` ze standardní knihovy {cpp},
+.. `boost::container::small_vector` z knihovny Boost.Container.
+.. `llvm::SmallVector` z knihovny LLVM ADT.
+* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
+* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
+* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+
+==== Závěrečná zpráva z měření 
+
+* Z výsledků měření efektivity vytvořte jednoduchou závěrečnou zprávu.
+* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
+* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
+* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+
+== Hodnocení
+
+* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
+* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
+
+[IMPORTANT]
+====
+* Udělování bodů v takovém případě nelze kvantifikovat pouze na základě výsledků testů.
+* Místo toho bude provedena revize kódu a body budou uděleny s ohledem na závažnost chyb v implementaci.
+====
+
+* V případě, že překlad i testy dopadnou v pořádku a bude odevzdána zpráva z měření, může bý udělen až maximální počet bodu, tj. 10.
+
+[IMPORTANT] 
+====
+* I v takovém případě se ale může stát, že udělelný počet bodu bude nižší.
+* Obecně nelze korektnost implementace vyhodnotit pouze na základě testů.
+* Pokud při revizi kódu budou zjištěny chyby, bude počet bodů snížen dle jejich závažnosti.
+====
