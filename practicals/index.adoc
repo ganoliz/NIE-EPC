@@ -35,3 +35,16 @@
 
 == Generic rules
 
+* In each of the first five practical classes, there will be assigned a programming task.
+* Solutions of these tasks are supposed to be submitted via the course projects on the faculty GitLab instance.
+* For submission of the _N._ (__N__th) task, there will be a separate branch created in these projects called _practicalN_.
+
+[IMPORTANT]
+====
+* Within the solution of a particular task, always work only with the corresponding project branch.
+* Do not update at all the _master_ branch, i.e., do not create any commits in it.
+====
+
+WARNING: The following rules apply if not said otherwise on the page for a particular practical class.
+
+
