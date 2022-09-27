@@ -73,3 +73,32 @@ NOTE: A reason behind this requirement is the homogenous hardware on classroom c
 * On the classroom computers, this library is available in the Linux environment.
 ====
 
+=== Submissions
+
+* The deadline for submission of the _N._ assignment is the end of the week is which the _(N+1)._ practical class is scheduled.
+* The submission of the solution is performed by creating the _merge request_ from the corresponding branch _practicalN_ into the _master_ branch.
+
+IMPORTANT: If there has been no _merge request_ created before the deadline, the assignment will be classified by 0 points.
+
+* As a final solution are considered:
+** state (content) of the corresponding project branch valid at the time of the _merge request_ creation,
+** the text in the “Description” filed of this _merge request_ (e.g., the performance measurement report).
+
+WARNING: Any additional updates made in the project branch / whole project thereafter may not be considered for assignment evaluation.
+
+IMPORTANT: For verification of the compilability and functionality of the submitted implementation, the outcome of the latest GitLab _CI/CD job_  before the _merge request_ creation is considered.
+
+* By settings of the _merge request_, leave the _Assignee_ field empty (do not assign here anyone particular).
+
+[NOTE]
+====
+* After the evaluation of the submission, the _merge request_ will be closed witout being processed.
+* The creation of the _mrege request_ servers as a message from the student to the teacher about submission of his/her solution.
+* The closing of this requrest servers as a message back from the teacher to the student about the evaluation of the solution.
+====
+
+=== Feedback and discussion
+
+* In case that the amount of evaluated classification points is lower that the maximum and the reason is not obvious (that is, e.g., when the submitted implementation cannot be even compiled), there will be a reason stated in the _merge request_ comment from the teacher.
+* Even after the _merge request_ is closed, any discussion about the submitted solution and its evaluation is possible via comments.
+
