@@ -109,25 +109,26 @@ This form of a vector and its reallocation stems from the description of the imp
 image::images/pa2_l04_p44.png[width=600,align="center"]
 ====
 
-CAUTION: V ukázané implementaci je kapacita navyšována jinak, než vyžadují výše uvedené požadavky pro rozhraní třídní šablony `epc::vector`.
+CAUTION: In the shown implementation, the capacity is extended in a way that does not meet the above-stated requirements for the `epc::vector` class template.
 
 [WARNING]
 ====
-* Ukázaná implementace vůbec neřeší výjimky.
-* Korektní ošetřování výjimek při implemnetaci vektoru bude předmětem dalších cvičení; zde ho řešit nemusíte.
+* The shown implementation does not resolve exceptions at all.
+* The correct exceptions treatement by the vector implementation will be a part of further assignments; it does not need to be resolved here.
 ==== 
 
-== Požadavky na implementaci
+== Requirements for implementation
 
-* Implementaci proveďte v rámci jediného hlavičkového souboru `vector.h`.
-* Pro implemntaci použijte standard {cpp}11 nebo novější.
+* For implementation, use a single header file `vector.h` only.
+* For implementation, use the {cpp}11 standard or newer.
 
 [WARNING]
 ====
-* Volba standardu musí umožnit překlad testovacího a měřícího programu.
-* Testovací program se překládá automaticky v rámci systému GitLab pomocí implementace GCC verze 11 v prostředí Alpine Linux verze 3.16.
-* Měřící program je nutné přeložit na učebnových počítačích v linuxovém prostředí; dostupné verze překladačů zde lze zjistit příkazy `g{plus}{plus} --version` a `clang{plus}{plus} --version`).
-* Podpora jednotlivých vlastností  standardů různými implementacemi {cpp} viz https://en.cppreference.com/w/cpp/compiler_support či dokumentace k jednotlivým implementacím.
+* The choice of the standard needs to enable the compilation of the test and benchmark programs.
+* The test program is built automatically in the GitLab system by using GCC version 11 in the Alpine Linux 3.16 environment.
+* Měřící program je nutné přeložit na učebnových počítačích v linuxovém prostředí; dostupné verze překladačů zde lze zjistit příkazy ).
+* The test program needs to be built on the classroom computers in the Linux environment; the available versions of the compilers may be found by the `g{plus}{plus} --version` and `clang{plus}{plus} --version` commands.
+* For the support of particular features of the standards by different {cpp} implementations, see https://en.cppreference.com/w/cpp/compiler_support or the documentation for particular implementations.
 ====
 
 == Řešení
