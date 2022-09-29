@@ -159,29 +159,30 @@ CAUTION: In the _practical1_ branch of your course project, do not change the co
 * Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
 * To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
 
-==== Závěrečná zpráva z měření 
+==== Efficiency measurement report
 
-* Z výsledků měření efektivity vytvořte jednoduchou závěrečnou zprávu.
-* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
-* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
-* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+* Create a simple report with the results of efficiency measurements.
+* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
+* The report will contained the mesasured time (column “Time”) for all the vector implementations.
+* The report will contain the results obtained for both compilers.
 
-== Hodnocení
+== Classification
 
 * Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
-* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
+* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
+* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
 
 [IMPORTANT]
 ====
-* Udělování bodů v takovém případě nelze kvantifikovat pouze na základě výsledků testů.
-* Místo toho bude provedena revize kódu a body budou uděleny s ohledem na závažnost chyb v implementaci.
+* In such a case, the amount of awarded classification points cannot be set only with accoding to the testing resutls.
+* Instead, the code review will be performed and points will be awarded with respect to the severity of implementation errors.
 ====
 
-* V případě, že překlad i testy dopadnou v pořádku a bude odevzdána zpráva z měření, může bý udělen až maximální počet bodu, tj. 10.
+* In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
 
 [IMPORTANT] 
 ====
-* I v takovém případě se ale může stát, že udělelný počet bodu bude nižší.
-* Obecně nelze korektnost implementace vyhodnotit pouze na základě testů.
-* Pokud při revizi kódu budou zjištěny chyby, bude počet bodů snížen dle jejich závažnosti.
+* Even the, it may happen that the amount of classified points will be lower.
+* In general, it is impossible to evaluate the correcntess of some implementation only by running tests.
+* If some errors will be found during code review, the amount of awarded points will be lowered based on their severity.
 ====
