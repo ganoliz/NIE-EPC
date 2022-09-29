@@ -137,26 +137,27 @@ CAUTION: In the shown implementation, the capacity is extended in a way that doe
 
 === Implementation
 
-* Za výsledné řešení se považuje obsah souboru `vector.h` umístěného v kořenovém adresáři větve _practical1_ vašeho předmětového projektu na fakultní instanci GitLab.
+* As a final solution is considered the content of the `vector.h` file located in the root directory of the _practical1_ branch of your course project on the faculty GitLab instance.
 
-NOTE: Větev _practical1_ vašeho projektového adresáře obsahuje předpřipravenou šablonu hlavičkového souboru `vector.h`.
+NOTE: The _practical1_ branch contains a template of the `vector.h` header file.
 
-* Za správné řešení je považována přeložitelná a funkční implementace třídní šablony `epc::vector` dle zadání výše.
-* Funkčnost řešení je automaticky testována pomocí testovacího programu.
-* Volbu standardu pro testování lze provést aktualizací souboru `config.mk`.
+* As a correct solution is considered compilable and working implementation of the epc::vector` class template according to the above requirements.
+* The functionality of the solution is automatically verified by the test program.
+* The choice of the standard for testing may be done by updating the `config.mk` file.
 
-CAUTION: Ve větvi _practical1_ vašeho předmětového projektu neměňte obsah žádného z existujících souborů s výjimkou souborů `vector.h` a `config.mk`.
+CAUTION: In the _practical1_ branch of your course project, do not change the content of any existing file except `vector.h` and `config.mk`.
 
-=== Měření efektivity
+=== Efficiencny measurements
 
-* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
+* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
 * Program porovnává na vybraných operacích efektivitu vaší implementace s třemi různými existujícími implementacemi vektorové třídy:
-.. `std::vector` ze standardní knihovy {cpp},
-.. `boost::container::small_vector` z knihovny Boost.Container.
-.. `llvm::SmallVector` z knihovny LLVM ADT.
-* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
-* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
-* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+* The program compares the effeiciency — on some selected operations — of your implementation with three existing vector-class implementations:
+.. `std::vector` from the standard {cpp} library,
+.. `boost::container::small_vector` form the Boost.Container library,
+.. `llvm::SmallVector` from the LLVM ADT library.
+* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
+* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
+* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
 
 ==== Závěrečná zpráva z měření 
 
