@@ -1,6 +1,6 @@
 = Practical 1
 
-**`vector` and `new[] expression`: Implementation of a simple form of a vector class with the `new[]` expression — how `vector` is not supposed to be implemented.**
+**`vector` and `new[] expression`: Implementation of a simple form of a vector class with the `new[]` expression — how `vector` should not be implemented.**
 
 == Assignment
 
@@ -48,55 +48,54 @@ NOTE: Details about the interface are in the following section.
 
 === Template parameters
 
-* `T` — *value type*.
+* `T` — *value type*
 
 === Constructors and destructor
 
-* `vector()` — *default constructor*.
+* `vector()` — *default constructor*
 ** Sets the vector into the empty state, i.e., state, where it does not contain any elements and its capacity is zero.
-** Must not throw an exception.
+** Must not throw exceptions.
 
 IMPORTANT: From the above requirements, it implies that the default constructor may not create any objects of the value type nor allocate memory.
 
-* `vector(const vector&)` — *copy constructor*.
+* `vector(const vector&)` — *copy constructor*
 ** Copy constructor is defined as deleted.
 
-* `operator=(const vector&)` — *copy assignment operator*.
+* `operator=(const vector&)` — *copy assignment operator*
 ** Copy assignment operator is defined as deleted.
 
 NOTE: Explicit deletion of the above-mentioned special member functions supresses the generation of the move constructor and the move assignment operator.
 
-* `~vector()` — *destructor*. 
+* `~vector()` — *destructor*
 ** If needed, destructs all the vector elements and deallocates memory.
 
 === Elements access
 
-* `data()` — *pointer to the first element*.
+* `data()` — *pointer to the first element*
 ** If the vector contains some elements, returns a pointer to the first of them.
 ** Otherwise, returns the null pointer.
 
 NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
 
-* `operator[]` — *reference to the desired element*.
-** Pokud vektor obsahuje prvek s indexem `i`, vrátí referenci, která je na něj navázána.
-** If the vector contains the element with the index `i`, returns a reference which is bound to it.
+* `operator[]` — *reference to the desired element*
+** If the vector contains the element with the index `i`, returns a reference bound to it.
 ** Otherwise, the behavior is undefined.
 
 NOTE: The operator exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
 
 === Information about vector
 
-* `capacity()` — *information about capacity*.
+* `capacity()` — *information about capacity*
 ** Returns information about the vector's capacity, i.e., the size of the array that was last time allocated by the `new[]` expression inside the `push_back` function.
 
-* `size()` — *information about elements count*.
+* `size()` — *information about element count*
 ** Returns information about the vector's size, i.e., the number of elements that were inserted into it by the `push_back` function.
 
 === Element insertion
 
-* `push_back(const T& value)` — *inserts element*.
+* `push_back(const T& value)` — *inserts element*
 ** Inserts, at the end of the vector, a copy of the object to which the reference `value` is bound.
-** If, before the element insertion, the size of the vecotor is equal to its capacity, the capacity must be firest (before insertion) extended by peforming so-called “reallocation”. This happes in the following steps:
+** If, before the element insertion, the size of the vecotor is equal to its capacity, the capacity must be first (before insertion) extended by peforming so-called “reallocation”. This happes in the following steps:
 ... A new array of the value type objects is allocated by the `new T[n]` expression, where `n` generally equals the double of the current capacity. Only in case that the current capacity is zero, `n` is set to 1.
 ... The current vector elements are copied from the original array to the newly allocated array by using the copy assignment operator.
 ... The original array is destructed/deallocated by the `delete[]` expression.
@@ -104,7 +103,7 @@ NOTE: The operator exits in two variants, i.e., as a _(non-constant) member func
 
 [NOTE]
 ====
-This form of a vector and its reallocation stems from the description of the implementation of dynamic arrays as presented in the BIE-PA2 course. Copy of the corresponding slide form the course lectures which shows the `push_back` member function:
+This form of a vector and its reallocation stems from the description of the implementation of dynamic arrays as presented in the BIE-PA2 course. The copy of the corresponding slide form the course lectures which shows the `push_back` member function:
 
 image::images/pa2_l04_p44.png[width=600,align="center"]
 ====
@@ -113,7 +112,7 @@ CAUTION: In the shown implementation, the capacity is extended in a way that doe
 
 [WARNING]
 ====
-* The shown implementation does not resolve exceptions at all.
+* The shown implementation does not care about exceptions.
 * The correct exceptions treatement by the vector implementation will be a part of further assignments; it does not need to be resolved here.
 ==== 
 
@@ -126,18 +125,17 @@ CAUTION: In the shown implementation, the capacity is extended in a way that doe
 ====
 * The choice of the standard needs to enable the compilation of the test and benchmark programs.
 * The test program is built automatically in the GitLab system by using GCC version 11 in the Alpine Linux 3.16 environment.
-* Měřící program je nutné přeložit na učebnových počítačích v linuxovém prostředí; dostupné verze překladačů zde lze zjistit příkazy ).
-* The test program needs to be built on the classroom computers in the Linux environment; the available versions of the compilers may be found by the `g{plus}{plus} --version` and `clang{plus}{plus} --version` commands.
+* The benchmark program needs to be built on the classroom computers in the Linux environment; the available versions of the compilers may be found by the `g{plus}{plus} --version` and `clang{plus}{plus} --version` commands.
 * For the support of particular features of the standards by different {cpp} implementations, see https://en.cppreference.com/w/cpp/compiler_support or the documentation for particular implementations.
 ====
 
-== Řešení
+== Solution
 
-* Řešení zadané úlohy se skládá ze dvou částí:
-.. implementace třídní šablony `epc::vector`,
-.. zprávy z měření efektivity této implementace.
+* A solution of the assigned programming task consists of two parts:
+.. the implementation of the `epc::vector` class template,
+.. the report from the measurement of its efficiency.
 
-=== Implementace
+=== Implementation
 
 * Za výsledné řešení se považuje obsah souboru `vector.h` umístěného v kořenovém adresáři větve _practical1_ vašeho předmětového projektu na fakultní instanci GitLab.
 
