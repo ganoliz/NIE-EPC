@@ -6,10 +6,11 @@ repository:
   gitlabPath: /NI-EPC/nie-epc
 navigation:
   hiddenFiles:
-    - lectures/PDFs/*
+    - lectures/PDFs/
     - practicals/practical2.*
     - practicals/practical3.*
     - practicals/practical4.*
     - practicals/practical5.*    
     - practicals/practical6.*    
+    - practicals/images/
     - semwork.adoc
