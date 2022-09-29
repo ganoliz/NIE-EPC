@@ -35,14 +35,14 @@
 
 == Generic rules
 
-* In each of the first five practical classes, there will be assigned a programming task.
+* In each of the first five practical classes, a programming task will be assigned to students.
 * Solutions of these tasks are supposed to be submitted via the course projects on the faculty GitLab instance.
-* For submission of the _N._ (__N__th) task, there will be a separate branch created in these projects called _practicalN_.
+* For the submission of the _N._ (__N__th) task, there will be a separate branch created in these projects called _practicalN_.
 
 [IMPORTANT]
 ====
 * Within the solution of a particular task, always work only with the corresponding project branch.
-* Do not update at all the _master_ branch, i.e., do not create any commits in it.
+* Do not update the _master_ branch, i.e., do not create any commits in it.
 ====
 
 WARNING: The following rules apply if not said otherwise on the page for a particular practical class.
@@ -62,7 +62,7 @@ WARNING: The following rules apply if not said otherwise on the page for a parti
 
 === Performance/efficiency measurements
 
-* A part of the relevant project branch may be a benchmark program (programs), which serves for the measurement of efficiency of the submitted solution.
+* A part of the relevant project branch may be a benchmark program (programs), which should be used for the measurement of efficiency of the submitted solution.
 * For the final measurements, this program is required to be build and run on the classroom computers in the Linux environment.
 
 NOTE: A reason behind this requirement is the homogenous hardware on classroom computers, which allows comparing solutions submitted by different students among themselves.
@@ -75,16 +75,16 @@ NOTE: A reason behind this requirement is the homogenous hardware on classroom c
 
 === Submissions
 
-* The deadline for submission of the _N._ assignment is the end of the week is which the _(N+1)._ practical class is scheduled.
-* The submission of the solution is performed by creating the _merge request_ from the corresponding branch _practicalN_ into the _master_ branch.
+* The deadline for submission of the _N._ assignment is the end of the week (midnight from Sunday to Monday) in which the _(N+1)._ practical class is scheduled.
+* The submission of the solution is done by creating the _merge request_ from the corresponding branch _practicalN_ into the _master_ branch.
 
 IMPORTANT: If there has been no _merge request_ created before the deadline, the assignment will be classified by 0 points.
 
 * As a final solution are considered:
-** state (content) of the corresponding project branch valid at the time of the _merge request_ creation,
+** the state (content) of the corresponding project branch at the time of the _merge request_ creation,
 ** the text in the “Description” filed of this _merge request_ (e.g., the performance measurement report).
 
-WARNING: Any additional updates made in the project branch / whole project thereafter may not be considered for assignment evaluation.
+WARNING: Any additional updates made in the project branch / whole project thereafter may not be considered for assignment classification.
 
 IMPORTANT: For verification of the compilability and functionality of the submitted implementation, the outcome of the latest GitLab _CI/CD job_  before the _merge request_ creation is considered.
 
@@ -93,12 +93,12 @@ IMPORTANT: For verification of the compilability and functionality of the submit
 [NOTE]
 ====
 * After the evaluation of the submission, the _merge request_ will be closed witout being processed.
-* The creation of the _mrege request_ servers as a message from the student to the teacher about submission of his/her solution.
-* The closing of this requrest servers as a message back from the teacher to the student about the evaluation of the solution.
+* The creation of the _mrege request_ servers as a message from the student to the teacher about the submission of his/her solution.
+* The closing of this _merge requrest_ servers as a message back from the teacher to the student about the classification of the solution.
 ====
 
 === Feedback and discussion
 
-* In case that the amount of evaluated classification points is lower that the maximum and the reason is not obvious (that is, e.g., when the submitted implementation cannot be even compiled), there will be a reason stated in the _merge request_ comment from the teacher.
-* Even after the _merge request_ is closed, any discussion about the submitted solution and its evaluation is possible via comments.
+* In case that the amount of evaluated classification points is lower that the maximum and the reason is not obvious (that is, e.g., when the submitted implementation cannot be even compiled), the reason will be written in the _merge request_ comment from the teacher.
+* Even after the _merge request_ has been closed, any discussion about the submitted solution and its classificatoin is possible with comments.
 
