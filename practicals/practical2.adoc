@@ -4,9 +4,9 @@
 
 CAUTION: This assignment follows the assignment from the first practical class; here, only the chagnes against the first assignment are present.
 
-== Zadání
+== Assignment
 
-Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a proveďte analýzu implementace kopírovacího přiřazovacího operátoru pomocí copy-and-swap idiomu:
+Implement the class template `vector` in the `epc` namespace with the following interface and make an analysis for the implementation of the copy assignment operator by the copy-and-swap idiom:
 
 [source,c++]
 ----
@@ -40,19 +40,20 @@ public:
 };
 ----
 
-<1> Kopírovací konstruktor
-<2> Kopírovací přiřazovací operátor
-<3> Prohození obsahu 
-<4> Navýšení kapacity
-<5> Snížení velikosti
+<1> Copy constructor
+<2> Copy assignment operator
+<3> Content swapping
+<4> Increasing capacity
+<5> Reduction of size
 
-NOTE: Podrobné informace o rozhraní pro přidanou či změněnou funkcionalitu jsou uvedeny v následující sekci.
+NOTE: Details about the interface for the added or changed functionality are in the following section.
 
-== Aplikační programové rozhraní (API)
+== Application programming interface (API)
 
 CAUTION: Pro součásti rozhraní, které zde nejsou popsány, platí popis ze stránky prvního cvičení, pokud není uvedeno jinak.
+CAUTION: For the parts of the interface that are not described, the rules from the first practical page hold, if not stated otherwise.
 
-=== Konstruktory a destruktor
+=== Special member functions
 
 * `vector(const vector&)` — *kopírovací konstruktor*
 ** Cílový vektor bude mít po operaci stejný obsah (vlastněné prvky), jako zdrojový vektor.
