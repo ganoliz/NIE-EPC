@@ -8,8 +8,7 @@
 | xref:practical1#[vector and new expression]
 
 | 2.
-// | xref:practical2#[]
-|
+| xref:practical2#[Copying and other functions, exception safety]
 
 | 3. 
 |

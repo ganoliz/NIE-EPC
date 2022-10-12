@@ -1,149 +1,138 @@
 = Practical 2
 
-*Pointer to IMPLementation (PIMPL)*
+**Adding copy semantics and other functionality, exception safety.**
 
-== Introduction
-
-Consider the following implementation of the `LookupTable` class representing a *simple lookup table* that maps integers to strings. The implementation is split between:
-
-. `LookupTable.h` *header file*, which contains the *class definition*:
-
-[source,c++]
-----
-#ifndef LOOKUPTABLE_H
-#define LOOKUPTABLE_H
-
-#include <cstdlib>
-#include <map>
-#include <string>
-
-class LookupTable
-{
-    std::map<int, std::string> data_;
-    
-public:
-    LookupTable() = default;
-    ~LookupTable() = default;
-    
-    // copy and move semantics deleted for sake of simplicity:
-    LookupTable(const LookupTable&) = delete;
-    LookupTable(LookupTable&&) = delete;
-    LookupTable& operator=(const LookupTable&) = delete;
-    LookupTable& operator=(LookupTable&&) = delete;
-    
-    void insert(int key, const std::string& name);
-    void remove(int key);
-    
-    const std::string* name(int key) const;
-    
-    size_t count() const;
-    void clear();
-};
-
-#endif
-----
-
-[start=2]
-. `LookupTable.cpp` *source file*, which contains *definitions of member functions*:
-
-[source,c++]
-----
-#include <cstdlib>
-#include <string>
-
-#include "LookupTable.h"
-
-void LookupTable::insert(int key, const std::string& name)
-{
-    data_.insert(std::make_pair(key, name));
-}
-
-void LookupTable::remove(int key)
-{
-    data_.erase(key);
-}
-
-const std::string* LookupTable::name(int key) const
-{
-    auto iter = data_.find(key);
-    if (iter != data_.end())
-       return &(iter->second);
-    else       
-       return nullptr;
-}
-
-size_t LookupTable::count() const
-{
-    return data_.size();
-}
-
-void LookupTable::clear() 
-{
-    data_.clear();
-}
-----
+CAUTION: This assignment follows the assignment from the first practical class; here, only the chagnes against the first assignment are present.
 
 == Assignment
 
-. *Modify the content* of `LookupTable.h` and `LookupTable.cpp` files such that the `LookupTable` class was *implemented by the PIMPL idiom*. 
+Implement the class template `vector` in the `epc` namespace with the following interface and make an analysis for the implementation of the copy assignment operator by the copy-and-swap idiom:
 
-.Requiremetns for implementation
-[IMPORTANT]
+[source,c++]
+----
+template <typename T>
+class vector
+{
+public:
+  vector() noexcept; 
+
+  vector(const vector&); // <1>
+  vector& operator=(const vector&); // <2>
+
+  ~vector();  
+
+  T* data();  
+  const T* data() const; 
+
+  T& operator[](size_t); 
+  const T& operator[](size_t) const; 
+
+  void push_back(const T&); 
+
+  size_t capacity() const; 
+  size_t size() const; 
+
+  void swap(vector&) noexcept; // <3>
+
+  void reserve(size_t); // <4>
+
+  void pop_back(); // <5>
+};
+----
+
+<1> Copy constructor
+<2> Copy assignment operator
+<3> Content swapping
+<4> Increasing capacity
+<5> Reduction of size
+
+NOTE: Details about the interface for the added or changed functionality are in the following section.
+
+== Application programming interface (API)
+
+CAUTION: For the parts of the interface that are not described, the rules from the first practical page hold, if not stated otherwise.
+
+=== Special member functions
+
+* `vector(const vector&)` — *copy constructor*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
+
+* `operator=(const vector&)` — *copy assignment operator*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
+
+IMPORTANT: Copy assignment operator needs to work even in the case where the source and target vectors represent the same object (so-called “self-assignment”).
+
+=== Information about vector
+
+* `capacity()` — *information about capacity*
+** Returns information about the vector’s capacity, i.e., the size of the array that was last time allocated by the `new[]` expression.
+
+* `size()` — *information about element count*
+** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages.
+
+=== Swapping content
+
+* `swap(vector& other)` — *swap contents of two vectors*
+** Swaps content of two vectors, i.e., the vector `+*this+`, after the operation, will contain the same elements that the vector `other` had before, and vice versa.
+
+IMPORTANT: This operation must not throw an exception.
+
+=== Extending capacity
+
+* `reserve(size_t capacity)` — *extend vector capacity*
+** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
+** Otherwise, extends the capacity of the vector by performing “reallocation” (by the `new[]` expression) and preserves its contents.
+
+=== Size reduction
+
+* `pop_back()` — *reduces vector size*
+** If the vector is non-empty, reduces its size by 1.
+** Otherwise, the behavior is undefined.
+
+IMPORTANT: The capcity of the vector may not be changed by this operation.
+
+== Exception handling
+
+* All the implemented vector operations guarantee correct exception handling.
+
+[WARNING]
 ====
-* *Definition of the interface class* called `LookupTable` will contain only a *single non-public member variable*, namely a pointer to the implementation class object.
-* Except this variable, the class *may have no non-public member functions and variables*.
-* Definition of a *non-public member type is allowed*.
+* If, in some operation, an exception occurs, the content of involved vectors may not be changed.
+* This rule does not hold only for the copy assignment operator.
 ====
 
-[NOTE]
-====
-* You may use either an *“ordinary” (_raw_) pointer* or a *smart pointer* of type `std::unique_ptr`.
-* In case of using a *smart pointer*, the implementation may be *more complicated* (see, e.g., https://stackoverflow.com/q/9020372/580083[this post]).
-====
+IMPORTANT: If an exception is caught in some vector member function, it needs to be rethrown to the function caller.
 
-[start=2]
-. *Verify the functionality of your solution* such that you *change the type for the lookup table container* from  `std::map<int, std::string>` to `std::unordered_map<int, std::string>`.
+== Copy-and-swap idiom
 
-WARNING: Don't forget that this update will require also an *update of included header files*.
+* Copy assignment operator may be implemented by the “copy-and-swap” idiom.
+* This idiom delegates the copy functionality to the copy constructor.
+* The question is whether such a solution would be efficient in all cases.
 
-IMPORTANT: With the correctly working PIMPL idiom, this update *must not require any modification of the `LookupTable.h` header file*.
+== Requirements for implementation
 
-[start=3]
-. *Remove* from the `LookupTable.h` header file all *header files inclusion* (`#include` directives) that are *unnecessary* after the PIMPL idiom implementation.
+* The rules from the first practical assignment apply.
 
-== Submission
+== Solution
 
-* As a *final solution*, it is considered the *content of `LookupTable.h` and `LookupTable.cpp` files* placed in the *root folder of the _practical2_ branch* of your *course project/repository* on *the faculty GitLab instance*.
-* As a *correct solution*, it is considered:
-** a *compilable and working implementation* of the `LookupTable` class with the PIMPL idiom *according to the assignment above*,
-** with *internally used container of type* `std::unordered_map<int, std::string>`,
-** with *removed all unnecessary inclusion of header files* from the `LookupTable.h` header file.
-* *The deadline for submission* is the *end of your practical class* (according to your time table).
-* Register the submission by *creating the _merge request_*, namely *from the _practical2_ branch into the _master_ branch* inside your project.
+* A solution of the assigned programming task consists of two parts:
+.. the implementation of the `epc::vector` class template,
+.. the analysis of the efficiency of the implementation of the copy assignment operator by the copy-and-swap idiom.
 
-NOTE: In the _merge request_ configuration, *leave the _Assignee_ field empty* (do not assign here anyone).
+=== Implementation
 
-== Testing
+The rules from the first practical assignment apply, except using the _practical2_ branch.
 
-* For testing purposes, a *program based on the Boost.Test framework* will be available.
-* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
+=== Analysis of the copy-and-swap idiom efficiency
 
-[NOTE]
-====
-There are the following basic options for *using the test file during soluton development*:
+* In the final report, describe whether the implementation of the copy assignment operator in terms of the copy-and-swap idiom is the most efficient in all cases.
+* These cases contain mainly different combinations of the size and capacity of the source and target vectors.
+* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
 
-* Development on you *private computer* with installed Boost.
-* Direct development *inside the GitLab project* with the help of the *CI/CD mechanism* (_pipelines_, _jobs_),
-* Development in the *online IDE Godbolt* (link to the template: https://godbolt.org/z/b473eqvev),
-* Development in the *online IDE Wandbox* (link to the template: https://wandbox.org/permlink/4CQ3NGLligC8wzit).
-====
+== Classification
 
-* The test program primarily tests the *functionality of the class implementation*.
-* This functionality needs to be *fully preserved* while reimplementing the class by the PIMPL idiom.
-* A part of the test program are additionally *two tests for the byte size of the storage of the `LookupTable` class*:
-** The *first* one tests if the class contains a *member variable of the `std::map<int, std::string> type*.` This test *needs to*:
-*** *pass* for the *original class version*,
-*** *fail* for the *submitted class version*.
-** The *second* one tests if the class contains only a *single pointer member variable*.` This test *needs to*:
-*** *fail* for the *original class version*,
-*** *pass* for the *submitted class version*.
+* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
+* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
+* In case that all tests will pass, the report will be submitted, and its conclusions will be correct, the maximum amount of classification points, i.e., 10, can be awarded.
