@@ -168,7 +168,6 @@ CAUTION: In the _practical1_ branch of your course project, do not change the co
 
 == Classification
 
-* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
 * If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
 * In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
 
