@@ -55,15 +55,15 @@ CAUTION: For the parts of the interface that are not described, the rules from t
 
 === Special member functions
 
-* `vector(const vector&)` — *kopírovací konstruktor*
-** Cílový vektor bude mít po operaci stejný obsah (vlastněné prvky), jako zdrojový vektor.
-** Stav zdrojového vektoru nesmí být změněn.
+* `vector(const vector&)` — *copy constructor*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
 
-* `operator=(const vector&)` — *kopírovací přiřazovací operátor*
-** Cílový vektor bude mít po operaci stejný obsah (vlastněné prvky), jako zdrojový vektor.
-** Stav zdrojového vektoru nesmí být změněn.
+* `operator=(const vector&)` — *copy assignment operator*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
 
-IMPORTANT: Kopírovací přiřazovací operátor musí fungovat i v případě, že zdrojový a cílový vektor představují stejný objekt (tzv. „self-assignment“).
+IMPORTANT: Copy assignment operator needs to work even in the case where the source and target vectors represent the same object (so-called “self-assignment”).
 
 === Informace o vektoru
 
