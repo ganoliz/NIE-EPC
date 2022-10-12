@@ -136,19 +136,3 @@ Platí pravidla z první úlohy až na použití větve _practical2_.
 * Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
 * V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
 * V případě, že překlad i testy dopadnou v pořádku, bude odevzdána zpráva a její závěry budou správné, může bý udělen až maximální počet bodu, tj. 10.
-
----
-
-== Bonusový volitelný problém
-
-* Kód pro numerický výpočet hodnoty dvojitého integrálu dává odlišný výsledek v případě volby jednoduché a dvojíté přesnosti.
-* Zjistěte příčinu tohoto chování.
-* Kód a live demo: https://godbolt.org/z/Yo4ncqxb7
-* Počítaný integrál:
-
-[stem]
-++++
-\int\limits_{3.7}^{4.3} \int\limits_{2.3}^{2.5} \sqrt{x^4 + y^5} \, \mathrm{d}x\, \mathrm{d}y = 3.9159
-++++
-
-NOTE: Správnou hodnotu dává výpočet v jednoduché přesnosti! Viz např. https://www.wolframalpha.com/input?i=int+%28%28x%5E4%2By%5E5%29%5E%281%2F2%29%29+dx+dy%2C+y%3D3.7+to+4.3%2C+x%3D2.3+to+2.5[zde].
