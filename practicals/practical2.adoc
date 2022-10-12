@@ -50,7 +50,6 @@ NOTE: Details about the interface for the added or changed functionality are in 
 
 == Application programming interface (API)
 
-CAUTION: Pro součásti rozhraní, které zde nejsou popsány, platí popis ze stránky prvního cvičení, pokud není uvedeno jinak.
 CAUTION: For the parts of the interface that are not described, the rules from the first practical page hold, if not stated otherwise.
 
 === Special member functions
@@ -65,34 +64,34 @@ CAUTION: For the parts of the interface that are not described, the rules from t
 
 IMPORTANT: Copy assignment operator needs to work even in the case where the source and target vectors represent the same object (so-called “self-assignment”).
 
-=== Informace o vektoru
+=== Information about vector
 
-* `capacity()` — *informace o kapacitě*
-** Vrátí informaci o kapacitě vektoru, tj. velikosti pole naposledy alokovaného pomocí výrazu `new[]`.
+* `capacity()` — *information about capacity*
+** Returns information about the vector’s capacity, i.e., the size of the array that was last time allocated by the `new[]` expression.
 
-* `size()` — *informace o počtu prvků*
-** Vrátí informaci o velikosti vektoru, tj. počtu prvků, které vektor obsahuje/spravuje.
+* `size()` — *information about element count*
+** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages.
 
-=== Prohození obsahu
+=== Swapping content
 
-* `swap(vector& other)` — *prohození obsahu*
-** Prohodí obsah dvou vektorů, tj. vektor `+*this+` bude po operaci obsahovat stejné prvky, které měl před operací vektor `other`, a opačně.
+* `swap(vector& other)` — *swap contents of two vectors*
+** Swaps content of two vectors, i.e., the vector `+*this+`, after the operation, will contain the same elements that the vector `other` had before, and vice versa.
 
-IMPORTANT: Tato operace nesmí vyhodit výjimku.
+IMPORTANT: This operation must not throw an exception.
 
-=== Navýšení kapacity
+=== Extending capacity
 
-* `reserve(size_t capacity)` — *navýšení kapacity*
-** Pokud `capacity` je menší nebo rovno aktální kapacitě vektoru, nemá žádný efekt.
-** V opačném případě pomocí „realokace“ navýší kapacitu vektoru na `capacity` (pomocí výrazu `new[]`) a zachová jeho obsah.
+* `reserve(size_t capacity)` — *extend vector capacity*
+** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
+** Otherwise, extends the capacity of the vector by performing “reallocation” (by the `new[]` expression) and preserves its contents.
 
-=== Snížení velikosti
+=== Size reduction
 
-* `pop_back()` — *snížení velikosti*
-** Pokud vektor není prázdný, sníží jeho velikost o 1.
-** V opačném případě není chování definováno.
+* `pop_back()` — *reduces vector size*
+** If the vector is non-empty, reduces its size by 1.
+** Otherwise, the behavior is undefined.
 
-IMPORTANT: Kapacita vektoru v rámci této operace musí být zachována.
+IMPORTANT: The capcity of the vector may not be changed by this operation.
 
 == Ošetřování výjimek
 
