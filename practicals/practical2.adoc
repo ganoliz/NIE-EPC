@@ -1,149 +1,154 @@
 = Practical 2
 
-*Pointer to IMPLementation (PIMPL)*
+**Adding copy semantics and other functionality, exception safety.**
 
-== Introduction
+CAUTION: This assignment follows the assignment from the first practical class; here, only the chagnes against the first assignment are present.
 
-Consider the following implementation of the `LookupTable` class representing a *simple lookup table* that maps integers to strings. The implementation is split between:
+== Zadání
 
-. `LookupTable.h` *header file*, which contains the *class definition*:
+Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a proveďte analýzu implementace kopírovacího přiřazovacího operátoru pomocí copy-and-swap idiomu:
 
 [source,c++]
 ----
-#ifndef LOOKUPTABLE_H
-#define LOOKUPTABLE_H
-
-#include <cstdlib>
-#include <map>
-#include <string>
-
-class LookupTable
+template <typename T>
+class vector
 {
-    std::map<int, std::string> data_;
-    
 public:
-    LookupTable() = default;
-    ~LookupTable() = default;
-    
-    // copy and move semantics deleted for sake of simplicity:
-    LookupTable(const LookupTable&) = delete;
-    LookupTable(LookupTable&&) = delete;
-    LookupTable& operator=(const LookupTable&) = delete;
-    LookupTable& operator=(LookupTable&&) = delete;
-    
-    void insert(int key, const std::string& name);
-    void remove(int key);
-    
-    const std::string* name(int key) const;
-    
-    size_t count() const;
-    void clear();
+  vector() noexcept; 
+
+  vector(const vector&); // <1>
+  vector& operator=(const vector&); // <2>
+
+  ~vector();  
+
+  T* data();  
+  const T* data() const; 
+
+  T& operator[](size_t); 
+  const T& operator[](size_t) const; 
+
+  void push_back(const T&); 
+
+  size_t capacity() const; 
+  size_t size() const; 
+
+  void swap(vector&) noexcept; // <3>
+
+  void reserve(size_t); // <4>
+
+  void pop_back(); // <5>
 };
-
-#endif
 ----
 
-[start=2]
-. `LookupTable.cpp` *source file*, which contains *definitions of member functions*:
+<1> Kopírovací konstruktor
+<2> Kopírovací přiřazovací operátor
+<3> Prohození obsahu 
+<4> Navýšení kapacity
+<5> Snížení velikosti
 
-[source,c++]
-----
-#include <cstdlib>
-#include <string>
+NOTE: Podrobné informace o rozhraní pro přidanou či změněnou funkcionalitu jsou uvedeny v následující sekci.
 
-#include "LookupTable.h"
+== Aplikační programové rozhraní (API)
 
-void LookupTable::insert(int key, const std::string& name)
-{
-    data_.insert(std::make_pair(key, name));
-}
+CAUTION: Pro součásti rozhraní, které zde nejsou popsány, platí popis ze stránky prvního cvičení, pokud není uvedeno jinak.
 
-void LookupTable::remove(int key)
-{
-    data_.erase(key);
-}
+=== Konstruktory a destruktor
 
-const std::string* LookupTable::name(int key) const
-{
-    auto iter = data_.find(key);
-    if (iter != data_.end())
-       return &(iter->second);
-    else       
-       return nullptr;
-}
+* `vector(const vector&)` — *kopírovací konstruktor*
+** Cílový vektor bude mít po operaci stejný obsah (vlastněné prvky), jako zdrojový vektor.
+** Stav zdrojového vektoru nesmí být změněn.
 
-size_t LookupTable::count() const
-{
-    return data_.size();
-}
+* `operator=(const vector&)` — *kopírovací přiřazovací operátor*
+** Cílový vektor bude mít po operaci stejný obsah (vlastněné prvky), jako zdrojový vektor.
+** Stav zdrojového vektoru nesmí být změněn.
 
-void LookupTable::clear() 
-{
-    data_.clear();
-}
-----
+IMPORTANT: Kopírovací přiřazovací operátor musí fungovat i v případě, že zdrojový a cílový vektor představují stejný objekt (tzv. „self-assignment“).
 
-== Assignment
+=== Informace o vektoru
 
-. *Modify the content* of `LookupTable.h` and `LookupTable.cpp` files such that the `LookupTable` class was *implemented by the PIMPL idiom*. 
+* `capacity()` — *informace o kapacitě*
+** Vrátí informaci o kapacitě vektoru, tj. velikosti pole naposledy alokovaného pomocí výrazu `new[]`.
 
-.Requiremetns for implementation
-[IMPORTANT]
+* `size()` — *informace o počtu prvků*
+** Vrátí informaci o velikosti vektoru, tj. počtu prvků, které vektor obsahuje/spravuje.
+
+=== Prohození obsahu
+
+* `swap(vector& other)` — *prohození obsahu*
+** Prohodí obsah dvou vektorů, tj. vektor `+*this+` bude po operaci obsahovat stejné prvky, které měl před operací vektor `other`, a opačně.
+
+IMPORTANT: Tato operace nesmí vyhodit výjimku.
+
+=== Navýšení kapacity
+
+* `reserve(size_t capacity)` — *navýšení kapacity*
+** Pokud `capacity` je menší nebo rovno aktální kapacitě vektoru, nemá žádný efekt.
+** V opačném případě pomocí „realokace“ navýší kapacitu vektoru na `capacity` (pomocí výrazu `new[]`) a zachová jeho obsah.
+
+=== Snížení velikosti
+
+* `pop_back()` — *snížení velikosti*
+** Pokud vektor není prázdný, sníží jeho velikost o 1.
+** V opačném případě není chování definováno.
+
+IMPORTANT: Kapacita vektoru v rámci této operace musí být zachována.
+
+== Ošetřování výjimek
+
+* Veškeré implementované operace vektoru musí provádět korektní ošetřování výjimek.
+
+[WARNING]
 ====
-* *Definition of the interface class* called `LookupTable` will contain only a *single non-public member variable*, namely a pointer to the implementation class object.
-* Except this variable, the class *may have no non-public member functions and variables*.
-* Definition of a *non-public member type is allowed*.
-====
-
-[NOTE]
-====
-* You may use either an *“ordinary” (_raw_) pointer* or a *smart pointer* of type `std::unique_ptr`.
-* In case of using a *smart pointer*, the implementation may be *more complicated* (see, e.g., https://stackoverflow.com/q/9020372/580083[this post]).
-====
-
-[start=2]
-. *Verify the functionality of your solution* such that you *change the type for the lookup table container* from  `std::map<int, std::string>` to `std::unordered_map<int, std::string>`.
-
-WARNING: Don't forget that this update will require also an *update of included header files*.
-
-IMPORTANT: With the correctly working PIMPL idiom, this update *must not require any modification of the `LookupTable.h` header file*.
-
-[start=3]
-. *Remove* from the `LookupTable.h` header file all *header files inclusion* (`#include` directives) that are *unnecessary* after the PIMPL idiom implementation.
-
-== Submission
-
-* As a *final solution*, it is considered the *content of `LookupTable.h` and `LookupTable.cpp` files* placed in the *root folder of the _practical2_ branch* of your *course project/repository* on *the faculty GitLab instance*.
-* As a *correct solution*, it is considered:
-** a *compilable and working implementation* of the `LookupTable` class with the PIMPL idiom *according to the assignment above*,
-** with *internally used container of type* `std::unordered_map<int, std::string>`,
-** with *removed all unnecessary inclusion of header files* from the `LookupTable.h` header file.
-* *The deadline for submission* is the *end of your practical class* (according to your time table).
-* Register the submission by *creating the _merge request_*, namely *from the _practical2_ branch into the _master_ branch* inside your project.
-
-NOTE: In the _merge request_ configuration, *leave the _Assignee_ field empty* (do not assign here anyone).
-
-== Testing
-
-* For testing purposes, a *program based on the Boost.Test framework* will be available.
-* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
-
-[NOTE]
-====
-There are the following basic options for *using the test file during soluton development*:
-
-* Development on you *private computer* with installed Boost.
-* Direct development *inside the GitLab project* with the help of the *CI/CD mechanism* (_pipelines_, _jobs_),
-* Development in the *online IDE Godbolt* (link to the template: https://godbolt.org/z/b473eqvev),
-* Development in the *online IDE Wandbox* (link to the template: https://wandbox.org/permlink/4CQ3NGLligC8wzit).
+* Pokud v nějaké operaci nastane výjimka, obsah zúčastněných vektorů musí být zachován.
+* Toto pravidlo neplatí pouze pro kopírovací přiřazovací operátor.
 ====
 
-* The test program primarily tests the *functionality of the class implementation*.
-* This functionality needs to be *fully preserved* while reimplementing the class by the PIMPL idiom.
-* A part of the test program are additionally *two tests for the byte size of the storage of the `LookupTable` class*:
-** The *first* one tests if the class contains a *member variable of the `std::map<int, std::string> type*.` This test *needs to*:
-*** *pass* for the *original class version*,
-*** *fail* for the *submitted class version*.
-** The *second* one tests if the class contains only a *single pointer member variable*.` This test *needs to*:
-*** *fail* for the *original class version*,
-*** *pass* for the *submitted class version*.
+IMPORTANT: Pokud je nějaká výjímka odchycena v rámci členské funkce vektoru, musí být dále propagována na místo volání této funkce.
+
+== Copy-and-swap idiom
+
+* Kopírovací přiřazovací operátor je možné implementovat pomocí tzv. „copy-and-swap“ idiomu.
+* Ten deleguje kopírovací funkcionalitu na kopírovací konstruktor.
+* Otázkou je, zda takovéto řešení bude ve všech případech efektivní.
+
+== Požadavky na implementaci
+
+* Platí pravidla z první úlohy.
+
+== Řešení
+
+* Řešení zadané úlohy se skládá ze dvou částí:
+.. implementace třídní šablony `epc::vector`,
+.. analýza efektivity implementace kopírovacího přiřazovacího operátoru pomocí copy-and-swap idiomu.
+
+=== Implementace
+
+Platí pravidla z první úlohy až na použití větve _practical2_.
+
+=== Analáza efektivity copy-and-swap idiomu
+
+* V rámci závěrečné zprávy popiště, zda implementace kopírovacího přiřazovacího operátoru pomocí copy-and-swap idiomu je nejefektivnější možná ve všech případech.
+* Tyto případy zahrnují především různé kombinace velikostí a kapacit zdrojového a cílového vektoru.
+* Zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
+
+== Hodnocení
+
+* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
+* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
+* V případě, že překlad i testy dopadnou v pořádku, bude odevzdána zpráva a její závěry budou správné, může bý udělen až maximální počet bodu, tj. 10.
+
+---
+
+== Bonusový volitelný problém
+
+* Kód pro numerický výpočet hodnoty dvojitého integrálu dává odlišný výsledek v případě volby jednoduché a dvojíté přesnosti.
+* Zjistěte příčinu tohoto chování.
+* Kód a live demo: https://godbolt.org/z/Yo4ncqxb7
+* Počítaný integrál:
+
+[stem]
+++++
+\int\limits_{3.7}^{4.3} \int\limits_{2.3}^{2.5} \sqrt{x^4 + y^5} \, \mathrm{d}x\, \mathrm{d}y = 3.9159
+++++
+
+NOTE: Správnou hodnotu dává výpočet v jednoduché přesnosti! Viz např. https://www.wolframalpha.com/input?i=int+%28%28x%5E4%2By%5E5%29%5E%281%2F2%29%29+dx+dy%2C+y%3D3.7+to+4.3%2C+x%3D2.3+to+2.5[zde].
