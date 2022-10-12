@@ -125,14 +125,14 @@ IMPORTANT: If an exception is caught in some vector member function, it needs to
 
 The rules from the first practical assignment apply, except using the _practical2_ branch.
 
-=== Analáza efektivity copy-and-swap idiomu
+=== Analysis of the copy-and-swap idiom efficiency
 
-* V rámci závěrečné zprávy popiště, zda implementace kopírovacího přiřazovacího operátoru pomocí copy-and-swap idiomu je nejefektivnější možná ve všech případech.
-* Tyto případy zahrnují především různé kombinace velikostí a kapacit zdrojového a cílového vektoru.
-* Zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
+* In the final report, describe whether the implementation of the copy assignment operator in terms of the copy-and-swap idiom is the most efficient in all cases.
+* These cases contain mainly different combinations of the size and capacity of the source and target vectors.
+* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
 
-== Hodnocení
+== Classification
 
-* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
-* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
-* V případě, že překlad i testy dopadnou v pořádku, bude odevzdána zpráva a její závěry budou správné, může bý udělen až maximální počet bodu, tj. 10.
+* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
+* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
+* In case that all tests will pass, the report will be submitted, and its conclusions will be correct, the maximum amount of classification points, i.e., 10, can be awarded.
