@@ -87,57 +87,57 @@ public:
 
 === Template parameters
 
-* `T` — *hodnotový typ*
-** Požadavek pro zarovnání je nejvýše `alignof(std::max_align_t)` (`T` není _over-aligned_).
-** Hodnotový typ musí být destruovatelný a destrukce nesmí vyhodit výjimku (_nothrow-destructible_).
-** Hodnotový typ musí být konstruovatelný inicializačním výrazem, jehož typ je rovněž `T` (_copy-constructible_).
-** Některé členské funkce mohou pro hodnotový typ specifikovat další požadavky.
+* `T` — *value type*
+** Alignment requirements are `alignof(std::max_align_t)` at most (`T` is not _over-aligned_).
+** The value type is destructible and destruction does not throw exceptions (_nothrow-destructible_).
+** The value type is constructible by an initialization expression of type `T` (_copy-constructible_).
+** Some member functions may specify additional requirements.
+ 
+NOTE: The value type does not need to be constructible without an initialization expression (_default-constructible_).
 
-NOTE: Hodnotový typ nemusí být konstruovatelný bez inicializačního výrazu (_default-constructible_).
+=== Special member functions
 
-=== Speciální členské funkce
+* `vector()` — *default constructor*
+** Sets the vector into the empty state, i.e., state, where it does not contain any elements and its capacity is zero.
+** Must not throw exceptions.
 
-* `vector()` — *výchozí konstruktor*
-** Nastaví vektor do prázdného stavu, tj. stavu, kdy neobsahuje žádné prvky a jeho kapacita je nulová.
-** Nesmí vyhodit výjimku.
+* `vector(const vector&)` — *copy constructor*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
+** Each element of the target vector is constructed as a copy of the corresponding element of the source vector.
 
-* `vector(const vector&)` — *kopírovací konstruktor*
-** Cílový vektor bude mít po operaci stejný obsah (obsah vlastněných prvků), jako zdrojový vektor.
-** Stav zdrojového vektoru nesmí být změněn.
-** Každý prvek cílového vektoru je vytvořen jako kopie příslušného prvku zdrojového vektoru.
+* `operator=(const vector&)` — *copy assignment operator*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
+** The content of a target vector element is either assigned by the copy assignment operator or copied during its initialization.
+** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_).
 
-* `operator=(const vector&)` — *kopírovací přiřazovací operátor*
-** Cílový vektor bude mít po operaci stejný obsah (obsah vlastněných prvků), jako zdrojový vektor.
-** Stav zdrojového vektoru nesmí být změněn.
-** Obsah prvků cílového vektoru je buď nastaven kopírovacím přířazovacím operátorem nebo kopírováním obsahu při inicializaci.
-** Vyžaduje hodnotový typ přiřaditelný výrazem, jehož typ je rovněž `T` (_copy-assignable_).
+IMPORTANT: Copy assignment operator needs to work even in the case where the source and target vectors represent the same object (so-called “self-assignment”).
 
-IMPORTANT: Kopírovací přiřazovací operátor musí fungovat i v případě, že zdrojový a cílový vektor představují stejný objekt (tzv. „self-assignment“).
+* `~vector()` — *destructor*
+** If needed, destructs all the vector elements and deallocates memory.
 
-* `~vector()` — *destruktor* 
-** V případě potřeby destruuje existující prvky vektoru a dealokuje alokovanou paměť.
+=== Elements access
 
-=== Přístup k prvkům
+* `data()` — *pointer to the first element*
+** If the vector contains some elements, returns a pointer to the first of them.
+** Otherwise, returns the null pointer.
 
-* `data()` — *ukazatel na první prvek*
-** Pokud vektor obsahuje nějaké prvky, vrací ukazatel na první z nich. 
-** V opačném případě vrátí nulový ukazatel.
+NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
 
-NOTE: Funkce existuje ve dvou variantách, tj. jako _(nekonstantní) členská funkce_ a _konstantní členská funkce_.
+* `operator[]` — *reference to the desired element*
+** If the vector contains the element with the index `i`, returns a reference bound to it.
+** Otherwise, the behavior is undefined.
 
-* `operator[]` — *refernce na požadovaný prvek*
-** Pokud vektor obsahuje prvek s indexem `i`, vrátí referenci, která je na něj navázána.
-** V opačném případě není chování definováno.
+NOTE: The operator exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
 
-NOTE: Operátor existuje ve dvou variantách, tj. jako _(nekonstantní) členská funkce_ a _konstantní členská funkce_.
+=== Information about vector
 
-=== Informace o vektoru
+* `capacity()` — *information about capacity*
+** Returns information about the vector’s capacity, i.e., the number of elments that fits into the storage last time allocated by `operator new`.
 
-* `capacity()` — *informace o kapacitě*
-** Vrátí informaci o kapacitě vektoru, tj. počtu prvků, které se vejdou do uložiště naposledy alokovaného pomocí alokační funkce `operator new`.
-
-* `size()` — *informace o počtu prvků*
-** Vrátí informaci o velikosti vektoru, tj. počtu prvků, které vektor obsahuje/spravuje (tj., které se nacházejí v aktuálně alokovaném uložišti).
+* `size()` — *information about element count*
+** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages (i.e., that are in the actually allocated storage).
 
 === Navýšení kapacity
 
