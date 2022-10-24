@@ -2,11 +2,11 @@
 
 **Separation of memory (storage) allocation and deallocation from vector elements initialization and destruction.**
 
-* Vysoká efektivita vektorů souvisí s tím, že alokují uložiště obecně pro více prvků najednou.
-* Samotná alokace žádné prvky ale nevytváří, ty jsou v alokovaném uložišti následně inicializovány dle potřeby.
-* Stejným způsobem je oddělena destrukce prvků od dealokace uložiště.
+* High efficiency of vectors stems form the allocation of storage for multiple elements at once.
+* The allocation itself does not create any elements; these are then in the allocated storage initialized as needed.
+* In the same way, element destruction is separated from storage deallocation.
 
-== Příklady
+== Examples
 
 [source,c++]
 ----
@@ -16,11 +16,11 @@
 } // <3>
 ----
 
-<1> Je vytvořen vektor pomocí výchozího konstruktoru. 
-<2> Je dynamicky alokováno uložiště s kapacitou 3, tj. uložiště, do kterého se (vedle sebe) vejdou 3 prvky hodnotového typu.
-<3> Při destruování vektoru je uvolněno uložiště alokované v rámci volání `reserve(3)`.
+<1> A vector is created by the default constructor.
+<2> The storage with the capacity 3 is allocated, i.e., the storage where 3 elements of the value type can be placed (next to each other).
+<3> Vector destruction deallocates the storage allocated in the `reserve(3)` call.
 
-IMPORTANT: V rámci celého ukázaného kódu se nikde neinicializují (a tím pádem ani nedestruují) žádné objekty hodnotového typu `std::string`.
+IMPORTANT: In the shown code, there is no initialization (and destruction) of any objects of the value type `std::string`.
 
 [source,c++]
 ----
@@ -31,10 +31,10 @@ IMPORTANT: V rámci celého ukázaného kódu se nikde neinicializují (a tím p
   v.pop_back(); // <2>
 } 
 ----
-<1> V alokovaném uložišti je na záčátku (na „nulté“ pozici) inicializován nový prvek. Jako argument pro inicializaci je použit argument funkce.
-<2> Jediný prvek vektoru je destruován (pomocí destruktoru).
+<1> At the beginning of the allocated storage (“0th” position), a new element is initialized. The function argument is used as an initialization argument.
+<2> The single vector element is destructed (by destructor).
 
-NOTE: Ostatní kroky se chovají stejně, jako v předchozím příkladu.
+NOTE: The other steps behave the same as in the previous example.
 
 == Mechanizmy
 
