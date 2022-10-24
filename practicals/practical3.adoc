@@ -139,93 +139,76 @@ NOTE: The operator exits in two variants, i.e., as a _(non-constant) member func
 * `size()` — *information about element count*
 ** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages (i.e., that are in the actually allocated storage).
 
-=== Navýšení kapacity
+=== Extending capacity
 
-* `reserve(size_t capacity)` — *navýšení kapacity*
-** Pokud `capacity` je menší nebo rovno aktální kapacitě vektoru, nemá žádný efekt.
-** V opačném případě pomocí „realokace“ navýší kapacitu vektoru na `capacity`.
-** Realokace zahrnuje následující kroky:
-*** Je alokováno nové uložiště s požadovanou kapacitou pomocí alokační funkce `operator new`.
-*** Pro každý prvek ve stávajícím uložišti je v novém uložišti vytvořena (inicializována) jeho kopie.
-*** Prvky ve stávajícím uložišti jsou destruovány a stávající uložiště je dealokováno.
+* `reserve(size_t capacity)` — *extend vector capacity*
+** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
+** Otherwise, extends the capacity of the vector by performing “reallocation” and preserves its contents.
+** Reallocation involves the following steps:
+*** New storage with the required capacity is allocated by the `operator new` allocation function.
+*** For each element in the original storage, its copy is constructed (initialized) in the new storage.
+*** The elements in the original storage are destructed and the original storage is deallocated.
 
-NOTE: Pro třídní typy jsou kopie prvků vytvářeny pomocí kopírovacího konstruktoru.
+NOTE: For class types, copies are made by the copy constructor.
 
-=== Vložení a mazání prvků
+=== Element insertion and removal
 
-* `push_back(const T& value)` — *vložení prvku*
-** Vytvoří na konci vektoru (adresa `data() + size()`) nový prvek tak, že pro jeho inicializaci použije výraz `value`.
-** Pokud při spuštění funkce je velikost vektoru rovna jeho kapacitě, provede nejprve „realokaci“ dle popisu funkce `reserve()`.
-** V rámci realokace je stávající kapacita vektoru obecně zdvojnásobena; pouze pokud byla nulová, je nastavena na 1.
+* `push_back(const T& value)` — *inserts element*
+** Inserts, at the end of the vector (`data() + size()` address), a copy of the object to which the reference `value` is bound.
+** If, before the element insertion, the size of the vecotor is equal to its capacity, the capacity must be first (before insertion) extended according to the description of the `reserve()` function.
+** In reallocation, the original capacity is generally doubled; only if it is zero, it is set to 1.
 
-* `pop_back()` — *odstranění posledního prvku*
-** Pokud vektor není prázdný, destruuje jeho poslední prvek.
-** V opačném případě není chování definováno.
-** Nemění kapacitu vektoru.
+* `pop_back()` — *removes last element*
+** If the vector is not empty, destructs its last element.
+** Otherwise, the behavior is undefined.
+** Does not change the capacity.
 
-* `clear()` — *odstranění všech prvků*
-** Pokud vektor není prázdný, destruuje jeho všechny prvky.
-** Nemění kapacitu vektoru.
+* `clear()` — *removes all elements*
+** If the vector is not empty, destructs all its elements.
+** Does not change the capacity.
 
-=== Prohození obsahu
+=== Swapping content
 
-* `swap(vector& other)` — *prohození obsahu*
-** Prohodí obsah dvou vektorů, tj. vektor `+*this+` bude po operaci obsahovat stejné prvky, které měl před operací vektor `other`, a opačně.
+* `swap(vector& other)` — *swap contents of two vectors*
+** Swaps content of two vectors, i.e., the vector `+*this+`, after the operation, will contain the same elements that the vector `other` had before, and vice versa.
 
-IMPORTANT: Tato operace nesmí vyhodit výjimku.
+IMPORTANT: This operation must not throw an exception.
 
-== Ošetřování výjimek
+== Exception handling
 
-V rámci této úlohy není potřeba řešit korektní ošetřování výjimek.
+Within this assignment, no exception handling is required.
 
-////
+== Requirements for implementation
 
-* Veškeré implementované operace vektoru musí provádět korektní ošetřování výjimek.
+* The rules from the first practical assignment apply.
 
-[WARNING]
-====
-* Pokud v nějaké operaci nastane výjimka, obsah zúčastněných vektorů musí být zachován.
-* Toto pravidlo neplatí pouze pro kopírovací přiřazovací operátor.
-* Obsahem vektoru se myslí obsah jeho prvků a jejich počet. 
-* Stav vektoru se po vyhození výjimky změnit může (např. jeho kapacita), pokud to není v rozporu s výše uvedenými pravidly
-====
+== Solution
 
-IMPORTANT: Pokud je nějaká výjímka odchycena v rámci členské funkce vektoru, musí být dále propagována na místo volání této funkce.
+* A solution of the assigned programming task consists of two parts:
+.. the implementation of the `epc::vector` class template,
+.. the report from the measurement of its efficiency.
 
-////
+=== Implementation
 
-== Požadavky na implementaci
-
-Platí pravidla z první úlohy.
-
-== Řešení
-
-Řešení zadané úlohy se skládá ze dvou částí:
-
-. implementace třídní šablony `epc::vector`,
-. zprávy z měření efektivity této implementace.
-
-=== Implementace
-
-Platí pravidla z první úlohy až na použití větve _practical3_.
+The rules from the first practical assignment apply, except using the _practical3_ branch.
 
 === Měření efektivity
 
-* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
-* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
-* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
-* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
+* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
+* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
+* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
 
-==== Závěrečná zpráva z měření 
+==== Efficiency measurement report
 
-* Ve zprávě o měření porovnejte naměřené časy s výsledky získanými při první úloze.
-* Zahrňte zde rovněž výsledky získané pro `std::vector`.
-* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
-* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
-* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+* In the report, compare the measured times with the results obtained in the first assignment.
+* Include also the results obtained for `std::vector`.
+* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
+* The report will contained the mesasured time (column “Time”) for inidividual vector implementations.
+* The report will contain the results obtained for both compilers.
 
-== Hodnocení
+== Classification
 
-* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
-* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
-* V případě, že překlad i testy dopadnou v pořádku a bude odevzdána zpráva z měření, může bý udělen až maximální počet bodu, tj. 10.
+* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
+* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
+* In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
