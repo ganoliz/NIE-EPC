@@ -11,8 +11,7 @@
 | xref:practical2#[Copying and other functions, exception safety]
 
 | 3. 
-|
-// | xref:practical3#[]
+| xref:practical3#[Separation of memory allocation from object initialization]
 
 
 | 4.

@@ -1,155 +1,215 @@
 = Practical 3
 
-*Included _vs_ dynamically allocated storage*
+**Separation of memory (storage) allocation and deallocation from vector elements initialization and destruction.**
 
-== Introduction
+* High efficiency of vectors stems form the allocation of storage for multiple elements at once.
+* The allocation itself does not create any elements; these are then in the allocated storage initialized as needed.
+* In the same way, element destruction is separated from storage deallocation.
 
-Consider the `PairInt` class that represents a *pair of integer numbers*. This class is defined in the *`PairInt.h` header file* with the following content:
+== Examples
 
 [source,c++]
 ----
-#ifndef PAIRINT_H
-#define PAIRINT_H
-
-class PairInt
 {
-    int a_, b_;
-
-    static long constructed_;
-    static long alive_;
-    static long destructed_;
-
-public:
-    PairInt(int a, int b) : a_(a), b_(b)
-    {
-        constructed_++;
-        alive_++;
-    }
-
-    ~PairInt()
-    {
-        destructed_++;
-        alive_--;
-    }
-
-    PairInt(const PairInt&) = delete;
-    PairInt(PairInt&&) = delete;
-    PairInt& operator=(const PairInt&) = delete;
-    PairInt& operator=(PairInt&&) = delete;
-
-    int& a() { return a_; }
-    int& b() { return b_; }
-
-    static long constructed() { return constructed_; }
-    static long alive()       { return alive_; }
-    static long destructed()  { return destructed_; }
-};
-
-#endif
+  epc::vector<std::string> v; // <1>
+  v.reserve(3); // <2>  
+} // <3>
 ----
 
-The *static member variables* are further defined in the *`PairInt.cpp` source file* with the following content:
+<1> A vector is created by the default constructor.
+<2> The storage with the capacity 3 is allocated, i.e., the storage where 3 elements of the value type can be placed (next to each other).
+<3> Vector destruction deallocates the storage allocated in the `reserve(3)` call.
+
+IMPORTANT: In the shown code, there is no initialization (and destruction) of any objects of the value type `std::string`.
 
 [source,c++]
 ----
-#include "PairInt.h"
-
-long PairInt::constructed_ = 0;
-long PairInt::alive_ = 0;
-long PairInt::destructed_ = 0;
+{
+  epc::vector<std::string> v; 
+  v.reserve(3); 
+  v.push_back(std::string("string literal")); // <1>
+  v.pop_back(); // <2>
+} 
 ----
+<1> At the beginning of the allocated storage (“0th” position), a new element is initialized. The function argument is used as an initialization argument.
+<2> The single vector element is destructed (by destructor).
 
-== Assignment
+NOTE: The other steps behave the same as in the previous example.
 
-* *Implement the `PairIntOwner` class* that serves as an *optional owner of an object of type `PairInt`*, while the owned object will be upon request stored *either in the included or dynamically allocated storage*.
-* The `PairIntOwner` class will be implemented *in the `PairIntOwner.h` header file*.
-
-
-NOTE: To avoid violation of the ODR (_one definition rule_), the member functions needs to be defined either *inside the class definition* or *outside with the `inline` specifier*.
-
-=== Class interface
-
-* `enum Storage { INCLUDED, DYNAMIC }` -- constants used below.
-
-* `PairIntOwner()` -- *default constructor*. *Does not initialize any object* of type `PairInt`.
-
-* `PairIntOwner(Storage s , int a, int b)` -- *converting constructor*. *Creates an object of type `PairInt`* initialized by the `a` and `b` parameters *in storage* that:
-** will be *included inside the storage of the owner object* `+*this+` in case when `s` equals `INCLUDED`;
-** will be *dynamically allocated* in case when `s` equals `DYNAMIC`.
-
-* `~PairIntOwner()` -- *destructor*. If the owner `+*this+` has initialized/owns an object of type `PairInt` then this is *destructed* (independnelty of in which storage it is).
-
-* `PariInt& value()` -- if the owner `+*this+` owns an object of type `PairInt`, *returns a reference bound to it*. Otherwise causes *undefined behavior*.
-
-NOTE: For the sake of simplicity, all the *special member functions for copying/moving content are disabled*, namely _copy constructor_, _move constructor_, _copy assignment operator_, and _move assignment operator_.
-
-=== Further requirements
-
-* Implement the class in such a way that *when the owned object is accessed* (by using the member function `value()`) *no branching is necessary*.
-* At the same time, try to make the *size of the class objects storage* (size of its binary representation) *as small as possible*, that is, avoid unnecessary member variables.
-
+== Mechanisms
 
 [IMPORTANT]
 ====
-* For implementation, *do not use any entities from the C++ standard library* (nor any other library).
-* The `PairIntOwner.h` file should contain *only a single header file inclusion, namely of `PairInt.h`*.
-
+* Storage allocation for vector elements needs to involve call of the `operator new` or `::operator new` allocation function (for the purposes of this programming assignment, there is no difference between these options).
+* Deallocation of each allocated storage needs to involve call of the `operator delete` or `::operator delete`.
+* Construction of each element needs to involve the use of _placement new_ with a suitable initialization expression.
+* Destruction of each element needs to involve the _pseudo-destructor call_.
 ====
 
-CAUTION: *Do not modify the content of* the `PairInt.h` and `PairInt.cpp` file, nor the file with the *source code of the test program* (see below).
+== Assignment
 
-=== Template
-
-For implementation, you can use the *template defined as follows*:.
+Implement the class template `vector` in the `epc` namespace with the following interface and measure its efficiency:
 
 [source,c++]
 ----
-#ifndef PAIRINTOWNER_H
-#define PAIRINTOWNER_H
-
-#include "PairInt.h"
-
-class PairIntOwner
+template <typename T>
+class vector
 {
-    // private members
-
 public:
-    enum Storage { INCLUDED, DYNAMIC };
+  vector() noexcept; 
 
-    PairIntOwner()  // default constructor
-    { }
+  vector(const vector&);
+  vector& operator=(const vector&); 
 
-    PairIntOwner(Storage s, int a, int b)  // converitng constructor
-    { }
+  ~vector();  
 
-    PairIntOwner(const PairIntOwner&) = delete;
-    PairIntOwner(PairIntOwner&&) = delete;
-    PairIntOwner operator=(const PairIntOwner&) = delete;
-    PairIntOwner operator=(PairIntOwner&&) = delete;
+  T* data();  
+  const T* data() const; 
 
-    ~PairIntOwner()  // destructor
-    { }
+  T& operator[](size_t); 
+  const T& operator[](size_t) const; 
 
-    PairInt& value()  // owned objetct accessor
-    { }
+  size_t capacity() const; 
+  size_t size() const; 
+
+  void reserve(size_t); 
+
+  void push_back(const T&); 
+  void pop_back();
+
+  void clear(); 
+
+  void swap(vector&) noexcept;   
 };
-
-#endif
 ----
 
-== Submission
+== Application programming interface (API)
 
-* As a *final solution*, it is considered the *content of the `PairIntOwner.h` file* placed in the *root folder of the _practical3_ branch* of your *course project/repository* on *the faculty GitLab instance*.
-* As a *correct solution*, it is considered a *compilable and working implementation* of the `PairIntOwner` class *according to the assignment above*,
-* *The deadline for submission* is the *end of your practical class* (according to your time table).
+=== Template parameters
 
-CAUTION: A solution may be submitted even up to *24 hours after the deadline*; in such a case it will be awarded with *at most 4 classification points*.
+* `T` — *value type*
+** Alignment requirements are `alignof(std::max_align_t)` at most (`T` is not _over-aligned_).
+** The value type is destructible and destruction does not throw exceptions (_nothrow-destructible_).
+** The value type is constructible by an initialization expression of type `T` (_copy-constructible_).
+** Some member functions may specify additional requirements.
+ 
+NOTE: The value type does not need to be constructible without an initialization expression (_default-constructible_).
 
-* Register the submission by *creating the _merge request_*, namely *from the _practical3_ branch into the _master_ branch* inside your project.
+=== Special member functions
 
-== Testing
+* `vector()` — *default constructor*
+** Sets the vector into the empty state, i.e., state, where it does not contain any elements and its capacity is zero.
+** Must not throw exceptions.
 
-* For testing purposes, a *program based on the Boost.Test framework* will be available.
-* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
-* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/Gqj491ddG.
-* A Wandbox online IDE link to the project template with the test program: https://wandbox.org/permlink/r5QZoft6R60qRRjS.
+* `vector(const vector&)` — *copy constructor*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
+** Each element of the target vector is constructed as a copy of the corresponding element of the source vector.
+
+* `operator=(const vector&)` — *copy assignment operator*
+** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The state of the source vector is not changed.
+** The content of a target vector element is either assigned by the copy assignment operator or copied during its initialization.
+** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_).
+
+IMPORTANT: Copy assignment operator needs to work even in the case where the source and target vectors represent the same object (so-called “self-assignment”).
+
+* `~vector()` — *destructor*
+** If needed, destructs all the vector elements and deallocates memory.
+
+=== Elements access
+
+* `data()` — *pointer to the first element*
+** If the vector contains some elements, returns a pointer to the first of them.
+** Otherwise, returns the null pointer.
+
+NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
+
+* `operator[]` — *reference to the desired element*
+** If the vector contains the element with the index `i`, returns a reference bound to it.
+** Otherwise, the behavior is undefined.
+
+NOTE: The operator exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
+
+=== Information about vector
+
+* `capacity()` — *information about capacity*
+** Returns information about the vector’s capacity, i.e., the number of elments that fits into the storage last time allocated by `operator new`.
+
+* `size()` — *information about element count*
+** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages (i.e., that are in the actually allocated storage).
+
+=== Extending capacity
+
+* `reserve(size_t capacity)` — *extend vector capacity*
+** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
+** Otherwise, extends the capacity of the vector by performing “reallocation” and preserves its contents.
+** Reallocation involves the following steps:
+*** New storage with the required capacity is allocated by the `operator new` allocation function.
+*** For each element in the original storage, its copy is constructed (initialized) in the new storage.
+*** The elements in the original storage are destructed and the original storage is deallocated.
+
+NOTE: For class types, copies are made by the copy constructor.
+
+=== Element insertion and removal
+
+* `push_back(const T& value)` — *inserts element*
+** Inserts, at the end of the vector (`data() + size()` address), a copy of the object to which the reference `value` is bound.
+** If, before the element insertion, the size of the vecotor is equal to its capacity, the capacity must be first (before insertion) extended according to the description of the `reserve()` function.
+** In reallocation, the original capacity is generally doubled; only if it is zero, it is set to 1.
+
+* `pop_back()` — *removes last element*
+** If the vector is not empty, destructs its last element.
+** Otherwise, the behavior is undefined.
+** Does not change the capacity.
+
+* `clear()` — *removes all elements*
+** If the vector is not empty, destructs all its elements.
+** Does not change the capacity.
+
+=== Swapping content
+
+* `swap(vector& other)` — *swap contents of two vectors*
+** Swaps content of two vectors, i.e., the vector `+*this+`, after the operation, will contain the same elements that the vector `other` had before, and vice versa.
+
+IMPORTANT: This operation must not throw an exception.
+
+== Exception handling
+
+Within this assignment, no exception handling is required.
+
+== Requirements for implementation
+
+The rules from the first practical assignment apply.
+
+== Solution
+
+A solution of the assigned programming task consists of two parts:
+
+. the implementation of the `epc::vector` class template,
+. the report from the measurement of its efficiency.
+
+=== Implementation
+
+The rules from the first practical assignment apply, except using the _practical3_ branch.
+
+=== Efficiencny measurements
+
+* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
+* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
+* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
+* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
+
+==== Efficiency measurement report
+
+* In the report, compare the measured times with the results obtained in the first assignment.
+* Include also the results obtained for `std::vector`.
+* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
+* The report will contained the mesasured time (column “Time”) for inidividual vector implementations.
+* The report will contain the results obtained for both compilers.
+
+== Classification
+
+* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
+* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
+* In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
