@@ -36,19 +36,19 @@ IMPORTANT: In the shown code, there is no initialization (and destruction) of an
 
 NOTE: The other steps behave the same as in the previous example.
 
-== Mechanizmy
+== Mechanisms
 
 [IMPORTANT]
 ====
-* Alokace uložiště pro prvky vektoru musí zahrnovat volání alokační funkce `operator new` nebo `::operator new` (pro účely úlohy není mezi těmito možnostmi rozdíl).
-* Dealokace každého alokovaného uložiště musí zahrovat volání dealokační funkce `operator delete` nebo `::operator delete`.
-* Vytvoření každého prvku vektoru musí zahrnovat použití _placement new_ s příslušným inicializačním výrazem.
-* Destrukci každého vytvořeného prvku vektoru musí zahrnovat _pseudo-destructor call_.
+* Storage allocation for vector elements needs to involve call of the `operator new` or `::operator new` allocation function (for the purposes of this programming assignment, there is no difference between these options).
+* Deallocation of each allocated storage needs to involve call of the `operator delete` or `::operator delete`.
+* Construction of each element needs to involve the use of _placement new_ with a suitable initialization expression.
+* Destruction of each element needs to involve the _pseudo-destructor call_.
 ====
 
-== Zadání
+== Assignment
 
-Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a změřte její efektivitu.
+Implement the class template `vector` in the `epc` namespace with the following interface and measure its efficiency:
 
 [source,c++]
 ----
@@ -83,9 +83,9 @@ public:
 };
 ----
 
-== Aplikační programové rozhraní (API)
+== Application programming interface (API)
 
-=== Šablonové parametry
+=== Template parameters
 
 * `T` — *hodnotový typ*
 ** Požadavek pro zarovnání je nejvýše `alignof(std::max_align_t)` (`T` není _over-aligned_).
