@@ -193,7 +193,7 @@ A solution of the assigned programming task consists of two parts:
 
 The rules from the first practical assignment apply, except using the _practical3_ branch.
 
-=== Měření efektivity
+=== Efficiencny measurements
 
 * Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
 * Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
