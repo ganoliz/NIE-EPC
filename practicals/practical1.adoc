@@ -150,7 +150,6 @@ CAUTION: In the _practical1_ branch of your course project, do not change the co
 === Efficiencny measurements
 
 * Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
-* Program porovnává na vybraných operacích efektivitu vaší implementace s třemi různými existujícími implementacemi vektorové třídy:
 * The program compares the effeiciency — on some selected operations — of your implementation with three existing vector-class implementations:
 .. `std::vector` from the standard {cpp} library,
 .. `boost::container::small_vector` form the Boost.Container library,
