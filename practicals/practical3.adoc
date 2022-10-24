@@ -1,155 +1,231 @@
 = Practical 3
 
-*Included _vs_ dynamically allocated storage*
+**Separation of memory (storage) allocation and deallocation from vector elements initialization and destruction.**
 
-== Introduction
+* Vysoká efektivita vektorů souvisí s tím, že alokují uložiště obecně pro více prvků najednou.
+* Samotná alokace žádné prvky ale nevytváří, ty jsou v alokovaném uložišti následně inicializovány dle potřeby.
+* Stejným způsobem je oddělena destrukce prvků od dealokace uložiště.
 
-Consider the `PairInt` class that represents a *pair of integer numbers*. This class is defined in the *`PairInt.h` header file* with the following content:
+== Příklady
 
 [source,c++]
 ----
-#ifndef PAIRINT_H
-#define PAIRINT_H
-
-class PairInt
 {
-    int a_, b_;
-
-    static long constructed_;
-    static long alive_;
-    static long destructed_;
-
-public:
-    PairInt(int a, int b) : a_(a), b_(b)
-    {
-        constructed_++;
-        alive_++;
-    }
-
-    ~PairInt()
-    {
-        destructed_++;
-        alive_--;
-    }
-
-    PairInt(const PairInt&) = delete;
-    PairInt(PairInt&&) = delete;
-    PairInt& operator=(const PairInt&) = delete;
-    PairInt& operator=(PairInt&&) = delete;
-
-    int& a() { return a_; }
-    int& b() { return b_; }
-
-    static long constructed() { return constructed_; }
-    static long alive()       { return alive_; }
-    static long destructed()  { return destructed_; }
-};
-
-#endif
+  epc::vector<std::string> v; // <1>
+  v.reserve(3); // <2>  
+} // <3>
 ----
 
-The *static member variables* are further defined in the *`PairInt.cpp` source file* with the following content:
+<1> Je vytvořen vektor pomocí výchozího konstruktoru. 
+<2> Je dynamicky alokováno uložiště s kapacitou 3, tj. uložiště, do kterého se (vedle sebe) vejdou 3 prvky hodnotového typu.
+<3> Při destruování vektoru je uvolněno uložiště alokované v rámci volání `reserve(3)`.
+
+IMPORTANT: V rámci celého ukázaného kódu se nikde neinicializují (a tím pádem ani nedestruují) žádné objekty hodnotového typu `std::string`.
 
 [source,c++]
 ----
-#include "PairInt.h"
-
-long PairInt::constructed_ = 0;
-long PairInt::alive_ = 0;
-long PairInt::destructed_ = 0;
+{
+  epc::vector<std::string> v; 
+  v.reserve(3); 
+  v.push_back(std::string("string literal")); // <1>
+  v.pop_back(); // <2>
+} 
 ----
+<1> V alokovaném uložišti je na záčátku (na „nulté“ pozici) inicializován nový prvek. Jako argument pro inicializaci je použit argument funkce.
+<2> Jediný prvek vektoru je destruován (pomocí destruktoru).
 
-== Assignment
+NOTE: Ostatní kroky se chovají stejně, jako v předchozím příkladu.
 
-* *Implement the `PairIntOwner` class* that serves as an *optional owner of an object of type `PairInt`*, while the owned object will be upon request stored *either in the included or dynamically allocated storage*.
-* The `PairIntOwner` class will be implemented *in the `PairIntOwner.h` header file*.
-
-
-NOTE: To avoid violation of the ODR (_one definition rule_), the member functions needs to be defined either *inside the class definition* or *outside with the `inline` specifier*.
-
-=== Class interface
-
-* `enum Storage { INCLUDED, DYNAMIC }` -- constants used below.
-
-* `PairIntOwner()` -- *default constructor*. *Does not initialize any object* of type `PairInt`.
-
-* `PairIntOwner(Storage s , int a, int b)` -- *converting constructor*. *Creates an object of type `PairInt`* initialized by the `a` and `b` parameters *in storage* that:
-** will be *included inside the storage of the owner object* `+*this+` in case when `s` equals `INCLUDED`;
-** will be *dynamically allocated* in case when `s` equals `DYNAMIC`.
-
-* `~PairIntOwner()` -- *destructor*. If the owner `+*this+` has initialized/owns an object of type `PairInt` then this is *destructed* (independnelty of in which storage it is).
-
-* `PariInt& value()` -- if the owner `+*this+` owns an object of type `PairInt`, *returns a reference bound to it*. Otherwise causes *undefined behavior*.
-
-NOTE: For the sake of simplicity, all the *special member functions for copying/moving content are disabled*, namely _copy constructor_, _move constructor_, _copy assignment operator_, and _move assignment operator_.
-
-=== Further requirements
-
-* Implement the class in such a way that *when the owned object is accessed* (by using the member function `value()`) *no branching is necessary*.
-* At the same time, try to make the *size of the class objects storage* (size of its binary representation) *as small as possible*, that is, avoid unnecessary member variables.
-
+== Mechanizmy
 
 [IMPORTANT]
 ====
-* For implementation, *do not use any entities from the C++ standard library* (nor any other library).
-* The `PairIntOwner.h` file should contain *only a single header file inclusion, namely of `PairInt.h`*.
-
+* Alokace uložiště pro prvky vektoru musí zahrnovat volání alokační funkce `operator new` nebo `::operator new` (pro účely úlohy není mezi těmito možnostmi rozdíl).
+* Dealokace každého alokovaného uložiště musí zahrovat volání dealokační funkce `operator delete` nebo `::operator delete`.
+* Vytvoření každého prvku vektoru musí zahrnovat použití _placement new_ s příslušným inicializačním výrazem.
+* Destrukci každého vytvořeného prvku vektoru musí zahrnovat _pseudo-destructor call_.
 ====
 
-CAUTION: *Do not modify the content of* the `PairInt.h` and `PairInt.cpp` file, nor the file with the *source code of the test program* (see below).
+== Zadání
 
-=== Template
-
-For implementation, you can use the *template defined as follows*:.
+Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a změřte její efektivitu.
 
 [source,c++]
 ----
-#ifndef PAIRINTOWNER_H
-#define PAIRINTOWNER_H
-
-#include "PairInt.h"
-
-class PairIntOwner
+template <typename T>
+class vector
 {
-    // private members
-
 public:
-    enum Storage { INCLUDED, DYNAMIC };
+  vector() noexcept; 
 
-    PairIntOwner()  // default constructor
-    { }
+  vector(const vector&);
+  vector& operator=(const vector&); 
 
-    PairIntOwner(Storage s, int a, int b)  // converitng constructor
-    { }
+  ~vector();  
 
-    PairIntOwner(const PairIntOwner&) = delete;
-    PairIntOwner(PairIntOwner&&) = delete;
-    PairIntOwner operator=(const PairIntOwner&) = delete;
-    PairIntOwner operator=(PairIntOwner&&) = delete;
+  T* data();  
+  const T* data() const; 
 
-    ~PairIntOwner()  // destructor
-    { }
+  T& operator[](size_t); 
+  const T& operator[](size_t) const; 
 
-    PairInt& value()  // owned objetct accessor
-    { }
+  size_t capacity() const; 
+  size_t size() const; 
+
+  void reserve(size_t); 
+
+  void push_back(const T&); 
+  void pop_back();
+
+  void clear(); 
+
+  void swap(vector&) noexcept;   
 };
-
-#endif
 ----
 
-== Submission
+== Aplikační programové rozhraní (API)
 
-* As a *final solution*, it is considered the *content of the `PairIntOwner.h` file* placed in the *root folder of the _practical3_ branch* of your *course project/repository* on *the faculty GitLab instance*.
-* As a *correct solution*, it is considered a *compilable and working implementation* of the `PairIntOwner` class *according to the assignment above*,
-* *The deadline for submission* is the *end of your practical class* (according to your time table).
+=== Šablonové parametry
 
-CAUTION: A solution may be submitted even up to *24 hours after the deadline*; in such a case it will be awarded with *at most 4 classification points*.
+* `T` — *hodnotový typ*
+** Požadavek pro zarovnání je nejvýše `alignof(std::max_align_t)` (`T` není _over-aligned_).
+** Hodnotový typ musí být destruovatelný a destrukce nesmí vyhodit výjimku (_nothrow-destructible_).
+** Hodnotový typ musí být konstruovatelný inicializačním výrazem, jehož typ je rovněž `T` (_copy-constructible_).
+** Některé členské funkce mohou pro hodnotový typ specifikovat další požadavky.
 
-* Register the submission by *creating the _merge request_*, namely *from the _practical3_ branch into the _master_ branch* inside your project.
+NOTE: Hodnotový typ nemusí být konstruovatelný bez inicializačního výrazu (_default-constructible_).
 
-== Testing
+=== Speciální členské funkce
 
-* For testing purposes, a *program based on the Boost.Test framework* will be available.
-* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
-* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/Gqj491ddG.
-* A Wandbox online IDE link to the project template with the test program: https://wandbox.org/permlink/r5QZoft6R60qRRjS.
+* `vector()` — *výchozí konstruktor*
+** Nastaví vektor do prázdného stavu, tj. stavu, kdy neobsahuje žádné prvky a jeho kapacita je nulová.
+** Nesmí vyhodit výjimku.
+
+* `vector(const vector&)` — *kopírovací konstruktor*
+** Cílový vektor bude mít po operaci stejný obsah (obsah vlastněných prvků), jako zdrojový vektor.
+** Stav zdrojového vektoru nesmí být změněn.
+** Každý prvek cílového vektoru je vytvořen jako kopie příslušného prvku zdrojového vektoru.
+
+* `operator=(const vector&)` — *kopírovací přiřazovací operátor*
+** Cílový vektor bude mít po operaci stejný obsah (obsah vlastněných prvků), jako zdrojový vektor.
+** Stav zdrojového vektoru nesmí být změněn.
+** Obsah prvků cílového vektoru je buď nastaven kopírovacím přířazovacím operátorem nebo kopírováním obsahu při inicializaci.
+** Vyžaduje hodnotový typ přiřaditelný výrazem, jehož typ je rovněž `T` (_copy-assignable_).
+
+IMPORTANT: Kopírovací přiřazovací operátor musí fungovat i v případě, že zdrojový a cílový vektor představují stejný objekt (tzv. „self-assignment“).
+
+* `~vector()` — *destruktor* 
+** V případě potřeby destruuje existující prvky vektoru a dealokuje alokovanou paměť.
+
+=== Přístup k prvkům
+
+* `data()` — *ukazatel na první prvek*
+** Pokud vektor obsahuje nějaké prvky, vrací ukazatel na první z nich. 
+** V opačném případě vrátí nulový ukazatel.
+
+NOTE: Funkce existuje ve dvou variantách, tj. jako _(nekonstantní) členská funkce_ a _konstantní členská funkce_.
+
+* `operator[]` — *refernce na požadovaný prvek*
+** Pokud vektor obsahuje prvek s indexem `i`, vrátí referenci, která je na něj navázána.
+** V opačném případě není chování definováno.
+
+NOTE: Operátor existuje ve dvou variantách, tj. jako _(nekonstantní) členská funkce_ a _konstantní členská funkce_.
+
+=== Informace o vektoru
+
+* `capacity()` — *informace o kapacitě*
+** Vrátí informaci o kapacitě vektoru, tj. počtu prvků, které se vejdou do uložiště naposledy alokovaného pomocí alokační funkce `operator new`.
+
+* `size()` — *informace o počtu prvků*
+** Vrátí informaci o velikosti vektoru, tj. počtu prvků, které vektor obsahuje/spravuje (tj., které se nacházejí v aktuálně alokovaném uložišti).
+
+=== Navýšení kapacity
+
+* `reserve(size_t capacity)` — *navýšení kapacity*
+** Pokud `capacity` je menší nebo rovno aktální kapacitě vektoru, nemá žádný efekt.
+** V opačném případě pomocí „realokace“ navýší kapacitu vektoru na `capacity`.
+** Realokace zahrnuje následující kroky:
+*** Je alokováno nové uložiště s požadovanou kapacitou pomocí alokační funkce `operator new`.
+*** Pro každý prvek ve stávajícím uložišti je v novém uložišti vytvořena (inicializována) jeho kopie.
+*** Prvky ve stávajícím uložišti jsou destruovány a stávající uložiště je dealokováno.
+
+NOTE: Pro třídní typy jsou kopie prvků vytvářeny pomocí kopírovacího konstruktoru.
+
+=== Vložení a mazání prvků
+
+* `push_back(const T& value)` — *vložení prvku*
+** Vytvoří na konci vektoru (adresa `data() + size()`) nový prvek tak, že pro jeho inicializaci použije výraz `value`.
+** Pokud při spuštění funkce je velikost vektoru rovna jeho kapacitě, provede nejprve „realokaci“ dle popisu funkce `reserve()`.
+** V rámci realokace je stávající kapacita vektoru obecně zdvojnásobena; pouze pokud byla nulová, je nastavena na 1.
+
+* `pop_back()` — *odstranění posledního prvku*
+** Pokud vektor není prázdný, destruuje jeho poslední prvek.
+** V opačném případě není chování definováno.
+** Nemění kapacitu vektoru.
+
+* `clear()` — *odstranění všech prvků*
+** Pokud vektor není prázdný, destruuje jeho všechny prvky.
+** Nemění kapacitu vektoru.
+
+=== Prohození obsahu
+
+* `swap(vector& other)` — *prohození obsahu*
+** Prohodí obsah dvou vektorů, tj. vektor `+*this+` bude po operaci obsahovat stejné prvky, které měl před operací vektor `other`, a opačně.
+
+IMPORTANT: Tato operace nesmí vyhodit výjimku.
+
+== Ošetřování výjimek
+
+V rámci této úlohy není potřeba řešit korektní ošetřování výjimek.
+
+////
+
+* Veškeré implementované operace vektoru musí provádět korektní ošetřování výjimek.
+
+[WARNING]
+====
+* Pokud v nějaké operaci nastane výjimka, obsah zúčastněných vektorů musí být zachován.
+* Toto pravidlo neplatí pouze pro kopírovací přiřazovací operátor.
+* Obsahem vektoru se myslí obsah jeho prvků a jejich počet. 
+* Stav vektoru se po vyhození výjimky změnit může (např. jeho kapacita), pokud to není v rozporu s výše uvedenými pravidly
+====
+
+IMPORTANT: Pokud je nějaká výjímka odchycena v rámci členské funkce vektoru, musí být dále propagována na místo volání této funkce.
+
+////
+
+== Požadavky na implementaci
+
+Platí pravidla z první úlohy.
+
+== Řešení
+
+Řešení zadané úlohy se skládá ze dvou částí:
+
+. implementace třídní šablony `epc::vector`,
+. zprávy z měření efektivity této implementace.
+
+=== Implementace
+
+Platí pravidla z první úlohy až na použití větve _practical3_.
+
+=== Měření efektivity
+
+* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
+* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
+* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
+* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+
+==== Závěrečná zpráva z měření 
+
+* Ve zprávě o měření porovnejte naměřené časy s výsledky získanými při první úloze.
+* Zahrňte zde rovněž výsledky získané pro `std::vector`.
+* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
+* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
+* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+
+== Hodnocení
+
+* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
+* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
+* V případě, že překlad i testy dopadnou v pořádku a bude odevzdána zpráva z měření, může bý udělen až maximální počet bodu, tj. 10.
