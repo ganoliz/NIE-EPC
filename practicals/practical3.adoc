@@ -121,7 +121,9 @@ IMPORTANT: Copy assignment operator needs to work even in the case where the sou
 
 * `data()` — *pointer to the first element*
 ** If the vector contains some elements, returns a pointer to the first of them.
-** Otherwise, returns the null pointer.
+** If the vector does not contain elements and its capacity is nonzero, returns a pointer to the allocated storage.
+** If the vector does not contain elements and its capacity is zero, return the null pointer.
+** [.line-through]#Otherwise, returns the null pointer.#
 
 NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
 
