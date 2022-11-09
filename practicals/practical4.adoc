@@ -1,104 +1,142 @@
-= Practical 4.1
+= Practical 4
 
-*Value pointer `ValuePtr`*
+**Small buffer optimization**
 
-== Introduction
+* Adding included storage (buffer) into vector with the capacity for `N` elements, where `N` is the second template parameter.
+* The capacity of a default-constructed vector is `N`.
+* Until the number of elements exceeds `N`, there is no need to dynamically allocate the storage for elements by the operator `new`.
 
-The standard {cpp} library contains only _smart pointers_ that are able to *copy or move the ownership of a particular object*. It does not contain any smart pointer that would be able to *create new objects* and, at the same time, to *copy or move their content*.
-
-== Assignment
-
-* *Implement the class template `ValuePtr`* that serves as a *smart pointer* with the ability to *create new objects with copying or moving their content*.
-* The content of an object of the `ValuePtr<T>` class is the *ownership of an object of type `T`*.
-* This ownership is *optional*, similarly as, for instance, with the library smart pointer `std::unique_ptr<T>`.
-* The `ValuePtr` class template implement in the *`ValuePtr.h` header file*.
-
-=== Class template interface
-
-* `ValuePtr()` -- *default constructor*. Does not initialize any object of type `T`.
-
-* `ValuePtr(T* ptr)` -- *converting constructor*. *Takes over ownership of the object* pointed-to by `ptr`.
-
-CAUTION: It is assumed that the pointed-to object has been *initialized -- and its storage allocated -- by the `new` expression*.
-
-* `ValuePtr(const ValuePtr& other)` -- *copy constructor*.
-** If `other` *does not own any object of type `T`*, the constructed object `+*this+` will not own any object of type `T` as well.
-** If `other` *does own and object of type `T`*, the constructed object `+*this+` will own an object of type `T` that will be initialized by *copying the content from `+*other+`*.
-
-* `ValuePtr(ValuePtr&& other)` -- *move constructor*.
-** If `other` *does not own any object of type `T`*, the constructed object `+*this+` will not own any object of type `T` as well.
-** If `other` *does own and object of type `T`*, the constructed object `+*this+` will own an object of type `T` that will be initialized by *moving the content from `+*other+`*.
-
-* `~ValuePtr()` -- *destructor*.
-** If the destructed object `+*this+` *does own an object of type `T`*, it will be *destructed and its storage deallocated*.
-** Otherwise, it has no effect.
-
-* `T& operator*()` -- *dereference operator*. Returns a *reference to the owned object* if it does exist. Otherwise, causes undefined behavior.
-
-* `+T* operator->()+` -- *member access operator*. Returns a *pointer to the owned object* if it does exist. Otherwise, causes undefined behavior.
-
-* `T* get()` -- returns a *pointer to the owned object* if it does exist. *Otherwiser, returns `nullptr`*.
-
-NOTE: For the sake of simplicity, the *copy assignment and move assignment operators are deleted.*
-
-== Other requirements
-
-* Try to implement the `ValuePtr` class template such that it would be as *efficient as possible* from the perspective of *runtime and memory resources costs*.
-
-[IMPORTANT]
-====
-* For implementation, *do not use any entities from the C++ standard library* (nor any other library) with the *exception of the `std::move` function (template)*.
-====
-
-CAUTION: *Do not modify the content of the test program* (see below).
-
-=== Template
-
-For implementation, you can use the *following code template*:
+== Examples
 
 [source,c++]
 ----
-#ifndef VALUE_PTR_H
-#define VALUE_PTR_H
-
-template <typename T>
-class ValuePtr
 {
-
-public:
-    ValuePtr() { }
-
-    ValuePtr(T* ptr) { }
-
-    ValuePtr(const ValuePtr& other) { }
-
-    ValuePtr(ValuePtr&& other) { }
-
-    ~ValuePtr() { }
-
-    ValuePtr& operator=(const ValuePtr&) = delete;
-    ValuePtr& operator=(ValuePtr&&) = delete;
-
-    T& operator*() { }
-
-    T* operator->() { }
-
-    T* get() { }
-};
-
-#endif
+  epc::vector<int, 2> v; // <1>
+  v.push_back(1);  
+  v.push_back(2); // <2>  
+  v.push_back(3); // <3>
+} 
 ----
 
-== Assignment
+<1> An empty vector is constructed by the default constructor. Its capacity is 2.
+<2> The vector contains 2 elements, both stored in the included storage (buffer).
+<3> A new storage is dynamically allocated within reallocation. A new element is then inserted to its end.
 
-* As a *final solution*, it is considered the *content of the `ValuePtr.h` file* placed in the *root folder of the _practical4_ branch* of your *course project/repository* on *the faculty GitLab instance*.
-* As a *correct solution*, it is considered a *compilable and working implementation* of the `ValuePtr` class template *according to the assignment above*,
-* *The deadline for submission* is the *end of the week after the week with your practical class* (according to your time table).
-* Register the submission by *creating the _merge request_*, namely *from the _practical4_ branch into the _master_ branch* inside your project.
+== Mechanizmy
 
-== Testing
+[IMPORTANT]
+====
+* Definice bufferu viz např. ukázková implementace třídní šablony `optional` na přednáškách.
+* Zde je pouze na rozdíl od `optional` potřeba vytvořit buffer pro `N` prvků.
+====
 
-* For testing purposes, a *program based on the Boost.Test framework* will be available.
-* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
-* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/eW5fPYfK6.
-* A Wandbox online IDE link to the project template with the test program: https://wandbox.org/permlink/lbpHEf26bsS8Bdxe.
+== Zadání
+
+Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a změřte její efektivitu.
+
+[source,c++]
+----
+template <typename T, size_t N>
+class vector
+{
+public:
+  vector() noexcept; 
+
+  vector(const vector&);
+  vector& operator=(const vector&); 
+
+  ~vector();  
+
+  T* data();  
+  const T* data() const; 
+
+  T& operator[](size_t); 
+  const T& operator[](size_t) const; 
+
+  size_t capacity() const; 
+  size_t size() const; 
+
+  void reserve(size_t); 
+
+  void push_back(const T&); 
+  void pop_back();
+
+  void clear(); 
+
+  void swap(vector&) /* noexcept */ ;   
+};
+----
+
+== Aplikační programové rozhraní (API)
+
+IMPORTANT: Jsou popsány pouze změny oproti předchozí úloze.
+
+CAUTION: Pro operace, které pracují se dvěma vektory, uvažujte stejnou velikost vloženého bufferu.
+
+=== Šablonové parametry
+
+* `N` — *kapacita vloženého bufferu*
+
+=== Speciální členské funkce
+
+* `vector()` — *výchozí konstruktor*
+** Nastaví vektor do prázdného stavu, tj. stavu, kdy neobsahuje žádné prvky a jeho kapacita je `N`.
+** Nesmí vyhodit výjimku.
+
+=== Přístup k prvkům
+
+* `data()` — *ukazatel na první prvek*
+** Pokud vektor obsahuje nějaké prvky, vrací ukazatel na první z nich. 
+** Pokud vektor neobsahuje, vrací ukazatel na alokované uložiště.
+
+=== Informace o vektoru
+
+* `capacity()` — *informace o kapacitě*
+** Vrátí informaci o kapacitě vektoru, tj. počtu prvků, které se vejdou do aktuálně alokovaného uložiště.
+
+NOTE: Akutálním uložištěm může být i vložený buffer.
+
+=== Prohození obsahu
+
+* `swap(vector& other)` — *prohození obsahu*
+** Prohodí obsah dvou vektorů, tj. vektor `+*this+` bude po operaci obsahovat stejné prvky, které měl před operací vektor `other`, a opačně.
+** Vyžaduje hodnotový typ přiřaditelný výrazem, jehož typ je rovněž `T` (_copy-assignable_).
+
+== Ošetřování výjimek
+
+V rámci této úlohy není potřeba řešit korektní ošetřování výjimek.
+
+== Požadavky na implementaci
+
+Platí pravidla z první úlohy.
+
+== Řešení
+
+Řešení zadané úlohy se skládá ze dvou částí:
+
+. implementace třídní šablony `epc::vector`,
+. zprávy z měření efektivity této implementace.
+
+=== Implementace
+
+Platí pravidla z první úlohy až na použití větve _practical4_.
+
+=== Měření efektivity
+
+* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
+* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
+* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
+* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+
+==== Závěrečná zpráva z měření 
+
+* Z výsledků měření efektivity vytvořte jednoduchou závěrečnou zprávu.
+* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
+* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
+* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+
+== Hodnocení
+
+* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
+* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
+* V případě, že překlad i testy dopadnou v pořádku a bude odevzdána zpráva z měření, může bý udělen až maximální počet bodu, tj. 10.
