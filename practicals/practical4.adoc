@@ -10,29 +10,27 @@
 
 [source,c++]
 ----
-{
-  epc::vector<int, 2> v; // <1>
-  v.push_back(1);  
-  v.push_back(2); // <2>  
-  v.push_back(3); // <3>
-} 
+epc::vector<int, 2> v; // <1>
+v.push_back(1);  
+v.push_back(2); // <2>  
+v.push_back(3); // <3>
 ----
 
 <1> An empty vector is constructed by the default constructor. Its capacity is 2.
 <2> The vector contains 2 elements, both stored in the included storage (buffer).
 <3> A new storage is dynamically allocated within reallocation. A new element is then inserted to its end.
 
-== Mechanizmy
+== Mechanisms 
 
 [IMPORTANT]
 ====
-* Definice bufferu viz např. ukázková implementace třídní šablony `optional` na přednáškách.
-* Zde je pouze na rozdíl od `optional` potřeba vytvořit buffer pro `N` prvků.
+* For how to define the buffer, see, e.g., the exemplary implementation of the `optional` class template shown in lectures.
+* Here, the difference is that the buffer needs to be sized for `N` elements.
 ====
 
-== Zadání
+== Assignment
 
-Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním a změřte její efektivitu.
+Implement the class template `vector` in the `epc` namespace with the following interface and measure its efficiency:
 
 [source,c++]
 ----
@@ -67,76 +65,77 @@ public:
 };
 ----
 
-== Aplikační programové rozhraní (API)
+== Application programming interface (API)
 
-IMPORTANT: Jsou popsány pouze změny oproti předchozí úloze.
+IMPORTANT: Only the changes against the previous assignment are described.
 
-CAUTION: Pro operace, které pracují se dvěma vektory, uvažujte stejnou velikost vloženého bufferu.
+CAUTION: For operations that work with two vectors, consider both having the same buffer capacity.
 
-=== Šablonové parametry
+=== Template parameters
 
-* `N` — *kapacita vloženého bufferu*
+* `N` — *capcity of the included buffer
+** `N` is greater then zero.
 
-=== Speciální členské funkce
+=== Special member functions
 
-* `vector()` — *výchozí konstruktor*
-** Nastaví vektor do prázdného stavu, tj. stavu, kdy neobsahuje žádné prvky a jeho kapacita je `N`.
-** Nesmí vyhodit výjimku.
+* `vector()` — *default constructor*
+** Sets the vector into the empty state, i.e., state, where it does not contain any elements and its capacity is `N`.
+** Must not throw exceptions.
 
-=== Přístup k prvkům
+=== Elements access
 
-* `data()` — *ukazatel na první prvek*
-** Pokud vektor obsahuje nějaké prvky, vrací ukazatel na první z nich. 
-** Pokud vektor neobsahuje, vrací ukazatel na alokované uložiště.
+* `data()` — *pointer to the first element*
+** If the vector contains some elements, returns a pointer to the first of them.
+** If the vector does not contain any elements, returns a pointer to the allocated storage.
 
-=== Informace o vektoru
+=== Information about vector
 
-* `capacity()` — *informace o kapacitě*
-** Vrátí informaci o kapacitě vektoru, tj. počtu prvků, které se vejdou do aktuálně alokovaného uložiště.
+* `capacity()` — *information about capacity*
+** Returns information about the vector’s capacity, i.e., the number of elments that fits into the actuall allocated storage.
 
-NOTE: Akutálním uložištěm může být i vložený buffer.
+NOTE: The actually allocated storage may also be the included buffer.
 
-=== Prohození obsahu
+=== Swapping content
 
-* `swap(vector& other)` — *prohození obsahu*
-** Prohodí obsah dvou vektorů, tj. vektor `+*this+` bude po operaci obsahovat stejné prvky, které měl před operací vektor `other`, a opačně.
-** Vyžaduje hodnotový typ přiřaditelný výrazem, jehož typ je rovněž `T` (_copy-assignable_).
+* `swap(vector& other)` — *swap contents of two vectors*
+** Swaps content of two vectors, i.e., the vector `+*this+`, after the operation, will contain the same elements that the vector `other` had before, and vice versa.
+** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_).
 
-== Ošetřování výjimek
+== Exception handling
 
-V rámci této úlohy není potřeba řešit korektní ošetřování výjimek.
+Within this assignment, no exception handling is required.
 
-== Požadavky na implementaci
+== Requirements for implementation
 
-Platí pravidla z první úlohy.
+The rules from the first practical assignment apply.
 
-== Řešení
+== Solution
 
-Řešení zadané úlohy se skládá ze dvou částí:
+A solution of the assigned programming task consists of two parts:
 
-. implementace třídní šablony `epc::vector`,
-. zprávy z měření efektivity této implementace.
+. the implementation of the `epc::vector` class template,
+. the report from the measurement of its efficiency.
 
-=== Implementace
+=== Implementation
 
-Platí pravidla z první úlohy až na použití větve _practical4_.
+The rules from the first practical assignment apply, except using the _practical4_ branch.
 
-=== Měření efektivity
+=== Efficiencny measurements
 
-* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
-* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
-* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
-* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
+* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
+* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
+* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
 
-==== Závěrečná zpráva z měření 
+==== Efficiency measurement report
 
-* Z výsledků měření efektivity vytvořte jednoduchou závěrečnou zprávu.
-* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge requrest_ při odevzdání úlohy.
-* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
-* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+* Create a simple report with the results of efficiency measurements.
+* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
+* The report will contained the mesasured time (column “Time”) for all the vector implementations.
+* The report will contain the results obtained for both compilers.
 
-== Hodnocení
+== Classification
 
-* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
-* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
-* V případě, že překlad i testy dopadnou v pořádku a bude odevzdána zpráva z měření, může bý udělen až maximální počet bodu, tj. 10.
+* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
+* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
+* In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
