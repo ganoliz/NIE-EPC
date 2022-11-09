@@ -7,7 +7,6 @@ repository:
 navigation:
   hiddenFiles:
     - lectures/PDFs/
-    - practicals/practical4.*
     - practicals/practical5.*    
     - practicals/practical6.*    
     - practicals/images/
