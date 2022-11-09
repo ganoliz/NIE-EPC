@@ -15,8 +15,7 @@
 
 
 | 4.
-|
-// | xref:practical4#[] 
+| xref:practical4#[Small buffer optimization] 
 
 
 | 5.
