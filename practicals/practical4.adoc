@@ -6,6 +6,8 @@
 * The capacity of a default-constructed vector is `N`.
 * Until the number of elements exceeds `N`, there is no need to dynamically allocate the storage for elements by the operator `new`.
 
+IMPORTANT: This assignment follows the previous one; the most reqirements are the same.
+
 == Examples
 
 [source,c++]
