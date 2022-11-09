@@ -75,7 +75,7 @@ CAUTION: For operations that work with two vectors, consider both having the sam
 
 === Template parameters
 
-* `N` — *capcity of the included buffer
+* `N` — *capcity of the included buffer*
 ** `N` is greater then zero.
 
 === Special member functions
