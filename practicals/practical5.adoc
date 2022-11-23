@@ -2,14 +2,14 @@
 
 **Move and emplace semantics, exception safety**
 
-* Přidání podpory přesouvací (move) a emplace sémantiky.
-* Korektní ošetření výjimek.
+* Adding support for the move and emplace semantics.
+* Correct exception handling.
 
-IMPORTANT: Tato úloha navazuje na tu předchozí, t.j. jedná se o vektor s optimalizační technikou _small buffer optimization_.
+IMPORTANT: This assignment follows the previous one, i.e., the implementation of a vector with the _small buffer optimization_ techinque.
 
-== Zadání
+== Assignment
 
-Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním.
+Implement the class template `vector` in the `epc` namespace with the following interface.
 
 [source,c++]
 ----
@@ -51,48 +51,48 @@ public:
   void swap(vector&);   
 };
 ----
-<1> Přesouvací konstruktor
-<2> Přesouvací přiřazovací operátor
-<3> Vložení prvku pro rhodnotové argumenty
-<4> Vložení prvku s emplace sémantikou
+<1> Move constructor
+<2> Move assignment operator
+<3> Element insertion for rvalue arguments
+<4> Element insertion with emplace semantics
 
-== Aplikační programové rozhraní (API)
+== Application programming interface (API)
 
-IMPORTANT: Jsou popsány pouze změny oproti předchozí úloze.
+IMPORTANT: Only the changes against the previous assignment are described.
 
-=== Šablonové argumenty
+=== Template parameters
 
-* `T` — hodnotový typ vektoru
-** Pokud hodnotový typ poskytuje operace pro přesun obsahu, nesmí tyto operace vyhodit výjimku (_nothrow-move-constructible/assignable_).
-** Ostatní požadavky jsou shodné s úlohou č. 3.
+* `T` — *value type*
+** If the value type provides the moving-content operations, these operations may not throw exceptions (_nothrow-move-constructible/assignable_).
+** The other requirement are same as the requirements form the 3rd assignment.
 
-=== Speciální členské funkce
+=== Special member functions
 
-* `vector(vector&&)` — *přesouvací konstruktor*
-** Cílový vektor bude mít stejný obsah, jaký měl původně zdrojový vektor.
-** Zdrojový vektor bude prázdný (jeho velikost bude nulová).
+* `vector(vector&&)` — *move constructor*
+** The target vector will have the same content that, originally, had the source vector.
+** The source vector will be empty (its size will be zero).
 
-* `operator=(vector&&)` — *přesouvací přiřazovací operátor*
-** Cílový vektor bude mít stejný obsah, jaký měl původně zdrojový vektor.
-** Zdrojový vektor bude prázdný (jeho velikost bude nulová).
+* `operator=(vector&&)` — *move assignment operator*
+** The target vector will have the same content that, originally, had the source vector.
+** The source vector will be empty (its size will be zero).
 
-=== Navýšení kapacity
+=== Extending capacity
 
-* `reserve(size_t)` — *navýšení kapacity*
-** Při realokaci jsou upřednostněny operace pro přesun obsahu, pokud je hodnotový typ implementuje.
-** Pokud dojde k vyhození výjimky, zůstane obsah vektoru zachován.
+* `reserve(size_t)` — *extends vector capacity*
+** In reallocation, the moving-content operations are preferred, if they are provided by the value type.
+** If an exception is thrown, the content of the vector is not changed.
 
-=== Vložení prvků
+=== Element insertion
 
-* `push_back(const T& value)` — *vložení prvku pro lhodnotové argumenty*
-** Při inicilizaci nového prvku je obsah zkopírován z objektu, na který je navázán parametr `value`.
+* `push_back(const T& value)` — *element insertion for lvalue arguments*
+** When the new element is initalized, the content is copied into it from the object bound to the parameter `value`.
 
-* `push_back(T&& value)` — *vložení prvku pro rhodnotové argumenty*
-** Při inicilizaci nového prvku je obsah přesunut z objektu, na který je navázán parametr `value`.
-** Pokud operace pro přesun obsahu neexistuje, je obsah zkopírován.
+* `push_back(T&& value)` — *element insertion for rvalue arguments*
+** When the new element is initalized, the content is moved into it from the object bound to the parameter `value`.
+** If there is no moving-content operation, the content is copied instead.
 
-* `+template <typename... Ts> emplace_back(Ts&&... vs)+` — *vložení prvku pomocí emplace sémantiky*
-** Pro inicializaci prvku je použita technika _perfect forwarding_ aplikovaná na všechny argumenty funkce.
+* `+template <typename... Ts> emplace_back(Ts&&... vs)+` — *element insertion with the emplace semantics*
+** New element is initialized with the _perfect forwarding_ technique applied to all the function arguments.
 
 == Ošetřování výjimek
 
