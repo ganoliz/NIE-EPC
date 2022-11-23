@@ -2,7 +2,7 @@
 
 **Move and emplace semantics, exception safety**
 
-* Adding support for the move and emplace semantics.
+* Adding support for move and emplace semantics.
 * Correct exception handling.
 
 IMPORTANT: This assignment follows the previous one, i.e., the implementation of a vector with the _small buffer optimization_ techinque.
