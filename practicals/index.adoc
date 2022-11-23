@@ -19,8 +19,7 @@
 
 
 | 5.
-|
-// | xref:practical5#[]
+| xref:practical5#[Move and emplace semantics, exception safety]
 
 
 | 6.
