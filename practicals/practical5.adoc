@@ -98,7 +98,7 @@ IMPORTANT: Only the changes against the previous assignment are described.
 
 * All the operations must correctly handle exceptions (e.g., there may not be any resource leaks).
 * If an exception of any type is caught, it needs to be propagated out to the place where the function was called.
-* If any operations end with throwing an exception, the vectors that participate this operations must end up in a valid state.
+* If any operation ends with throwing an exception, the vectors that participate this operations will be in a valid state.
 
 NOTE: Some operations may specify more strict rules for exception handling.
 
