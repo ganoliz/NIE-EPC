@@ -119,5 +119,5 @@ The rules from the first practical assignment apply, except using the _practical
 [IMPORTANT]
 ====
 * The subject of classification of the solution will additionally be the efficiency and corectness in regard with problems that were presented in practical classes.
-* These are, for example, handling exception of only some types, incorrect exception propagation, unnecessary code branching, etc.
+* These are, for example, handling exception of only some types, incorrect exception propagation, unnecessary code branching, missing inclusion of header files, etc.
 ====
