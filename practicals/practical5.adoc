@@ -1,210 +1,123 @@
-= Practical 4.2
+= Practical 5
 
-*Assignment operators*
+**Move and emplace semantics, exception safety**
 
-== Introduction
+* Přidání podpory přesouvací (move) a emplace sémantiky.
+* Korektní ošetření výjimek.
 
-*Assignment operators* can be implemented in *different forms*. Let us consider the following implementation of the *value pointer `ValuePtr<T>`*:
+IMPORTANT: Tato úloha navazuje na tu předchozí, t.j. jedná se o vektor s optimalizační technikou _small buffer optimization_.
+
+== Zadání
+
+Implementujte třídní šablonu `vector` ve jmenném prostoru `epc` s následujícím rozhraním.
 
 [source,c++]
 ----
-template <typename T>
-class ValuePtr {
-  T* ptr_;
-  
+template <typename T, size_t N>
+class vector
+{
 public:
-  ValuePtr() : ptr_(nullptr) { }
-  ValuePtr(T* ptr) : ptr_(ptr) { }
-  
-  ValuePtr(const ValuePtr& other) ... // implemented in Practical 4.1 assignment
+  vector() noexcept; 
 
-  ValuePtr(ValuePtr&& other) ... // implemented in Practical 4.1 assignment
+  vector(const vector&);
+  vector& operator=(const vector&); 
 
-  ~ValuePtr() ... // implemented in Practical 4.1 assignment
-  
-  void swap(ValuePtr& other) { std::swap(ptr_, other.ptr_); }
+  vector(vector&&); // <1>
+  vector& operator=(vector&&); // <2>
 
-  ...  // other member functions
+  ~vector();  
+
+  T* data();  
+  const T* data() const; 
+
+  T& operator[](size_t); 
+  const T& operator[](size_t) const; 
+
+  size_t capacity() const; 
+  size_t size() const; 
+
+  void reserve(size_t); 
+
+  void push_back(const T&); 
+  void push_back(T&&); // <3>
+
+  template <typename... Ts>
+  void emplace_back(Ts&&...); // <4>
+
+  void pop_back();
+
+  void clear(); 
+
+  void swap(vector&);   
 };
 ----
+<1> Přesouvací konstruktor
+<2> Přesouvací přiřazovací operátor
+<3> Vložení prvku pro rhodnotové argumenty
+<4> Vložení prvku s emplace sémantikou
 
-=== Case 1
+== Aplikační programové rozhraní (API)
 
-*Basic „direct“ implementation of assignment operators* could look like as follows:
+IMPORTANT: Jsou popsány pouze změny oproti předchozí úloze.
 
-[source,c++]
-----
-ValuePtr& operator=(const ValuePtr& other) {
-  if (this != &other) {
-    if (ptr_ && other.ptr_) *ptr_ = *other.ptr_;
-    else if (other.ptr_) ptr_ = new T(*other.ptr_);
-    else if (ptr_) { delete ptr_; ptr_ = nullptr; }
-  }
-  return *this;
-}
+=== Šablonové argumenty
 
-ValuePtr& operator=(ValuePtr&& other) {
-  if (this != &other) {
-    if (ptr_ && other.ptr_) *ptr_ = std::move(*other.ptr_);
-    else if (other.ptr_) ptr_ = new T(std::move(*other.ptr_));
-    else if (ptr_) { delete ptr_; ptr_ = nullptr_; }
-  }
-  return *this;
-}
-----
+* `T` — hodnotový typ vektoru
+** Pokud hodnotový typ poskytuje operace pro přesun obsahu, nesmí tyto operace vyhodit výjimku (_nothrow-move-constructible/assignable_).
+** Ostatní požadavky jsou shodné s úlohou č. 3.
 
-=== Case 2
+=== Speciální členské funkce
 
-Another option is to implement both operators by the *copy-and-swap (C&S) idiom*:
+* `vector(vector&&)` — *přesouvací konstruktor*
+** Cílový vektor bude mít stejný obsah, jaký měl původně zdrojový vektor.
+** Zdrojový vektor bude prázdný (jeho velikost bude nulová).
 
-[source,c++]
-----
-ValuePtr& operator=(const ValuePtr& other) {
-  ValuePtr temp(other);
-  swap(temp);
-  return *this;
-}
+* `operator=(vector&&)` — *přesouvací přiřazovací operátor*
+** Cílový vektor bude mít stejný obsah, jaký měl původně zdrojový vektor.
+** Zdrojový vektor bude prázdný (jeho velikost bude nulová).
 
-ValuePtr& operator=(ValuePtr&& other) {
-  ValuePtr temp(std::move(other));
-  swap(temp);
-  return *this;
-}
-----
+=== Navýšení kapacity
 
-=== Case 3 
+* `reserve(size_t)` — *navýšení kapacity*
+** Při realokaci jsou upřednostněny operace pro přesun obsahu, pokud je hodnotový typ implementuje.
+** Pokud dojde k vyhození výjimky, zůstane obsah vektoru zachován.
 
-The third option is to combine both operators into so-called *unified/unifying assignment operator*, where the role of the auxiliary object `temp` is represented by the *operator parameter*:
+=== Vložení prvků
 
-[source,c++]
-----
-ValuePtr& operator=(ValuePtr other) {
-  swap(other);
-  return *this;
-}
-----
+* `push_back(const T& value)` — *vložení prvku pro lhodnotové argumenty*
+** Při inicilizaci nového prvku je obsah zkopírován z objektu, na který je navázán parametr `value`.
 
-NOTE: The unified assignment operator is technically a *form of the copy assignment operator*.
+* `push_back(T&& value)` — *vložení prvku pro rhodnotové argumenty*
+** Při inicilizaci nového prvku je obsah přesunut z objektu, na který je navázán parametr `value`.
+** Pokud operace pro přesun obsahu neexistuje, je obsah zkopírován.
 
-== Assignment
+* `+template <typename... Ts> emplace_back(Ts&&... vs)+` — *vložení prvku pomocí emplace sémantiky*
+** Pro inicializaci prvku je použita technika _perfect forwarding_ aplikovaná na všechny argumenty funkce.
 
-=== Part I.
+== Ošetřování výjimek
 
-* Find out whether the above-introduce forms of the `ValuePtr` assignment operator in *Case 2* (C&S) and *Case 3* (unified form) *behave the same or different than in Case 1* (direct form).
+* Veškeré operace musí korektně ošetřovat výjimky (tj. např. nesmí docházet k úniku prostředků).
+* V případě odchycení výjimky libovolného typu musí být tato výjimka propagována ven z volání funkce.
+* U všech operací platí, že při ukončení operace vyhozením výjímky musí zúčastněné vektory zůstat v platném stavu.
 
-=== Part II.
+NOTE: Některé operace mohou specifikovat přísnější pravidla pro případy, kdy nastane výjimka.
 
-* Consider the following definition of the *class `X`*:
+== Řešení
 
-[source,c++]
-----
-class X {
-  int i_;                       // non-negative values represent content...
-  static const int EMPTY = -1;  // -1 represents no content
+Řešení zadané úlohy se skládá pouze z implementace třídní šablony `epc::vector`.
 
-  void destroy() { i_ = EMPTY; }
+=== Implementace
 
-public:
-  X(int i) : i_(i) { }
-  ~X() { destroy(); }
+Platí pravidla z první úlohy až na použití větve _practical5_.
 
-  X(const X& other) : i_(other.i_)  {
-    std::cout << "(CC)";
-  }
+== Hodnocení
 
-  X(X&& other) : i_(other.i_) {
-    other.destroy();
-    std::cout << "(MC)";
-  }
+* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
+* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
+* V případě, že překlad i testy dopadnou v pořádku, může bý udělen až maximální počet bodu, tj. 10.
 
-  void swap(X& other) { std::swap(i_, other.i_); }
-  
-#ifdef CASE1
-  X& operator=(const X& other) {
-      std::cout << "(CA)";
-      // ... to be implemented
-    }
-
-  X& operator=(X&& other) {
-      std::cout << "(MA)";
-      // ... to be implemented
-  }
-#elif defined CASE2
-  X& operator=(const X& other) {
-    std::cout << "(CA)";
-    // ... to be implemented
-  }
-  
-  X& operator=(X&& other) {
-    std::cout << "(MA)";
-    // ... to be implemented
-  }
-#elif defined CASE3
-  X& operator=(X other) {
-    std::cout << "(UA)";
-    // ... to be implemented
-  }
-#endif
-};
-
-void swap(X& a, X& b) { a.swap(b); }
-----
-
-* Into this class, *implement assignment operators* in:
-** the *direct form* if the *preprocessor symbol `CASE1` is defined;
-** the *C&S form* if the *preprocessor symbol `CASE2` is defined;
-** the *direct form* if the *preprocessor symbol `CASE3` is defined.
-* The `X` class implement in the *`X.h`header file*.
-* Find out which calls of copy and move special member functions participate in the following operations:
-** *copy assignment*,
-** *move assignment*,
-** *swapping content* with the `std::swap` function,
-** *swapping content* with the custom `swap` function related to the `X` class.
-
-== Test Program
-
-Test program code:
-
-[source,c++]
-----
-#include <iostream>
-#include <utility>
-
-#include "X.h"
-
-int main() {
-  X x1(1);
-  X x2(2);
-
-  std::cout << "copy assignment: ";
-  x1 = x2;  
-  std::cout << std::endl;
-  
-  std::cout << "move assignment: ";
-  x1 = std::move(x2);
-  std::cout << std::endl;
-
-  std::cout << "std::swap: ";
-  std::swap(x1, x2);
-  std::cout << std::endl;
-
-  std::cout << "custom swap: ";
-  swap(x1, x2);
-  std::cout << std::endl;
-}
-----
-
-NOTE: *The form of assignment operators* can be easily *chosen during compilation*, for example, by the following command: `gcc -DCASE1 -o test_case1 test.cpp`.
-
-== Sumbission
-
-* The `X.h` file with the implemnetation of all the forms of assignment operators put into the *root folder of the _practical5_ branch* of your *course project/repository* on *the faculty GitLab instance*.
-* Register the submission by *creating the _merge request_*, namely *from the _practical5_ branch into the _master_ branch* inside your project.
-* Copy the *output of the test program* for *all the three forms of assigment operators* into the *description text filed of the merge request*.
-* Put into this description your *answer to the question from the Part I. of the assignment*. In case of negative answer, *give reasons why the behavior is different*.
-* *The deadline for submission* is the *end of the week after the week with your practical class* (according to your time table).
-
-== Testing
-
-* This program is a *part of your project/repository* and will be *automatically compiled and executed after each change* in the source code files.
-* A Godbolt online IDE link to the project template with the test program: https://godbolt.org/z/1rsv6bT59.
+[IMPORTANT]
+====
+* Předmětem hodnocení v této úloze bude i efektivita implementace a korektnost s ohledem na problémy, na které bylo upozorněno v rámci cvičení.
+* Jedná se například o ošetřování výjimek pouze určitých typů, nekorektní propagace výjimek, zbytečné větvení programu, apod.
+====
