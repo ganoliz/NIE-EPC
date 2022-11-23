@@ -94,30 +94,30 @@ IMPORTANT: Only the changes against the previous assignment are described.
 * `+template <typename... Ts> emplace_back(Ts&&... vs)+` — *element insertion with the emplace semantics*
 ** New element is initialized with the _perfect forwarding_ technique applied to all the function arguments.
 
-== Ošetřování výjimek
+== Exception handling
 
-* Veškeré operace musí korektně ošetřovat výjimky (tj. např. nesmí docházet k úniku prostředků).
-* V případě odchycení výjimky libovolného typu musí být tato výjimka propagována ven z volání funkce.
-* U všech operací platí, že při ukončení operace vyhozením výjímky musí zúčastněné vektory zůstat v platném stavu.
+* All the operations must correctly handle exceptions (e.g., there may not be any resource leaks).
+* If an exception of any type is caught, it needs to be propagated out to the place where the function was called.
+* If any operations end with throwing an exception, the vectors that participate this operations must end up in a valid state.
 
-NOTE: Některé operace mohou specifikovat přísnější pravidla pro případy, kdy nastane výjimka.
+NOTE: Some operations may specify more strict rules for exception handling.
 
-== Řešení
+== Solution
 
-Řešení zadané úlohy se skládá pouze z implementace třídní šablony `epc::vector`.
+A solution of the assigned programming task consists only of the implementation of the `epc::vector` class template.
 
-=== Implementace
+=== Implementation
 
-Platí pravidla z první úlohy až na použití větve _practical5_.
+The rules from the first practical assignment apply, except using the _practical5_ branch.
 
-== Hodnocení
+== Classification
 
-* Pokud se v rámci hodnocené GitLab _úlohy_ nepodaří testovací program vůbec přeložit kvůli chybám v implementaci, bude udělený počet bodů nulový.
-* V případě, že překlad proběhne v pořádu, ale v testovacím programu skončí některé testy neúspěšně, bude uděleno maximálně 5 bodů.
-* V případě, že překlad i testy dopadnou v pořádku, může bý udělen až maximální počet bodu, tj. 10.
+* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
+* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
+* In case that all tests will pass, the maximum amount of classification points, i.e., 10, can be awarded.
 
 [IMPORTANT]
 ====
-* Předmětem hodnocení v této úloze bude i efektivita implementace a korektnost s ohledem na problémy, na které bylo upozorněno v rámci cvičení.
-* Jedná se například o ošetřování výjimek pouze určitých typů, nekorektní propagace výjimek, zbytečné větvení programu, apod.
+* The subject of classification of the solution will additionally be the efficiency and corectness in regard with problems that were presented in practical classes.
+* These are, for example, handling exception of only some types, incorrect exception propagation, unnecessary code branching, etc.
 ====
