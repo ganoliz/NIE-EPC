@@ -21,6 +21,15 @@ Teaching period classification consists of the classification of *5 programming 
 
 == Exam and requirements for its passing
 
+[IMPORTANT]
+.Exam in the teaching period
+====
+* December exam term
+====
+
+
+
+
 WARNING: *50 points at maximum* can be gained from the final course exam. To successfully pass the exam, *at least 25 points* are required. In case that a student will obtain less than 25 points from the exam, the corresponding exam attempt will be classified with F.
 
 === Exam form
