@@ -30,8 +30,9 @@ Teaching period classification consists of the classification of *5 programming 
 ** The time available for taking the exam will *cover the practical class* (90 minutes).
 ** A student must be awarded with at least 25 classification points from the practical work (solutions of the practical assignment) *before the exam*.
 ** The solutoin of the last (5th) programming assignment must be submitted *on Tuesday, December 6 at the latest*.
-** A student must *write an e-mail to the teacher* with the request to pass the exam in this early date.
-** This e-mail should be *sent from the university e-mail* (there are no guarantees if the e-mail is sent from a personal e-mail address instead).
+//** A student must *write an e-mail to the teacher* with the request to pass the exam in this early date.
+//** This e-mail should be *sent from the university e-mail* (there are no guarantees if the e-mail is sent from a personal e-mail address instead).
+** A student must be *signed* for this early exam date in a usual way, i.e, via the KOS system (https://www.kos.cvut.cz/).
 ====
 
 WARNING: *50 points at maximum* can be gained from the final course exam. To successfully pass the exam, *at least 25 points* are required. In case that a student will obtain less than 25 points from the exam, the corresponding exam attempt will be classified with F.
