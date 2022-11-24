@@ -2,6 +2,8 @@
 
 == News
 
+* [24.11.2022] Rules for taking the exam in the teaching period were published; see xref:classification#[] for details.
+
 * [27.10.2022] In the 3rd programming assignment, the description of the `data()` member function was changed to handle cases where a vector has non-zero capacity and zero size. Since the description was changed after the practical class, the corresponding test in the test program will not affect the classification.
 
 // WARNING: *Course pages are being updated for the winter semester 2022/2023.*
