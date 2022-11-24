@@ -26,7 +26,7 @@ Teaching period classification consists of the classification of *5 programming 
 ====
 * There is a possibility for students to do the exam *in the teaching period* of the semester (before Christmas).
 * For this option, the *following rules* apply:
-** The exam will take place *in the last (6th) practical class*, i.e., on Thursday, December 8 at 14:30.
+** The exam will take place *in the last (6th) practical class*, i.e., on Thursday, December 8 at 14:30 in the T9:303 classroom.
 ** The time available for taking the exam will *cover the practical class* (90 minutes).
 ** A student must be awarded with at least 25 classification points from the practical work (solutions of the practical assignment) *before the exam*.
 ** The solutoin of the last (5th) programming assignment must be submitted *on Tuesday, December 6 at the latest*.
