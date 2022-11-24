@@ -17,7 +17,7 @@ Teaching period classification consists of the classification of *5 programming 
 
 === Assessment requirements
 
-- *Classification of 25 points at minimum* from the submitted solutoins of the programming problems.
+- *Classification of 25 points at minimum* from the submitted solutoins of the programming assignments.
 
 == Exam and requirements for its passing
 
