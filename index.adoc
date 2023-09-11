@@ -1,14 +1,10 @@
 = NIE-EPC
 
+NIE-EPC course pages
+
 == News
 
-* [24.11.2022] A typo has been identified in the `test.cpp` source file for the 5th programming assignment. To correct this typo, please rewrite the tested condition at line 52 from `v_move[1] == 3` to `v_move[2] == 3` in the _practical5_ branch.
-
-* [24.11.2022] Rules for taking the exam in the teaching period were published; see xref:classification#[] for details.
-
-* [27.10.2022] In the 3rd programming assignment, the description of the `data()` member function was changed to handle cases where a vector has non-zero capacity and zero size. Since the description was changed after the practical class, the corresponding test in the test program will not affect the classification.
-
-// WARNING: *Course pages are being updated for the winter semester 2022/2023.*
+WARNING: *Course pages are being updated for the winter semester 2023/2024.*
 
 == Annotation
 
@@ -17,8 +13,8 @@
 == Contents
 
 * xref:lectures/index#[]
-* xref:practicals/index#[]
-// * xref:semwork#[]
+* xref:practicals#[]
+* xref:assignments/index#[]
 * xref:classification#[]
 
 == Characteristics

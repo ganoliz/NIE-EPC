@@ -2,18 +2,18 @@
 
 *Actual classification* — see application link:https://grades.fit.cvut.cz/[**Grades (klAsifikace)**].
 
-// IMPORTANT: Optional assignment *classification comments* are located in the *Classification note* record. Do not forget to *check* it, especially in cases, where there is anything unclear about the classification points.
-
 == Teaching period and assessment award requirements
 
-Teaching period classification consists of the classification of *5 programming problems* assigned in practical classes.
+Teaching period classification consists of the classification of *4 programming problems assigned in practical classes*.
 
 === Programming problem assignments
 
-. *Programming problems* will be assigned to students in the 1st, 2nd, 3rd, 4th, and 5th.
-. The deadline for the submission of inidividual student solutions will be *specified on the corresponding practical class page*.
-. Each submitted solution will be awarded by *10 classification points* at maximum.
+. A programming problem will be assigned to students in the 1st, 2nd, 3rd, and 4th practical class.
+. Solution of the 1st, 2nd, and 3rd problem will be awarded by 10 classification points at maximum.
+. Solution of the 4th problem will be awarded by 20 classification points at maximum.
 . In total, each student can gain up to *50 points* with respect to problem assignments.
+
+IMPORTANT: Students are supposed to solve the assigned problems *individualy*; any attempt to violate this rule will be penalized.
 
 === Assessment requirements
 
@@ -21,6 +21,7 @@ Teaching period classification consists of the classification of *5 programming 
 
 == Exam and requirements for its passing
 
+////
 [IMPORTANT]
 .Exam in the teaching period
 ====
@@ -35,6 +36,7 @@ Teaching period classification consists of the classification of *5 programming 
 //** This e-mail should be *sent from the university e-mail* (there are no guarantees if the e-mail is sent from a personal e-mail address instead).
 ** A student must be *signed* for this early exam date in a usual way, i.e, via the KOS system (https://www.kos.cvut.cz/).
 ====
+////
 
 WARNING: *50 points at maximum* can be gained from the final course exam. To successfully pass the exam, *at least 25 points* are required. In case that a student will obtain less than 25 points from the exam, the corresponding exam attempt will be classified with F.
 
@@ -42,9 +44,9 @@ WARNING: *50 points at maximum* can be gained from the final course exam. To suc
 
 . The exam will take place in a *computer lab* and its form will consists of a *written test* followed by an *optional individual meeting*.
 . Students are supposed to perform the exam *individualy with the help of below enumerated tools*.
-. During elaboration of the test, students may use a *university computer (only university, not own)* with the preset OS image. In this image, a *{cpp} development environment* and a *web browser* will be available.
+. During elaboration of the test, students may use a *university computer (only university, not own)*.
 . Except this university computer, students are not allowed to use *any other electronic devices*.
-. The web browser may be used exclusively for the purpose of *finding information and testing code* (searching, reading documentation, reference manuals, standards, discussion forums, lecture slides and video recordings, using online IDE, etc.).
+. The computer may be used exclusively for the purpose of *finding information and testing code* (searching, reading documentation, reference manuals, standards, discussion forums, lecture slides and video recordings, using online IDE, etc.).
 . Any *“offline” materials* are allowed as well (lecture notes, literature, etc.).
 . During exam, it is *strictly forbidden to communicate with other persons* (phone, SMS, social networks, e-mail, chat, etc.) including asking questions in discussion forums and similar services with the purpose of getting answers from another person.
 . Also, *any form of sharing information regarding exam problems and their solutions* (cloud services, publishing files, etc.) is forbidden.
