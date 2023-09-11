@@ -1,4 +1,4 @@
-= Practicals
+= Assignments
 
 [cols="1,5" options="header"]
 |===

@@ -1,0 +1,33 @@
+= Practicals
+
+The purpose of practical classes is:
+
+* assignment of programming problems,
+* work on their solution,
+* consultation and discussion.
+
+== Schedule of practicals
+
+[cols="1,5" options="header"]
+|===
+| Practical | Contents
+
+| 1.
+| xref:assignments/assignment1#[1st problem assignment]
+
+| 2.
+| xref:assignments/assignment2#[2nd problem assignment]
+
+| 3.
+| xref:assignments/assignment3#[3rd problem assignment]
+
+| 4.
+| xref:assignments/assignment4#[4th problem assignment]
+
+| 5.
+| Work on final solution, efficiency measurements
+
+| 6.
+| Consultations, preliminary option for exam 
+
+|===

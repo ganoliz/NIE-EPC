@@ -8,3 +8,4 @@ navigation:
   hiddenFiles:
     - lectures
     - assignments/images/
+    - assignments/temp*
