@@ -1,3 +1,9 @@
+= Assignment 2
+
+WARNING: *This page is under construction.*
+
+////
+
 = Practical 2
 
 **Adding copy semantics and other functionality, exception safety.**
@@ -136,3 +142,5 @@ The rules from the first practical assignment apply, except using the _practical
 * If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
 * In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
 * In case that all tests will pass, the report will be submitted, and its conclusions will be correct, the maximum amount of classification points, i.e., 10, can be awarded.
+
+////

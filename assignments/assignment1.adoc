@@ -1,4 +1,4 @@
-= Practical 1
+= Assignment 1
 
 **`vector` and `new[] expression`: Implementation of a simple form of a vector class with the `new[]` expression — how `vector` should not be implemented.**
 

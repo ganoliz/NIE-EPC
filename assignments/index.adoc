@@ -1,52 +1,71 @@
 = Assignments
 
-[cols="1,5" options="header"]
-|===
-| Class | Contents
+* In each of the first 4 practical classes, a programming problem will be assigned to students to be solved individually.
+* Here is the information common to all the assignments.
+* Specific information can be found in separate pages for particular assignments.
 
-| 1.
-| xref:practical1#[vector and new expression]
+== Assignment list
 
-| 2.
-| xref:practical2#[Copying and other functions, exception safety]
+* xref:assignment1#[Vector class and `new` expression]
+* xref:assignment2#[Separation of memory allocation from object initialization]
+* xref:assignment3#[Small buffer optimization]
+* xref:assignment4#[Move and emplace semantics, final implementation]
 
-| 3. 
-| xref:practical3#[Separation of memory allocation from object initialization]
+== Solution submission system
 
+* Solutions of assignments are supposed to be submitted via the course projects on the faculty GitLab instance.
+* For solution of the _N._ (__N__th) assignment, there will be a separate branch created in these projects called _assignmentN_.
+* The deadline for each submission is specified on that assignment page.
+* The submission of the solution is done by creating a _merge request_ from the corresponding branch _assignmentN_ into the _master_ branch.
 
-| 4.
-| xref:practical4#[Small buffer optimization] 
+IMPORTANT: By settings of the _merge request_, leave the _Assignee_ field empty (do not assign here anyone particular).
 
+NOTE: The creation of the _mrege request_ serves as a message from the student to the teacher about the submission of his/her solution.
 
-| 5.
-| xref:practical5#[Move and emplace semantics, exception safety]
+== Subject of classification
 
+* As a final solution are considered:
+** the state (content) of the corresponding project branch at the time of the _merge request_ creation,
+** the text in the “Description” filed of this _merge request_ (in case it is required).
 
-| 6.
-| Consultation, discussion, 1st exam date
+WARNING: Any additional updates made in the project branch / entire project thereafter may not be considered for classification.
 
+== Generic classification rules
 
+* If no _merge request_ is created until the deadline, the assignment with be classified with 0 points.
+* If it is not possible to build the test program (see below) because of mistakes in the implementation, the assignment will be classified with 0 points.
+* Otherwise, the classification points will be awarded based on the results of the test program run and the code review.
+* If deficiencies are identified in the implementation, points will be reduced with respect to the their severity.
 
-|===
-
-== Generic rules
-
-* In each of the first five practical classes, a programming task will be assigned to students.
-* Solutions of these tasks are supposed to be submitted via the course projects on the faculty GitLab instance.
-* For the submission of the _N._ (__N__th) task, there will be a separate branch created in these projects called _practicalN_.
-
-[IMPORTANT]
+[WARNING] 
 ====
-* Within the solution of a particular task, always work only with the corresponding project branch.
-* Do not update the _master_ branch, i.e., do not create any commits in it.
+* In general, it is impossible to evaluate the correcntess of some implementation only by running tests.
+* If the test program ends without errors, it does not imply a correct implementation.
+* And, vice versa, if the test program run contains errors, it does not imply an incorrect implementation.
 ====
 
-WARNING: The following rules apply if not said otherwise on the page for a particular practical class.
+* Next to the correctness and functionality of the implementation, also its efficiency and adopiton of good programming practicies will be classified as well.
+* Specific classification aspects for each assignment are present on its individual page.
 
-=== Testing 
+== Classification procedure
 
-* A part of the relevant project branch may be a test program, which will verify the functionality of the submitted solution.
-* In such a case, this program is automatically built and run by the GitLab _CI/CD_ after each update of the project branch content.
+* After the evaluation of the submission, the _merge request_ will be closed witout being processed.
+
+NOTE: The closing of this _merge requrest_ serves as a message back from the teacher to the student about the classification of the solution.
+
+== Feedback and discussion
+
+* In case that the amount of evaluated classification points is lower that the maximum and the reason is not obvious (that is, e.g., when there is not submission or the submitted implementation cannot be compiled), the reason will be written in the _merge request_ comment from the teacher.
+* Even after the _merge request_ has been closed, a discussion about the submitted solution and its classificatoin is possible with comments.
+
+WARNING: For notification of the teacher, it is necessary that a comment contains `@username` (tj. `@langrd`).
+
+---
+
+== Implementation testing
+
+* A part of the relevant project branch is a test program, which will (partially) verify the functionality and the correctness of the submitted implementation.
+* This program is automatically built and run by the GitLab _CI/CD_ after each update of the project branch content.
 * The results of the test program run is accessible via the GitLab _CI/CD jobs/pipelines_.
 
 [NOTE]
@@ -56,45 +75,48 @@ WARNING: The following rules apply if not said otherwise on the page for a parti
 * On the classroom computers, this library is available in the Linux environment.
 ====
 
-=== Performance/efficiency measurements
+* For the compilation and building of the test program, a {cpp} implementation that supports the {cpp}17 standard is required.
 
-* A part of the relevant project branch may be a benchmark program (programs), which should be used for the measurement of efficiency of the submitted solution.
-* For the final measurements, this program is required to be build and run on the classroom computers in the Linux environment.
+---
 
-NOTE: A reason behind this requirement is the homogenous hardware on classroom computers, which allows comparing solutions submitted by different students among themselves.
+== Implementation requirements
 
-[NOTE]
+* An implementation of each assignment consists only of the `vector.h` header file that is located in the root directory of the corresponding project branch.
+* A branch for each assignment contains a template of this header file.
+
+=== Applied {cpp} standard
+
+* For implementation, use the {cpp}11 standard or newer.
+* For the support of particular features of the standards by different {cpp} implementations, see https://en.cppreference.com/w/cpp/compiler_support or the documentation for particular implementations.
+* The choice of the standard for test program may be done by updating the `config.mk` file.
+
+[IMPORTANT]
 ====
-* Benchmark programs for measurement of efficiency of solutions are based on the Google Benchmark library, which is required for building and execution.
-* On the classroom computers, this library is available in the Linux environment.
-====
+* The choice of the standard needs to enable the compilation of the test program and (if required) the benchmark programs.
+** The test program is built automatically in the GitLab system by using GCC in the Alpine Linux environment. The installed version of GCC at the beginning of the semester is 12.2, which supports the {cpp}17 standard; the support for {cpp}20 is incomplete. During the semestr, the GCC version may be increased (but should not be decreased).
+** The benchmark program needs to be built on the classroom computers in the Linux environment; the available versions of the compilers may be found by the `g{plus}{plus} --version` and `clang{plus}{plus} --version` commands.
+==== 
 
-=== Submissions
 
-* The deadline for submission of the _N._ assignment is the end of the week (midnight from Sunday to Monday) in which the _(N+1)._ practical class is scheduled.
-* The submission of the solution is done by creating the _merge request_ from the corresponding branch _practicalN_ into the _master_ branch.
+=== Use of libraries
 
-IMPORTANT: If there has been no _merge request_ created before the deadline, the assignment will be classified by 0 points.
+* It is not allowed to use any library except the {cpp} standard library (the `std` namespace).
+* Regarding the {cpp} standard library, it is allowed to use entities only if they do not directly implement the required functionality.
 
-* As a final solution are considered:
-** the state (content) of the corresponding project branch at the time of the _merge request_ creation,
-** the text in the “Description” filed of this _merge request_ (e.g., the performance measurement report).
+WARNING: If you use an arbitrary entity from the {cpp} standard library, do not forget to `#include` the header file where this entity is declared according to the {cpp} standard. Omission of this inclusion may result in the reduced classification independently of the result of the test program compilation.
 
-WARNING: Any additional updates made in the project branch / whole project thereafter may not be considered for assignment classification.
+* Examples:
+** It is possible to use the `std::swap` function for swapping the content of the member variables, instead of their swapping through a temporary variable.
+** It is possible to use the `std::copy` functon for elements copying, instead of their copying in the loop.
+** It is possible to use the `std::construct_at` function, instead of the placement new expression.
+** It is not possible to solve the assignment by defining `epc::vector` as a template alias for `std::vector`, i.e., for example in the following way:
 
-IMPORTANT: For verification of the compilability and functionality of the submitted implementation, the outcome of the latest GitLab _CI/CD job_  before the _merge request_ creation is considered.
+[source,c++]
+----
+namespace epc {
+  template <typename T>
+  using vector = std::vector<T>;
+}
+----
 
-* By settings of the _merge request_, leave the _Assignee_ field empty (do not assign here anyone particular).
-
-[NOTE]
-====
-* After the evaluation of the submission, the _merge request_ will be closed witout being processed.
-* The creation of the _mrege request_ servers as a message from the student to the teacher about the submission of his/her solution.
-* The closing of this _merge requrest_ servers as a message back from the teacher to the student about the classification of the solution.
-====
-
-=== Feedback and discussion
-
-* In case that the amount of evaluated classification points is lower that the maximum and the reason is not obvious (that is, e.g., when the submitted implementation cannot be even compiled), the reason will be written in the _merge request_ comment from the teacher.
-* Even after the _merge request_ has been closed, any discussion about the submitted solution and its classificatoin is possible with comments.
-
+IMPORTANT: For decision in similar cases, use common sense; in case of any doubts, ask the teacher.

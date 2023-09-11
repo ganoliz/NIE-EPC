@@ -13,7 +13,7 @@ Teaching period classification consists of the classification of *4 programming 
 . Solution of the 4th problem will be awarded by 20 classification points at maximum.
 . In total, each student can gain up to *50 points* with respect to problem assignments.
 
-IMPORTANT: Students are supposed to solve the assigned problems *individualy*; any attempt to violate this rule will be penalized.
+IMPORTANT: Students are supposed to solve the assigned problems *individually*; any attempt to violate this rule will be penalized.
 
 === Assessment requirements
 
@@ -43,7 +43,7 @@ WARNING: *50 points at maximum* can be gained from the final course exam. To suc
 === Exam form
 
 . The exam will take place in a *computer lab* and its form will consists of a *written test* followed by an *optional individual meeting*.
-. Students are supposed to perform the exam *individualy with the help of below enumerated tools*.
+. Students are supposed to perform the exam *individually with the help of below enumerated tools*.
 . During elaboration of the test, students may use a *university computer (only university, not own)*.
 . Except this university computer, students are not allowed to use *any other electronic devices*.
 . The computer may be used exclusively for the purpose of *finding information and testing code* (searching, reading documentation, reference manuals, standards, discussion forums, lecture slides and video recordings, using online IDE, etc.).
