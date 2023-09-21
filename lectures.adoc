@@ -1,6 +1,12 @@
 = Lectures
 
-The list of lectures:
+== Streaming and recording
+
+* Lectures will be live-streamed and recorder in the course team in Microsoft Teams. 
+
+IMPORTANT: Students are supposed to attend lectures primarily in person; if no student is present, streaming/recording may not be available.
+
+== The list of lectures
 
 [%header, cols="^1h,^2,10,6"]
 |===
