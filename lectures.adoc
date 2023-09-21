@@ -6,7 +6,7 @@
 
 IMPORTANT: Students are supposed to attend lectures primarily in person; if no student is present, streaming/recording may not be available.
 
-* The slides will be published during the semester and they will be available in the color format with dark background and the black-and-white format with the light background.
+* The slides will be published during the semester and they will be available in the color format with dark background and the black-and-white format with light background.
 
 == The list of lectures
 
