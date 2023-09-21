@@ -4,7 +4,7 @@ NIE-EPC course pages
 
 == News
 
-WARNING: *Course pages are being updated for the winter semester 2023/2024.*
+// WARNING: *Course pages are being updated for the winter semester 2023/2024.*
 
 == Annotation
 
