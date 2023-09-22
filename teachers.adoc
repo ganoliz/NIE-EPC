@@ -1,0 +1,9 @@
+= Teachers
+
+== Ing. Daniel Langr, Ph.D.
+
+Role:: Lecturer, practicals teacher, examinator, guarantor
+
+E-mail:: mailto:daniel.langr@fit.cvut.cz[]
+Room:: A-1150
+Consultations:: See xref:communication#[]

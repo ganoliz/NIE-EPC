@@ -1,0 +1,23 @@
+= Communication
+
+This page describes various forms of communication between students and the teacher.
+
+== Microsoft Teams
+
+* A primary communication channel between students and the teacher is Microsoft Teams.
+* The course has its own team there.
+* In this team, there are channels for different topics (lectures, practicals, general, etc.).
+* These channels are intended mainly for questions and discussions, which may involve more students than the initiator.
+* A private discussion can take place in the chat.
+
+== GitLab
+
+* For reporting errors (e.g., typos, errors in source code, etc.) that have been identified on the course pages including lecture sliede, use _Issues_ of the source project of these pages on the GitLab faculty server.
+* Link to the project: https://gitlab.fit.cvut.cz/NI-EPC/nie-epc
+* Direct link to the Issues: https://gitlab.fit.cvut.cz/NI-EPC/nie-epc/-/issues
+
+NOTE: The discussion about submitted solutions of programming assignments, use the comments section for the corresponding Merge request; see xref:assignments/index#[] for details.
+
+== Consultations
+
+* Consultations can be arranged upon request in onsite or online form.

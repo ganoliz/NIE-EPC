@@ -10,12 +10,12 @@ NIE-EPC course pages
 
 *Students will learn how to use modern features of the current {cpp} language versions for creating software. The main focus will be on effectivity and efficiency, whether it means writing portable and maintainable source code, or creating correct computer programs with low requirements for system memory and CPU runtime.*
 
-== Contents
+// == Contents
 
-* xref:lectures/index#[]
-* xref:practicals#[]
-* xref:assignments/index#[]
-* xref:classification#[]
+// * xref:lectures/index#[]
+// * xref:practicals#[]
+// * xref:assignments/index#[]
+// * xref:classification#[]
 
 == Characteristics
 
