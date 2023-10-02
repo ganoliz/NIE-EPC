@@ -17,15 +17,14 @@ IMPORTANT: Students are supposed to attend lectures primarily in person; if no s
 |1.
 |26.9.
 |Introduction, observable behavior, as-if rule, optimizations, translation units, ABI
-|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EfRgiYkY2WFOsZYQJ_UuYQUBpKnHWw-abaxsjsX2PtGa7Q?e=k3DkZz[epc_lecture_01_en_2023.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EfRgiYkY2WFOsZYQJ_UuYQUBpKnHWw-abaxsjsX2PtGa7Q?e=k3DkZz[epc_lecture_01_en_2023.pdf] +
 link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ETmr3By69MBNqIjebRTRGGUBfnneSSxxJmzReCbfyCBB1A?e=3eG4eI[epc_lecture_01_en_2023_bw.pdf]
 
 |2.
 |3.10.
 |Translation units and observable behavior, ODR, internal linkage, inline, libraries, static and dynamic linking, PIMPL
-|
-//link:PDFs/epc_lecture_02_en_2021.pdf[epc_lecture_02_en_2021.pdf]
-//link:PDFs/epc_lecture_02_en_2021_handouts.pdf[epc_lecture_02_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ESIBx9gF06dBlNmIYp3RR80Bx6nicvsNDZIfh5k7lpT7Pw?e=ZwQeP6[epc_lecture_02_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVUcTShgCd5JmjTL7KKvB64BepiryFqp_wS9rRy5jBYmKg?e=3RRj9b[epc_lecture_02_en_2023_bw.pdf]
 
 |3.
 |10.10.
