@@ -23,8 +23,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ETmr3By6
 |2.
 |3.10.
 |Translation units and observable behavior, ODR, internal linkage, inline, libraries, static and dynamic linking, PIMPL
-|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ESIBx9gF06dBlNmIYp3RR80Bx6nicvsNDZIfh5k7lpT7Pw?e=ZwQeP6[epc_lecture_02_en_2023.pdf] +
-link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVUcTShgCd5JmjTL7KKvB64BepiryFqp_wS9rRy5jBYmKg?e=3RRj9b[epc_lecture_02_en_2023_bw.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EapIxdR9z5VHrW1QVV9w3CMBCz8zuZOYKTnUu6PCrW7krg?e=4wyKh8[epc_lecture_02_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EdbCH4zkbF1GgEfk4FuBii0BTLQfzqXERTL7YbpESxS7fA?e=W0iVLy[epc_lecture_02_en_2023_bw.pdf]
 
 |3.
 |10.10.
