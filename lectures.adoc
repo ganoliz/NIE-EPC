@@ -29,9 +29,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EdbCH4zk
 |3.
 |10.10.
 |Undefined behavior, object lifetime, static and dynamic storage allocation, initialization and destruction
-|
-//link:PDFs/epc_lecture_03_en_2021.pdf[epc_lecture_03_en_2021.pdf]
-//link:PDFs/epc_lecture_03_en_2021_handouts.pdf[epc_lecture_03_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ET_rAQSPYHJJvXbCfY9jB4kBRkXysfIB0-Emip5o_gBCAw?e=f5qFss[epc_lecture_03_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EbshIvysUExJqYIxL9vxYR4Bs3fDSBvr0yZ68fblQMvzKg?e=K2t4Lj[epc_lecture_03_en_2023_bw.pdf]
 
 |4.
 |17.10.
