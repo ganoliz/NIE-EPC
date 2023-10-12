@@ -6,7 +6,7 @@
 * The allocation itself does not create any elements; these are then in the allocated storage initialized as needed.
 * In the same way, element destruction is separated from storage deallocation.
 
-== Examples
+== Example 1
 
 [source,c++]
 ----
@@ -22,6 +22,8 @@
 
 IMPORTANT: In the shown code, there is no initialization (and destruction) of any objects of the value type `std::string`.
 
+== Example 2
+
 [source,c++]
 ----
 {
@@ -34,21 +36,23 @@ IMPORTANT: In the shown code, there is no initialization (and destruction) of an
 <1> At the beginning of the allocated storage (“0th” position), a new element is initialized. The function argument is used as an initialization argument.
 <2> The single vector element is destructed (by destructor).
 
-NOTE: The other steps behave the same as in the previous example.
+NOTE: The other steps behave the same as in Example 1.
 
 == Mechanisms
 
 [IMPORTANT]
 ====
-* Storage allocation for vector elements needs to involve call of the `operator new` or `::operator new` allocation function (for the purposes of this programming assignment, there is no difference between these options).
+* Storage allocation for vector elements needs to involve a call of the `operator new` or `::operator new` allocation function (for the purposes of this programming assignment, there is no difference between these options).
 * Deallocation of each allocated storage needs to involve call of the `operator delete` or `::operator delete`.
 * Construction of each element needs to involve the use of _placement new_ with a suitable initialization expression.
 * Destruction of each element needs to involve the _pseudo-destructor call_.
 ====
 
+---
+
 == Assignment
 
-Implement the class template `vector` in the `epc` namespace with the following interface and measure its efficiency:
+Implement the class template `vector` in the `epc` namespace with the following interface.
 
 [source,c++]
 ----
@@ -58,7 +62,7 @@ class vector
 public:
   vector() noexcept; 
 
-  vector(const vector&);
+  vector(const vector&); 
   vector& operator=(const vector&); 
 
   ~vector();  
@@ -69,19 +73,25 @@ public:
   T& operator[](size_t); 
   const T& operator[](size_t) const; 
 
-  size_t capacity() const; 
-  size_t size() const; 
+  void push_back(const T&); 
+  void pop_back(); // <1>
+
+  void clear(); // <2>
 
   void reserve(size_t); 
 
-  void push_back(const T&); 
-  void pop_back();
-
-  void clear(); 
+  size_t capacity() const; 
+  size_t size() const; 
 
   void swap(vector&) noexcept;   
 };
 ----
+<1> Removal of the last element
+<2> Removal of all elements
+
+NOTE: Meaning of other member functions is the same as in Assignment 1.
+
+NOTE: Details about the interface are in the following section.
 
 == Application programming interface (API)
 
@@ -93,7 +103,7 @@ public:
 ** The value type is constructible by an initialization expression of type `T` (_copy-constructible_).
 ** Some member functions may specify additional requirements.
  
-NOTE: The value type does not need to be constructible without an initialization expression (_default-constructible_).
+IMPORTANT: The value type does not need to be constructible without an initialization expression (_default-constructible_).
 
 === Special member functions
 
@@ -122,16 +132,46 @@ IMPORTANT: Copy assignment operator needs to work even in the case where the sou
 * `data()` — *pointer to the first element*
 ** If the vector contains some elements, returns a pointer to the first of them.
 ** If the vector does not contain elements and its capacity is nonzero, returns a pointer to the allocated storage.
-** If the vector does not contain elements and its capacity is zero, return the null pointer.
-** [.line-through]#Otherwise, returns the null pointer.#
+** If the vector does not contain elements and its capacity is zero, returns null pointer.
 
-NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
+// NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
 
 * `operator[]` — *reference to the desired element*
-** If the vector contains the element with the index `i`, returns a reference bound to it.
+** If the vector contains the element with the index `i`, i.e., `i < size()` holds, returns a reference bound to this element.
 ** Otherwise, the behavior is undefined.
 
-NOTE: The operator exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
+// NOTE: The operator exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
+
+=== Element insertion and removal
+
+* `push_back(const T& value)` — *inserts element*
+** Constructs, at the end of the vector (`data() + size()` address), a new element that is initialized by the expression `value`.
+** If, before the element insertion, the size of the vector is equal to its capacity, extends its capacity first by performing “reallocation” according to the description of the `reserve()` function.
+** In reallocation, the original capacity is generally doubled; only if it was zero, it is set to 1.
+
+* `pop_back()` — *removes last element*
+** If the vector is not empty, destructs its last element.
+** Otherwise, the behavior is undefined.
+
+IMPORTANT: If the vector is not empty, its capacity is preserved.
+
+* `clear()` — *removes all elements*
+** If the vector is not empty, destructs all its elements.
+
+IMPORTANT: The capacity is preserved.
+
+=== Extending capacity
+
+* `reserve(size_t capacity)` — *extends vector capacity*
+** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
+** Otherwise, extends the capacity of the vector by performing “reallocation” and preserves its contents.
+** Reallocation involves the following steps:
+... New storage with the required capacity is allocated by the `operator new` allocation function.
+... For each element in the original storage, its copy is constructed (initialized) in the new storage.
+... The elements in the original storage are destructed and the original storage is deallocated.
+... Internal vector variables are set such that the vector state corresponds with the new storage and its new capacity.
+
+NOTE: For class types, copies are made by the copy constructor.
 
 === Information about vector
 
@@ -140,34 +180,6 @@ NOTE: The operator exits in two variants, i.e., as a _(non-constant) member func
 
 * `size()` — *information about element count*
 ** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages (i.e., that are in the actually allocated storage).
-
-=== Extending capacity
-
-* `reserve(size_t capacity)` — *extend vector capacity*
-** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
-** Otherwise, extends the capacity of the vector by performing “reallocation” and preserves its contents.
-** Reallocation involves the following steps:
-*** New storage with the required capacity is allocated by the `operator new` allocation function.
-*** For each element in the original storage, its copy is constructed (initialized) in the new storage.
-*** The elements in the original storage are destructed and the original storage is deallocated.
-
-NOTE: For class types, copies are made by the copy constructor.
-
-=== Element insertion and removal
-
-* `push_back(const T& value)` — *inserts element*
-** Inserts, at the end of the vector (`data() + size()` address), a copy of the object to which the reference `value` is bound.
-** If, before the element insertion, the size of the vecotor is equal to its capacity, the capacity must be first (before insertion) extended according to the description of the `reserve()` function.
-** In reallocation, the original capacity is generally doubled; only if it is zero, it is set to 1.
-
-* `pop_back()` — *removes last element*
-** If the vector is not empty, destructs its last element.
-** Otherwise, the behavior is undefined.
-** Does not change the capacity.
-
-* `clear()` — *removes all elements*
-** If the vector is not empty, destructs all its elements.
-** Does not change the capacity.
 
 === Swapping content
 
@@ -178,7 +190,9 @@ IMPORTANT: This operation must not throw an exception.
 
 == Exception handling
 
-Within this assignment, no exception handling is required.
+The rules from Assignment 1 applies.
+
+---
 
 == Requirements for implementation
 
@@ -215,3 +229,5 @@ The rules from the first practical assignment apply, except using the _practical
 * If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
 * In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
 * In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
+
+---
