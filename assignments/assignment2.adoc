@@ -194,40 +194,114 @@ The rules from Assignment 1 applies.
 
 ---
 
-== Requirements for implementation
+== Submission deadline
 
-The rules from the first practical assignment apply.
+* The deadline for the submission of the solution of the 2st assignment is the end of the calendar week in which the 3nd practical class is scheduled.
 
 == Solution
 
-A solution of the assigned programming task consists of two parts:
-
-. the implementation of the `epc::vector` class template,
-. the report from the measurement of its efficiency.
-
-=== Implementation
-
-The rules from the first practical assignment apply, except using the _practical3_ branch.
-
-=== Efficiencny measurements
-
-* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
-* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
-* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
-* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
-
-==== Efficiency measurement report
-
-* In the report, compare the measured times with the results obtained in the first assignment.
-* Include also the results obtained for `std::vector`.
-* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
-* The report will contained the mesasured time (column “Time”) for inidividual vector implementations.
-* The report will contain the results obtained for both compilers.
+* As a solution, it is considered the implementation of the `epc::vector` class template located exclusively in the `vector.h` file in the root directory of the _assignment2_ branch of your course project on the faculty GitLab server.
+* As a correct solution, it is considered compilable, working, and efficient implementation of the epc::vector` class template that satisfies all the requirements defined on this page as well as on the xref:index#[Assignments] page.
 
 == Classification
 
-* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
-* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
-* In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
+* The maximum number of classification points is 10.
+* The subject of classification is only the way of how the `epc::vector` class tempalte is implemented.
 
 ---
+
+== Exemplary implementation deficiencies
+
+* This section shows some examples of implementation deficiencies which appeared in the real student solutions in previous semesters.
+* Up to some exceptions, these are serious deficiencies that result in the reduced classification.
+
+=== Types of deficiencies
+
+A++.++ Errors:: Severe deficiencies that may result in compilation or runtime errors (e.g., incorrect program state).
+B++.++ Efficiency:: Deficiencies related to the lower efficiency of the vector use during program run (e.g., unnecessary wasting of memory or processor resources).
+
+C++.++ Other:: Deficiencies that does not fall into previous categories.
+
+=== Examples
+
+[tabbed]
+A.1::
++
+[source,c++]
+----
+template <typename T>
+class vector {
+  alignas(std::max_align_t) T* data_;
+  size_t capacity_, size_;
+  ... // irrelevant code
+};
+----
+
+A.2::
++
+[source,c++]
+----
+template <typename T>
+class vector {
+  alignas(T) std::byte* data_;
+  size_t capacity_, size_;
+public:
+  vector(const vector& other) {
+    data_ = new std::byte[other.capacity_ * sizeof(T)];
+    ... // irrelevant code
+  }   
+  ... // irrelevant code
+};
+----
+
+A.3::
++
+[source,c++]
+----
+template <typename T>
+class Optional {
+  alignas(T) unsigned char buffer_[sizeof(T)];
+  bool exists_;
+public:
+  ... // irrelevant code
+};
+
+template <typename T>
+class vector {
+  Optional<T>* data_;
+  size_t capacity_, size_;
+public:
+  vector(const vector& other) {
+    data_ = new Optional<T>[other.capacity_];
+    ... // irrelevant code
+  }
+  ... // irrelevant code
+};
+----
+
+B.1::
++
+[source,c++]
+----
+template <typename T>
+class vector {
+  T* data_;
+  size_t capacity_, size_;
+  std::allocator<T> alloc_;
+  ... // irrelevant code
+};
+----
+
+B.2::
++
+[source,c++]
+----
+vector(const vector& other) : capacity_(other.capacity_), size_(0) {
+  data_ = (T*)::operator new(other.capacity_ * sizeof(T));
+  try {
+    for (size_t i = 0; i < other.size_; i++)
+      push_back(other.data_[i]);
+  }
+  ... // irrelevant code
+}
+----
