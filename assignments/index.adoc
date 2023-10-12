@@ -6,10 +6,10 @@
 
 == Assignment list
 
-* xref:assignment1#[Vector class and `new` expression]
-* xref:assignment2#[Separation of memory allocation from object initialization]
-* xref:assignment3#[Small buffer optimization]
-* xref:assignment4#[Move and emplace semantics, final implementation]
+* xref:assignment1#[Assignment 1: Vector class and `new` expression]
+* xref:assignment2#[Assignment 2: Separation of memory allocation from object initialization]
+* xref:assignment3#[Assignment 3: Small buffer optimization]
+* xref:assignment4#[Assignment 4: Move and emplace semantics, final implementation]
 
 == Solution submission system
 
