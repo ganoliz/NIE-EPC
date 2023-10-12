@@ -1,18 +1,54 @@
 = Assignment 2
 
-WARNING: *This page is under construction.*
+**Separation of memory (storage) allocation and deallocation from vector elements initialization and destruction.**
 
-////
+* High efficiency of vectors stems form the allocation of storage for multiple elements at once.
+* The allocation itself does not create any elements; these are then in the allocated storage initialized as needed.
+* In the same way, element destruction is separated from storage deallocation.
 
-= Practical 2
+== Examples
 
-**Adding copy semantics and other functionality, exception safety.**
+[source,c++]
+----
+{
+  epc::vector<std::string> v; // <1>
+  v.reserve(3); // <2>  
+} // <3>
+----
 
-CAUTION: This assignment follows the assignment from the first practical class; here, only the chagnes against the first assignment are present.
+<1> A vector is created by the default constructor.
+<2> The storage with the capacity 3 is allocated, i.e., the storage where 3 elements of the value type can be placed (next to each other).
+<3> Vector destruction deallocates the storage allocated in the `reserve(3)` call.
+
+IMPORTANT: In the shown code, there is no initialization (and destruction) of any objects of the value type `std::string`.
+
+[source,c++]
+----
+{
+  epc::vector<std::string> v; 
+  v.reserve(3); 
+  v.push_back(std::string("string literal")); // <1>
+  v.pop_back(); // <2>
+} 
+----
+<1> At the beginning of the allocated storage (“0th” position), a new element is initialized. The function argument is used as an initialization argument.
+<2> The single vector element is destructed (by destructor).
+
+NOTE: The other steps behave the same as in the previous example.
+
+== Mechanisms
+
+[IMPORTANT]
+====
+* Storage allocation for vector elements needs to involve call of the `operator new` or `::operator new` allocation function (for the purposes of this programming assignment, there is no difference between these options).
+* Deallocation of each allocated storage needs to involve call of the `operator delete` or `::operator delete`.
+* Construction of each element needs to involve the use of _placement new_ with a suitable initialization expression.
+* Destruction of each element needs to involve the _pseudo-destructor call_.
+====
 
 == Assignment
 
-Implement the class template `vector` in the `epc` namespace with the following interface and make an analysis for the implementation of the copy assignment operator by the copy-and-swap idiom:
+Implement the class template `vector` in the `epc` namespace with the following interface and measure its efficiency:
 
 [source,c++]
 ----
@@ -22,8 +58,8 @@ class vector
 public:
   vector() noexcept; 
 
-  vector(const vector&); // <1>
-  vector& operator=(const vector&); // <2>
+  vector(const vector&);
+  vector& operator=(const vector&); 
 
   ~vector();  
 
@@ -33,50 +69,105 @@ public:
   T& operator[](size_t); 
   const T& operator[](size_t) const; 
 
-  void push_back(const T&); 
-
   size_t capacity() const; 
   size_t size() const; 
 
-  void swap(vector&) noexcept; // <3>
+  void reserve(size_t); 
 
-  void reserve(size_t); // <4>
+  void push_back(const T&); 
+  void pop_back();
 
-  void pop_back(); // <5>
+  void clear(); 
+
+  void swap(vector&) noexcept;   
 };
 ----
 
-<1> Copy constructor
-<2> Copy assignment operator
-<3> Content swapping
-<4> Increasing capacity
-<5> Reduction of size
-
-NOTE: Details about the interface for the added or changed functionality are in the following section.
-
 == Application programming interface (API)
 
-CAUTION: For the parts of the interface that are not described, the rules from the first practical page hold, if not stated otherwise.
+=== Template parameters
+
+* `T` — *value type*
+** Alignment requirements are `alignof(std::max_align_t)` at most (`T` is not _over-aligned_).
+** The value type is destructible and destruction does not throw exceptions (_nothrow-destructible_).
+** The value type is constructible by an initialization expression of type `T` (_copy-constructible_).
+** Some member functions may specify additional requirements.
+ 
+NOTE: The value type does not need to be constructible without an initialization expression (_default-constructible_).
 
 === Special member functions
+
+* `vector()` — *default constructor*
+** Sets the vector into the empty state, i.e., state, where it does not contain any elements and its capacity is zero.
+** Must not throw exceptions.
 
 * `vector(const vector&)` — *copy constructor*
 ** The target vector have, after the operation, the same content (owned elements) as the source vector.
 ** The state of the source vector is not changed.
+** Each element of the target vector is constructed as a copy of the corresponding element of the source vector.
 
 * `operator=(const vector&)` — *copy assignment operator*
 ** The target vector have, after the operation, the same content (owned elements) as the source vector.
 ** The state of the source vector is not changed.
+** The content of a target vector element is either assigned by the copy assignment operator or copied during its initialization.
+** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_).
 
 IMPORTANT: Copy assignment operator needs to work even in the case where the source and target vectors represent the same object (so-called “self-assignment”).
+
+* `~vector()` — *destructor*
+** If needed, destructs all the vector elements and deallocates memory.
+
+=== Elements access
+
+* `data()` — *pointer to the first element*
+** If the vector contains some elements, returns a pointer to the first of them.
+** If the vector does not contain elements and its capacity is nonzero, returns a pointer to the allocated storage.
+** If the vector does not contain elements and its capacity is zero, return the null pointer.
+** [.line-through]#Otherwise, returns the null pointer.#
+
+NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
+
+* `operator[]` — *reference to the desired element*
+** If the vector contains the element with the index `i`, returns a reference bound to it.
+** Otherwise, the behavior is undefined.
+
+NOTE: The operator exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
 
 === Information about vector
 
 * `capacity()` — *information about capacity*
-** Returns information about the vector’s capacity, i.e., the size of the array that was last time allocated by the `new[]` expression.
+** Returns information about the vector’s capacity, i.e., the number of elments that fits into the storage last time allocated by `operator new`.
 
 * `size()` — *information about element count*
-** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages.
+** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages (i.e., that are in the actually allocated storage).
+
+=== Extending capacity
+
+* `reserve(size_t capacity)` — *extend vector capacity*
+** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
+** Otherwise, extends the capacity of the vector by performing “reallocation” and preserves its contents.
+** Reallocation involves the following steps:
+*** New storage with the required capacity is allocated by the `operator new` allocation function.
+*** For each element in the original storage, its copy is constructed (initialized) in the new storage.
+*** The elements in the original storage are destructed and the original storage is deallocated.
+
+NOTE: For class types, copies are made by the copy constructor.
+
+=== Element insertion and removal
+
+* `push_back(const T& value)` — *inserts element*
+** Inserts, at the end of the vector (`data() + size()` address), a copy of the object to which the reference `value` is bound.
+** If, before the element insertion, the size of the vecotor is equal to its capacity, the capacity must be first (before insertion) extended according to the description of the `reserve()` function.
+** In reallocation, the original capacity is generally doubled; only if it is zero, it is set to 1.
+
+* `pop_back()` — *removes last element*
+** If the vector is not empty, destructs its last element.
+** Otherwise, the behavior is undefined.
+** Does not change the capacity.
+
+* `clear()` — *removes all elements*
+** If the vector is not empty, destructs all its elements.
+** Does not change the capacity.
 
 === Swapping content
 
@@ -85,62 +176,42 @@ IMPORTANT: Copy assignment operator needs to work even in the case where the sou
 
 IMPORTANT: This operation must not throw an exception.
 
-=== Extending capacity
-
-* `reserve(size_t capacity)` — *extend vector capacity*
-** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
-** Otherwise, extends the capacity of the vector by performing “reallocation” (by the `new[]` expression) and preserves its contents.
-
-=== Size reduction
-
-* `pop_back()` — *reduces vector size*
-** If the vector is non-empty, reduces its size by 1.
-** Otherwise, the behavior is undefined.
-
-IMPORTANT: The capcity of the vector may not be changed by this operation.
-
 == Exception handling
 
-* All the implemented vector operations guarantee correct exception handling.
-
-[WARNING]
-====
-* If, in some operation, an exception occurs, the content of involved vectors may not be changed.
-* This rule does not hold only for the copy assignment operator.
-====
-
-IMPORTANT: If an exception is caught in some vector member function, it needs to be rethrown to the function caller.
-
-== Copy-and-swap idiom
-
-* Copy assignment operator may be implemented by the “copy-and-swap” idiom.
-* This idiom delegates the copy functionality to the copy constructor.
-* The question is whether such a solution would be efficient in all cases.
+Within this assignment, no exception handling is required.
 
 == Requirements for implementation
 
-* The rules from the first practical assignment apply.
+The rules from the first practical assignment apply.
 
 == Solution
 
-* A solution of the assigned programming task consists of two parts:
-.. the implementation of the `epc::vector` class template,
-.. the analysis of the efficiency of the implementation of the copy assignment operator by the copy-and-swap idiom.
+A solution of the assigned programming task consists of two parts:
+
+. the implementation of the `epc::vector` class template,
+. the report from the measurement of its efficiency.
 
 === Implementation
 
-The rules from the first practical assignment apply, except using the _practical2_ branch.
+The rules from the first practical assignment apply, except using the _practical3_ branch.
 
-=== Analysis of the copy-and-swap idiom efficiency
+=== Efficiencny measurements
 
-* In the final report, describe whether the implementation of the copy assignment operator in terms of the copy-and-swap idiom is the most efficient in all cases.
-* These cases contain mainly different combinations of the size and capacity of the source and target vectors.
+* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
+* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
+* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
+* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
+
+==== Efficiency measurement report
+
+* In the report, compare the measured times with the results obtained in the first assignment.
+* Include also the results obtained for `std::vector`.
 * This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
+* The report will contained the mesasured time (column “Time”) for inidividual vector implementations.
+* The report will contain the results obtained for both compilers.
 
 == Classification
 
 * If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
 * In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
-* In case that all tests will pass, the report will be submitted, and its conclusions will be correct, the maximum amount of classification points, i.e., 10, can be awarded.
-
-////
+* In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
