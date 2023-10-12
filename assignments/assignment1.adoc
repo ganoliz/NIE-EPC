@@ -162,14 +162,14 @@ IMPORTANT: This operation must not throw an exception.
 * As a *vector content*, it is considered the content of its elements and their count. A part of vector content is, for example, neither the address of the allocated array nor its capacity. Two distinct vectors may have the same content (e.g., as a result of a successfull copy operation).
 * As a *vector state*, it is considered a complete state of the vector object. In practice, this includes the vector content, the address and capacity of the allocated array, or other internal class data. Two distinct vectors cannot be in the same state if at least one of them has nonzero capacity.
 
----
-
 [NOTE]
 .Examples
 ====
 * If, inside the `reserve` function call, an exception is thrown when elements are copied from the original into the newly allocated array, the vector state should not change.
 * If, inside the `push_back` function call, the reallocation is successfully performed and then, the insertion of the new element throws an exception, the vector content should be preserved, but its state may be changed (elements may be located in the newly allocated array with higher capacity).
 ====
+
+---
 
 == Submission deadline
 
