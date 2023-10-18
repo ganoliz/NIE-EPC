@@ -194,6 +194,36 @@ The rules from Assignment 1 applies.
 
 ---
 
+== Implementation notes
+
+=== Copy-and-swap idiom
+
+* For implementation of the copy assignment operator, you can use so-called _copy-and-swap_ idiom.
+
+NOTE: What are the pros and cons of using the copy-and-swap idiom in case of a vector class?
+
+=== Specialized memory algorithms
+
+* For implementation, it is possible to use the specialized memory algorithms from the `<memory>` header of the {cpp} standard library.
+* These algorithms may make the vector class code more simple and readable, especially regarding the exception handling.
+* Suitable algoritms may be, e.g., `std::uninitialized_copy`, `std::uninitialized_copy_n`, `std::destroy`, `std::destroy_n`, etc.
+
+=== Undefined behavior
+
+* Before {cpp}20, it was practically impossible to implement a vector class without undefined behavior.
+* The reason is the need for using the pointer arithmetic over an allocated storage.
+* The standard defines this arithmetic only for an array of objects of given type (as is the type of a pointer); see http://eel.is/c++draft/expr.add#4. 
+* {cpp}20 defines a mechanism of implicit object creation, which, under specific circumstances, creates objects implicitly.
+* In our case, this mechanism allows implicly creating an array of objects of the value type in the allocated memory, which makes the needed pointer arithmetic “legal”.
+
+NOTE: Such implicitly created array does not contain any objects.
+
+* For details, see, e.g., https://stackoverflow.com/q/53451770/580083.
+
+IMPORTANT: Do not solve the problems of this type; instead, assume such a {cpp} implementation that defines behavior in the mentioned cases even before {cpp}20.
+
+---
+
 == Submission deadline
 
 * The deadline for the submission of the solution of the 2st assignment is the end of the calendar week in which the 3nd practical class is scheduled.
@@ -277,6 +307,32 @@ public:
   }
   ... // irrelevant code
 };
+----
+
+A.4::
++
+[source,c++]
+----
+vector() noexcept : data_(nullptr), capacity_(0), size_(0) { } 
+
+// vector(const vector& other) : data_(nullptr), capacity_(0), size_(0) 
+vector(const vector& other) : vector()
+{
+  if (other.size_ == 0) return;
+
+  data_ = (T*)::operator new(other.size_ * sizeof(T));  
+
+  try {
+    ... // copying of elements
+  }
+  catch(...) {
+    ... // destruction of already constructed elements
+    ::operator delete(data_);
+    throw;
+  }
+
+  ... // irrelevant code
+}
 ----
 
 B.1::
