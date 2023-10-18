@@ -6,6 +6,5 @@ repository:
   gitlabPath: /NI-EPC/nie-epc
 navigation:
   hiddenFiles:
-    - lectures
     - assignments/images/
     - assignments/temp*
