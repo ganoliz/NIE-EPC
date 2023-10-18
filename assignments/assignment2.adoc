@@ -2,7 +2,7 @@
 
 **Separation of memory (storage) allocation and deallocation from vector elements initialization and destruction.**
 
-* High efficiency of vectors stems form the allocation of storage for multiple elements at once.
+* High efficiency of vectors stems from the allocation of storage for multiple elements at once.
 * The allocation itself does not create any elements; these are then in the allocated storage initialized as needed.
 * In the same way, element destruction is separated from storage deallocation.
 
@@ -112,12 +112,12 @@ IMPORTANT: The value type does not need to be constructible without an initializ
 ** Must not throw exceptions.
 
 * `vector(const vector&)` — *copy constructor*
-** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The target vector has, after the operation, the same content (owned elements) as the source vector.
 ** The state of the source vector is not changed.
 ** Each element of the target vector is constructed as a copy of the corresponding element of the source vector.
 
 * `operator=(const vector&)` — *copy assignment operator*
-** The target vector have, after the operation, the same content (owned elements) as the source vector.
+** The target vector has, after the operation, the same content (owned elements) as the source vector.
 ** The state of the source vector is not changed.
 ** The content of a target vector element is either assigned by the copy assignment operator or copied during its initialization.
 ** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_).
@@ -176,7 +176,7 @@ NOTE: For class types, copies are made by the copy constructor.
 === Information about vector
 
 * `capacity()` — *information about capacity*
-** Returns information about the vector’s capacity, i.e., the number of elments that fits into the storage last time allocated by `operator new`.
+** Returns information about the vector’s capacity, i.e., the number of elements that fit into the storage last time allocated by `operator new`.
 
 * `size()` — *information about element count*
 ** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages (i.e., that are in the actually allocated storage).
@@ -205,7 +205,7 @@ NOTE: What are the pros and cons of using the copy-and-swap idiom in case of a v
 === Specialized memory algorithms
 
 * For implementation, it is possible to use the specialized memory algorithms from the `<memory>` header of the {cpp} standard library.
-* These algorithms may make the vector class code more simple and readable, especially regarding the exception handling.
+* These algorithms may make the vector class code simpler and more readable, especially regarding the exception handling.
 * Suitable algoritms may be, e.g., `std::uninitialized_copy`, `std::uninitialized_copy_n`, `std::destroy`, `std::destroy_n`, etc.
 
 === Undefined behavior
@@ -216,7 +216,7 @@ NOTE: What are the pros and cons of using the copy-and-swap idiom in case of a v
 * {cpp}20 defines a mechanism of implicit object creation, which, under specific circumstances, creates objects implicitly.
 * In our case, this mechanism allows implicly creating an array of objects of the value type in the allocated memory, which makes the needed pointer arithmetic “legal”.
 
-NOTE: Such implicitly created array does not contain any objects.
+NOTE: Such an implicitly created array does not contain any objects.
 
 * For details, see, e.g., https://stackoverflow.com/q/53451770/580083.
 
@@ -236,7 +236,7 @@ IMPORTANT: Do not solve the problems of this type; instead, assume such a {cpp} 
 == Classification
 
 * The maximum number of classification points is 10.
-* The subject of classification is only the way of how the `epc::vector` class tempalte is implemented.
+* The subject of classification is only the way of how the `epc::vector` class template is implemented.
 
 ---
 
@@ -250,7 +250,7 @@ IMPORTANT: Do not solve the problems of this type; instead, assume such a {cpp} 
 A++.++ Errors:: Severe deficiencies that may result in compilation or runtime errors (e.g., incorrect program state).
 B++.++ Efficiency:: Deficiencies related to the lower efficiency of the vector use during program run (e.g., unnecessary wasting of memory or processor resources).
 
-C++.++ Other:: Deficiencies that does not fall into previous categories.
+C++.++ Other:: Deficiencies that do not fall into previous categories.
 
 === Examples
 
