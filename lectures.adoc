@@ -41,9 +41,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVhneUST
 |5.
 |24.10.
 |Small string optimization
-|
-//link:PDFs/epc_lecture_05_en_2021.pdf[epc_lecture_05_en_2021.pdf]
-//link:PDFs/epc_lecture_05_en_2021_handouts.pdf[epc_lecture_05_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EZAaEC1KOKRHrcvI0fBAOL4BbcaOZ9R0yU2MnmepDLwaWg?e=iSZeJR[epc_lecture_05_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVOQ7kEoDTdClDPnV5EPJVMBkbt281W9LlanrfocgoTVGg?e=ds86a4[epc_lecture_05_en_2023_bw.pdf]
 
 |6.
 |31.10.
