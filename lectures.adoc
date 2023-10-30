@@ -53,9 +53,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EZ0kNHAu
 |7.
 |7.11.
 |Value categories, types of references, reference binding, std::move
-|
-//link:PDFs/epc_lecture_07_en_2021.pdf[epc_lecture_07_en_2021.pdf]
-//link:PDFs/epc_lecture_07_en_2021_handouts.pdf[epc_lecture_07_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EeQsTCUDxWtKoV5eOg2Ps80B5vD-lCRMalb1x3AbUu5T8g?e=HvbzRy[epc_lecture_07_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EZL5G5VpRlxNjm3YLbrlFwcB3gn4i1r_4krH2b_ml7II8g?e=fFkmM2[epc_lecture_07_en_2023_bw.pdf]
 
 |8.
 |14.11.
