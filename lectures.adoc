@@ -47,9 +47,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVOQ7kEo
 |6.
 |31.10.
 |Expressions new[] and delete[], object content, vector class
-|
-//link:PDFs/epc_lecture_06_en_2021.pdf[epc_lecture_06_en_2021.pdf]
-//link:PDFs/epc_lecture_06_en_2021_handouts.pdf[epc_lecture_06_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/Eabj0zfiJy1Oqux1yPC1HMcBsbQA6yBu63vOVpcU-8xpeQ?e=4xGjJt[epc_lecture_06_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EZ0kNHAuQD1OndPX_WiaKrEBT-HYdTi956631PEOFk-Iew?e=aWUhr3[epc_lecture_06_en_2023_bw.pdf]
 
 |7.
 |7.11.
