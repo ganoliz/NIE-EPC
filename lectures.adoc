@@ -59,9 +59,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EZL5G5Vp
 |8.
 |14.11.
 |Emplace semantics, perfect forwarding, dispatching
-|
-//link:PDFs/epc_lecture_08_en_2021.pdf[epc_lecture_08_en_2021.pdf]
-//link:PDFs/epc_lecture_08_en_2021_handouts.pdf[epc_lecture_08_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EbApl7mtJf5Ppi4P-hW3-ZcB-kTHJevY5ysoWtYb9zfleA?e=aSpExk[epc_lecture_08_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EW_DSYKlZldPjhAKFkf1SxoB87z2N08fhL9Z4TWz-fWogw?e=q9gbdZ[epc_lecture_08_en_2023_bw.pdf]
 
 |9.
 |21.11.
