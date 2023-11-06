@@ -249,7 +249,6 @@ IMPORTANT: Do not solve the problems of this type; instead, assume such a {cpp} 
 
 A++.++ Errors:: Severe deficiencies that may result in compilation or runtime errors (e.g., incorrect program state).
 B++.++ Efficiency:: Deficiencies related to the lower efficiency of the vector use during program run (e.g., unnecessary wasting of memory or processor resources).
-
 C++.++ Other:: Deficiencies that do not fall into previous categories.
 
 === Examples
