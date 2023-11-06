@@ -1,62 +1,42 @@
 = Assignment 3
 
-WARNING: *This page is under construction.*
+**Small buffer optimization**
 
-////
+* Adding included storage (buffer) into vector with the capacity for `N` elements, where `N` is the second template parameter.
+* The capacity of a default-constructed vector is `N`.
+* Until the number of elements exceeds `N`, there is no need to dynamically allocate the storage for elements by the operator `new`.
 
-**Separation of memory (storage) allocation and deallocation from vector elements initialization and destruction.**
-
-* High efficiency of vectors stems form the allocation of storage for multiple elements at once.
-* The allocation itself does not create any elements; these are then in the allocated storage initialized as needed.
-* In the same way, element destruction is separated from storage deallocation.
-
-== Examples
+== Example
 
 [source,c++]
 ----
-{
-  epc::vector<std::string> v; // <1>
-  v.reserve(3); // <2>  
-} // <3>
+epc::vector<int, 2> v; // <1>
+v.push_back(1);  
+v.push_back(2); // <2>  
+v.push_back(3); // <3>
 ----
 
-<1> A vector is created by the default constructor.
-<2> The storage with the capacity 3 is allocated, i.e., the storage where 3 elements of the value type can be placed (next to each other).
-<3> Vector destruction deallocates the storage allocated in the `reserve(3)` call.
+<1> An empty vector is constructed by the default constructor. Its capacity is 2.
+<2> The vector contains 2 elements, both stored in the included storage (buffer).
+<3> A new storage is dynamically allocated within reallocation. A new element is then inserted to its end.
 
-IMPORTANT: In the shown code, there is no initialization (and destruction) of any objects of the value type `std::string`.
-
-[source,c++]
-----
-{
-  epc::vector<std::string> v; 
-  v.reserve(3); 
-  v.push_back(std::string("string literal")); // <1>
-  v.pop_back(); // <2>
-} 
-----
-<1> At the beginning of the allocated storage (“0th” position), a new element is initialized. The function argument is used as an initialization argument.
-<2> The single vector element is destructed (by destructor).
-
-NOTE: The other steps behave the same as in the previous example.
-
-== Mechanisms
+== Mechanisms 
 
 [IMPORTANT]
 ====
-* Storage allocation for vector elements needs to involve call of the `operator new` or `::operator new` allocation function (for the purposes of this programming assignment, there is no difference between these options).
-* Deallocation of each allocated storage needs to involve call of the `operator delete` or `::operator delete`.
-* Construction of each element needs to involve the use of _placement new_ with a suitable initialization expression.
-* Destruction of each element needs to involve the _pseudo-destructor call_.
+* For how to define the buffer, see, e.g., the exemplary implementation of the `optional` class template shown in lectures.
+* Here, the difference is that the buffer needs to be sized for `N` elements.
 ====
+
+---
 
 == Assignment
 
-Implement the class template `vector` in the `epc` namespace with the following interface and measure its efficiency:
+Implement the class template `vector` in the `epc` namespace with the following interface.
 
 [source,c++]
 ----
-template <typename T>
+template <typename T, size_t N>
 class vector
 {
 public:
@@ -73,151 +53,259 @@ public:
   T& operator[](size_t); 
   const T& operator[](size_t) const; 
 
-  size_t capacity() const; 
-  size_t size() const; 
-
-  void reserve(size_t); 
-
   void push_back(const T&); 
   void pop_back();
 
   void clear(); 
 
-  void swap(vector&) noexcept;   
-};
+  void reserve(size_t); 
+
+  size_t capacity() const; 
+  size_t size() const; 
+
+  void swap(vector&) /* noexcept */ ;   
 ----
 
 == Application programming interface (API)
 
+IMPORTANT: For member functions that are not listed below, the description from the previous assignment applies.
+
 === Template parameters
 
-* `T` — *value type*
-** Alignment requirements are `alignof(std::max_align_t)` at most (`T` is not _over-aligned_).
-** The value type is destructible and destruction does not throw exceptions (_nothrow-destructible_).
-** The value type is constructible by an initialization expression of type `T` (_copy-constructible_).
-** Some member functions may specify additional requirements.
- 
-NOTE: The value type does not need to be constructible without an initialization expression (_default-constructible_).
+* `N` — *capcity of the included buffer*
+** `N` is greater than zero.
 
 === Special member functions
 
 * `vector()` — *default constructor*
-** Sets the vector into the empty state, i.e., state, where it does not contain any elements and its capacity is zero.
+** Sets the vector into the empty state, i.e., state, where it does not contain any elements and its capacity is `N`.
 ** Must not throw exceptions.
-
-* `vector(const vector&)` — *copy constructor*
-** The target vector have, after the operation, the same content (owned elements) as the source vector.
-** The state of the source vector is not changed.
-** Each element of the target vector is constructed as a copy of the corresponding element of the source vector.
-
-* `operator=(const vector&)` — *copy assignment operator*
-** The target vector have, after the operation, the same content (owned elements) as the source vector.
-** The state of the source vector is not changed.
-** The content of a target vector element is either assigned by the copy assignment operator or copied during its initialization.
-** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_).
-
-IMPORTANT: Copy assignment operator needs to work even in the case where the source and target vectors represent the same object (so-called “self-assignment”).
-
-* `~vector()` — *destructor*
-** If needed, destructs all the vector elements and deallocates memory.
 
 === Elements access
 
 * `data()` — *pointer to the first element*
 ** If the vector contains some elements, returns a pointer to the first of them.
-** If the vector does not contain elements and its capacity is nonzero, returns a pointer to the allocated storage.
-** If the vector does not contain elements and its capacity is zero, return the null pointer.
-** [.line-through]#Otherwise, returns the null pointer.#
-
-NOTE: The function exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
-
-* `operator[]` — *reference to the desired element*
-** If the vector contains the element with the index `i`, returns a reference bound to it.
-** Otherwise, the behavior is undefined.
-
-NOTE: The operator exits in two variants, i.e., as a _(non-constant) member function_ and a _constant member function_.
+** If the vector does not contain any elements, returns a pointer to the allocated storage.
 
 === Information about vector
 
 * `capacity()` — *information about capacity*
-** Returns information about the vector’s capacity, i.e., the number of elments that fits into the storage last time allocated by `operator new`.
-
-* `size()` — *information about element count*
-** Returns information about the vector’s size, i.e., the number of elements that the vector contains/manages (i.e., that are in the actually allocated storage).
-
-=== Extending capacity
-
-* `reserve(size_t capacity)` — *extend vector capacity*
-** If `capacity` is lower or equal to the actual vector's capacity, there are no effects.
-** Otherwise, extends the capacity of the vector by performing “reallocation” and preserves its contents.
-** Reallocation involves the following steps:
-*** New storage with the required capacity is allocated by the `operator new` allocation function.
-*** For each element in the original storage, its copy is constructed (initialized) in the new storage.
-*** The elements in the original storage are destructed and the original storage is deallocated.
-
-NOTE: For class types, copies are made by the copy constructor.
-
-=== Element insertion and removal
-
-* `push_back(const T& value)` — *inserts element*
-** Inserts, at the end of the vector (`data() + size()` address), a copy of the object to which the reference `value` is bound.
-** If, before the element insertion, the size of the vecotor is equal to its capacity, the capacity must be first (before insertion) extended according to the description of the `reserve()` function.
-** In reallocation, the original capacity is generally doubled; only if it is zero, it is set to 1.
-
-* `pop_back()` — *removes last element*
-** If the vector is not empty, destructs its last element.
-** Otherwise, the behavior is undefined.
-** Does not change the capacity.
-
-* `clear()` — *removes all elements*
-** If the vector is not empty, destructs all its elements.
-** Does not change the capacity.
+** Returns information about the vector’s capacity, i.e., the number of elements that fits into the actually used storage.
 
 === Swapping content
 
 * `swap(vector& other)` — *swap contents of two vectors*
 ** Swaps content of two vectors, i.e., the vector `+*this+`, after the operation, will contain the same elements that the vector `other` had before, and vice versa.
-
-IMPORTANT: This operation must not throw an exception.
+** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_).
 
 == Exception handling
 
 Within this assignment, no exception handling is required.
 
-== Requirements for implementation
+---
 
-The rules from the first practical assignment apply.
+== Implementation notes
+
+=== Operations with two vectors
+
+IMPORTANT: For operations that work with two vectors, assume the same size of the included buffer (this fact implies from the shown class template interface).
+
+* Each operation that involves two vectors needs to address their sizes with respect to the buffer.
+* We say that a vector is _short_ or _long_, if it does / does not hold that `+capacity() == N+`, respectively.
+
+NOTE: The capacity of a vector may not be lower than `N`.
+
+* In general, the following cases need to be resolved individually:
+** both vectors are short,
+** both vectors are long,
+** one vector is short and the other is long.
+
+[NOTE]
+====
+* The implementation may be simplified by using the copy constructor and the `swap` member function for the implementation of the copy assignment operator (copy-and-swap idiom).
+* An alternative option is a “direct” implementation of the copy assignment operator, and its use, together with the copy constructor, for the implementation of `swap`.
+====
+
+=== Buffer “aliasing”
+
+* Similarly as in the implementation of SSO with the additional buffer (see lectures), it is possible to use a shared storage for the buffer and the variable for storing the capacity of a long vector.
+* Such a solution is more memory-efficient, but here, it is more complicated, in contrast to the string class, due to the generic vector's value type.
+* Therefore, such storage sharing is not required.
+
+---
+
+== Submission deadline
+
+* The deadline for the submission of the solution of the 3st assignment is the end of the calendar week in which the 4nd practical class is scheduled.
 
 == Solution
 
-A solution of the assigned programming task consists of two parts:
-
-. the implementation of the `epc::vector` class template,
-. the report from the measurement of its efficiency.
-
-=== Implementation
-
-The rules from the first practical assignment apply, except using the _practical3_ branch.
-
-=== Efficiencny measurements
-
-* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
-* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
-* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
-* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
-
-==== Efficiency measurement report
-
-* In the report, compare the measured times with the results obtained in the first assignment.
-* Include also the results obtained for `std::vector`.
-* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
-* The report will contained the mesasured time (column “Time”) for inidividual vector implementations.
-* The report will contain the results obtained for both compilers.
+* As a solution, it is considered the implementation of the `epc::vector` class template located exclusively in the `vector.h` file in the root directory of the _assignment3_ branch of your course project on the faculty GitLab server.
+* As a correct solution, it is considered compilable, working, and efficient implementation of the epc::vector` class template that satisfies all the requirements defined on this page as well as on the xref:index#[Assignments] page.
 
 == Classification
 
-* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
-* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
-* In case that all tests will pass and the efficiency measurement report will be submitted, the maximum amount of classification points, i.e., 10, can be awarded.
+* The maximum number of classification points is 10.
+* The subject of classification is only the way of how the `epc::vector` class template is implemented.
 
-////
+---
+
+== Exemplary implementation deficiencies
+
+* This section shows some examples of implementation deficiencies which appeared in the real student solutions in previous semesters.
+* Up to some exceptions, these are serious deficiencies that result in the reduced classification.
+
+=== Types of deficiencies
+
+A++.++ Errors:: Severe deficiencies that may result in compilation or runtime errors (e.g., incorrect program state).
+B++.++ Efficiency:: Deficiencies related to the lower efficiency of the vector use during program run (e.g., unnecessary wasting of memory or processor resources).
+C++.++ Other:: Deficiencies that do not fall into previous categories.
+
+=== Examples
+
+[tabbed]
+A.1::
++
+A helper function that returns the information about whether the vector is short or long:
++
+[source,c++]
+----
+bool is_short() const { ... /* irrelevent code */ }
+----
++
+Member function `clear`:
++
+----
+void clear() {
+  while (size_ > 0)
+    std::destroy_at(data_ + size_-- - 1);
+  if (!is_short())
+    ::operator delete(data_);
+}
+----
+
+A.2::
++
+[source,c++]
+----
+void swap(vector& other) {
+  std::swap(data_, other.data_);
+  std::swap(size_, other.size_);
+  std::swap(capacity_, other.capacity_);
+}
+----
+
+A.3::
++
+Buffer definition:
++
+[source,c++]
+----
+alignas(T) unsigned char buffer_[N * sizeof(T)];
+----
++
+Member function `swap`:
++
+[source,c++]
+----
+void swap(vector& other) {
+  std::swap(data_, other.data_);
+  std::swap(size_, other.size_);
+  std::swap(capacity_, other.capacity_);
+  std::swap(buffer_, other.buffer_);
+}
+----
+
+A.4::
++
+[source,c++]
+----
+void swap(vector& other) noexcept {
+  ... // irrelevant code
+}
+----
+
+A.5::
++
+A helper function that returns the information about whether the vector is short or long:
++
+[source,c++]
+----
+bool is_short() const { ... /* irrelevent code */ }
+----
++
+Member function `swap`:
++
+----
+void swap(vector& other) {
+  if (is_short() && other.is_short())
+    for (size_t i = 0; i < N; i++)
+      std::swap(data_[i], other.data_[i]);
+
+  ... // irrelevant code
+}
+----
+
+A.5::
++
+Buffer definition:
++
+[source,c++]
+----
+unsigned char buffer_[N * sizeof(T)];
+----
+
+B.1::
++
+Buffer definition:
++
+[source,c++]
+----
+alignas(std::max_align_t) unsigned char buffer_[N * sizeof(T)];
+----
+
+B.2::
++
+Definition of member variables:
++
+[source,c++]
+----
+template <typename T, size_t N>
+class vector {
+  T* data_ = nullptr;
+  size_t capacity_ = N;
+  size_t size_ = 0;
+  alignas(T) unsigned char buffer_[sizeof(T) * N];
+  T* buffptr_ = reinterpret_cast<T*>(buffer_);
+----
+
+B.3::
++
+[source,c++]
+----
+void swap(vector& other) {
+  reserve(N + 1);
+  other.reserve(N + 1);
+
+  std::swap(data_, other.data_);
+  std::swap(capacity_, other.capacity_);
+  std::swap(size_, other.size_);
+}
+----
+
+C.1::
++
+Definition of member variables:
++
+[source,c++]
+----
+template <typename T, size_t N>
+class vector {
+  T* data_;
+  size_t size_;
+
+  union {
+    size_t capacity_;
+    T buffer_[N];
+  };
+----
