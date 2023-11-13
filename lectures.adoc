@@ -65,9 +65,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EW_DSYKl
 |9.
 |21.11.
 |Templates, template instantiation, template argument deduction, template specialization, variadic templates, template parameter pack
-|
-//link:PDFs/epc_lecture_09_en_2021.pdf[epc_lecture_09_en_2021.pdf]
-//link:PDFs/epc_lecture_09_en_2021_handouts.pdf[epc_lecture_09_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EbWDP1mSV7tJgyqlFOiEWKIBA7UsDewNKYQP_GbcH3TR1g?e=oruRiP[epc_lecture_09_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVeCHSYPcIdCmfPPWDykZGQBfARbF_F9XOzMN05Dro3p6w?e=haJm3z[epc_lecture_09_en_2023_bw.pdf]
 
 |10.
 |28.11.
