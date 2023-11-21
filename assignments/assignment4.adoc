@@ -36,11 +36,6 @@ public:
   T& operator[](size_t); 
   const T& operator[](size_t) const; 
 
-  size_t capacity() const; 
-  size_t size() const; 
-
-  void reserve(size_t); 
-
   void push_back(const T&); 
   void push_back(T&&); // <3>
 
@@ -50,6 +45,11 @@ public:
   void pop_back();
 
   void clear(); 
+
+  void reserve(size_t);
+
+  size_t capacity() const; 
+  size_t size() const; 
 
   void swap(vector&);   
 };
@@ -97,13 +97,30 @@ IMPORTANT: Only the changes against the previous assignment are described.
 * `+template <typename... Ts> emplace_back(Ts&&... vs)+` — *element insertion with the emplace semantics*
 ** New element is initialized with the _perfect forwarding_ technique applied to all the function arguments.
 
-== Exception handling
+=== Swapping content
 
-* All the operations must correctly handle exceptions (e.g., there may not be any resource leaks).
-* If an exception of any type is caught, it needs to be propagated out to the place where the function was called.
-* If any operation ends with throwing an exception, the vectors that participate this operations will be in a valid state.
+* `swap(vector& other)` — *swap contents of two vectors*
+** Swaps content of two vectors, i.e., the vector `+*this+`, after the operation, will contain the same elements that the vector `other` had before, and vice versa.
+** The moving-content operations are preferred, if they are provided by the value type.
+** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_ or _move-assignable_).
 
-NOTE: Some operations may specify more strict rules for exception handling.
+
+== Exceptions
+
+* All the implemented vector operations correctly handle exceptoins.
+* If it is not required otherwise, then, after an exception has been caught in the body of some vector function, this exceptoin must be rethrown to the place where that function was called.
+
+IMPORTANT: If any operation ends with throwing an exception, all the involved vectors must be in a correct state.
+
+---
+
+
+
+
+
+
+
+
 
 == Solution
 
