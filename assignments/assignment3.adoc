@@ -136,7 +136,7 @@ NOTE: The capacity of a vector may not be lower than `N`.
 
 == Submission deadline
 
-* The deadline for the submission of the solution of the 3st assignment is the end of the calendar week in which the 4nd practical class is scheduled.
+* The deadline for the submission of the solution of the 3rd assignment is the end of the calendar week in which the 4nd practical class is scheduled.
 
 == Solution
 
