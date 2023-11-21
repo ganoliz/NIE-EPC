@@ -114,30 +114,229 @@ IMPORTANT: If any operation ends with throwing an exception, all the involved ve
 
 ---
 
+== Submission deadline
 
+* The deadline for the submission of the solution of the 4th assignment is the end of the calendar week in which the 6th practical class is scheduled.
 
-
-
-
-
-
+IMPORTANT: In case that a student would want to take the preliminary exam term in the 6th practical class, it is recommended to submit the solution of the 4th assignment before this date; ideally, until the end of the week in which the 6th practical class is scheduled.
 
 == Solution
 
-A solution of the assigned programming task consists only of the implementation of the `epc::vector` class template.
-
-=== Implementation
-
-The rules from the first practical assignment apply, except using the _practical5_ branch.
+* As a solution, it is considered the implementation of the `epc::vector` class template located exclusively in the `vector.h` file in the root directory of the _assignment4_ branch of your course project on the faculty GitLab server.
+* As a correct solution, it is considered compilable, working, and efficient implementation of the epc::vector` class template that satisfies all the requirements defined on this page as well as on the xref:index#[Assignments] page.
 
 == Classification
 
-* If the considered GitLab _job_ will even not be able to build the test program because of an incorrect implementation, the assignment will be classified with 0 points.
-* In case that the compilation will succeed but some tests will not pass, the maximum amount of awarded points will be 5.
-* In case that all tests will pass, the maximum amount of classification points, i.e., 10, can be awarded.
+* The maximum number of classification points is 20.
+* The subject of classification is:
+.. the way of how the `epc::vector` class template is implemented,
+.. the report about the measurement of performance of this implementation conducted by the benchmark program (see below).
 
-[IMPORTANT]
-====
-* The subject of classification of the solution will additionally be the efficiency and corectness in regard with problems that were presented in practical classes.
-* These are, for example, handling exception of only some types, incorrect exception propagation, unnecessary code branching, missing inclusion of necessary header files, etc.
-====
+=== 
+
+=== Měření efektivity
+
+* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
+* Program porovnává na vybraných operacích efektivitu vaší implementace s třemi různými existujícími implementacemi vektorové třídy:
+.. `std::vector` ze standardní knihovy {cpp},
+.. `boost::container::small_vector` z knihovny Boost.Container,
+.. `llvm::SmallVector` z knihovny LLVM ADT.
+* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
+* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
+* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+
+==== Závěrečná zpráva z měření 
+
+* Z výsledků měření efektivity vytvořte jednoduchou závěrečnou zprávu.
+* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge request_ při odevzdání úlohy.
+* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
+* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+
+---
+
+== Exemplary implementation deficiencies
+
+* This section shows some examples of implementation deficiencies which appeared in the real student solutions in previous semesters.
+* Up to some exceptions, these are serious deficiencies that result in the reduced classification.
+
+=== Types of deficiencies
+
+A++.++ Errors:: Severe deficiencies that may result in compilation or runtime errors (e.g., incorrect program state).
+B++.++ Efficiency:: Deficiencies related to the lower efficiency of the vector use during program run (e.g., unnecessary wasting of memory or processor resources).
+C++.++ Other:: Deficiencies that do not fall into previous categories.
+
+=== Examples
+
+[tabbed]
+A.1::
++
+[source,c++]
+----
+vector(vector&& other) {
+  if (other.size() <= N)
+    memcpy(buffer_, other.buffer_, other.size() * sizeof(T));
+  ...  // irrelevant code
+}
+----
+
+A.2::
++
+A helper private static function for swapping contents for two short vectors:
++
+[source,c++]
+----
+static void swap_short_short(T* smaller, T* bigger, size_t smallerSize, size_t biggerSize) {
+  for (size_t i = 0; i < smallerSize; i++) 
+    std::swap(smaller[i], bigger[i]);
+  
+  for (size_t i = smallerSize; i < biggerSize; i++) {
+    new (smaller + i) T(std::move(bigger[i]));
+    (bigger + i)->~T();
+  }
+}
+----
+
+A.3::
++
+[source,c++]
+----
+void reserve(size_t capacity) {
+  if (capacity <= capacity_) 
+    return;
+
+  std::byte* data = new std::byte[capacity * sizeof(T)];
+
+  try {
+    for (size_t i = 0; i < size_; i++) 
+      new (data + i * sizeof(T)) T(std::move(data_[i]));
+  } catch (...) {
+    delete[] data;
+    throw;
+  }
+
+  ...  // irrelevant code
+----
+
+A.4::
++
+[source,c++]
+----
+void push_back(const T& value) {
+  if (capacity_ < N && size_ < N){
+    new (reinterpret_cast<T*>(buffer_) + size_) T(value);
+    size_++;
+    return;
+  }
+  else if (size_ == N) {
+    reserve(N * 2);
+  ...  // irrelevant code
+----
+
+A.5::
++
+[source,c++]
+----
+vector(vector&& other) {
+  if (other.capacity_ == N) {
+    data_ = reinterpret_cast<T*>(buffer_);
+    for (size_t i = 0; i < other.size_; i++) {
+      new (data_ + i) T(std::move(other.data_[i]));
+      (other.data_ + i)->~T();
+    }
+  ...  // irrelevant code    
+----
+
+A.6::
++
+[source,c++]
+----
+vector(const vector& other)
+  : size_(other.size_), capacity_(other.capacity_), data(nullptr)
+{
+  if (other.capacity_ == N) {
+    data_ = reinterpret_cast<T*>(buffer_);
+    
+    for (int i = 0; i < other.size_; i++) 
+      new (data_ + i) T(other[i]);
+  }    
+  ...  // irrelevant code
+----
+
+A.7::
++
+[source,c++]
+----
+void push_back(const T& value) {
+  ...  // irrelevant code
+  try {
+    new (data() + size()) T(value);
+  }
+  catch(...) {
+    (data() + size())->~T();
+    throw;
+  }
+  size_++;
+}
+----
+
+A.8::
++
+[source,c++]
+----
+vector(vector&& other) {
+  if (other.is_short()) {  // helper function
+    data_ = nullptr;
+    capacity_ = N;
+    size_ = other.size_;
+
+    for (size_t i = 0; i < size_; i++)
+      data()[i] = std::move(other.data()[i]);
+  
+  ...  // irrelevant code
+----
+
+A.9::
++
+[source,c++]
+----
+vector(const vector& other) {
+  : size_(other.size()), capacity_(other.capacity()) 
+{
+  ...  // set data_
+
+  try {
+    for (size_t i = 0; i < size_; i++)
+      new (data_ + i) T(std::move(*(other.data_ + i)));
+    }
+    catch (...) {
+      clear();
+
+    ...  // irrelevant code
+----
+
+B.1::
++
+[source,c++]
+----
+void push_back(const T& element) {
+  if (size_ >= capacity_) {
+    if (capacity_ == 0) 
+      ...  // irrelevant code
+----
+
+B.2::
++
+[source,c++]
+----
+void push_back(const T& value) {
+  reserve(size_ + 1);
+  new (data_ + size_) T(value);
+  size_++;
+}
+----
+
+
+
+
+
+
