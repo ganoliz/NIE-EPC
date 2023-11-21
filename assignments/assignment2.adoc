@@ -226,7 +226,7 @@ IMPORTANT: Do not solve the problems of this type; instead, assume such a {cpp} 
 
 == Submission deadline
 
-* The deadline for the submission of the solution of the 2st assignment is the end of the calendar week in which the 3nd practical class is scheduled.
+* The deadline for the submission of the solution of the 2nd assignment is the end of the calendar week in which the 3nd practical class is scheduled.
 
 == Solution
 
