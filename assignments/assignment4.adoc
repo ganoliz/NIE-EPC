@@ -104,7 +104,6 @@ IMPORTANT: Only the changes against the previous assignment are described.
 ** The moving-content operations are preferred, if they are provided by the value type.
 ** Requires the value type to be assignable by an expression of type `T` (_copy-assignable_ or _move-assignable_).
 
-
 == Exceptions
 
 * All the implemented vector operations correctly handle exceptoins.
@@ -132,25 +131,23 @@ IMPORTANT: In case that a student would want to take the preliminary exam term i
 .. the way of how the `epc::vector` class template is implemented,
 .. the report about the measurement of performance of this implementation conducted by the benchmark program (see below).
 
-=== 
+=== Performance measurements
 
-=== Měření efektivity
+* Measure the efficiency of your implementation by the program with the source code in the `benchmark.cpp` file.
+* The program compares the effeiciency — on some selected operations — of your implementation with three existing vector-class implementations:
+.. `std::vector` from the standard {cpp} library,
+.. `boost::container::small_vector` form the Boost.Container library,
+.. `llvm::SmallVector` from the LLVM ADT library.
+* Perform the measurements by building and running the program on the classroom computers where all the required libraries are available.
+* Perform the mesurements separately for the benchmark program compiled by the GCC and Clang compilers.
+* To build the benchmark program, you can use the `Makefile` file and `make benchmark-gcc` and `make benchmark-clang` commands.
 
-* Změřte efektivitu vaší implementace pomocí programu se zdrojovým kódem v souboru `benchmark.cpp`.
-* Program porovnává na vybraných operacích efektivitu vaší implementace s třemi různými existujícími implementacemi vektorové třídy:
-.. `std::vector` ze standardní knihovy {cpp},
-.. `boost::container::small_vector` z knihovny Boost.Container,
-.. `llvm::SmallVector` z knihovny LLVM ADT.
-* Měření proveďte přeložením a spuštěním programu na učebnových počítačích, kde jsou veškeré potřebné knihovny dostupné.
-* Měření proveďte zvlášť pro program přeložený pomocí překladačů GCC a Clang.
-* Překlad lze provést za použití souboru `Makefile` příkazy `make benchmark-gcc a make benchmark-clang`.
+==== Efficiency measurement report
 
-==== Závěrečná zpráva z měření 
-
-* Z výsledků měření efektivity vytvořte jednoduchou závěrečnou zprávu.
-* Tuto zprávu realizujte formou popisu (pole „Description“) požadavku _merge request_ při odevzdání úlohy.
-* Ve zprávě uveďte naměřené časy pro jednotlivé implementace vektoru ze sloupce „Time“.
-* Do závěrečné zprávy uveďte výsledky měření pro oba překladače.
+* Create a simple report with the results of efficiency measurements.
+* This report will have the form of the “Description” field by the _merge request_ created for the submission of your solution.
+* The report will contained the mesasured time (column “Time”) for all the vector implementations.
+* The report will contain the results obtained for both compilers.
 
 ---
 
