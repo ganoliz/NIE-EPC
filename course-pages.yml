@@ -7,4 +7,3 @@ repository:
 navigation:
   hiddenFiles:
     - assignments/images/
-    - assignments/temp*
