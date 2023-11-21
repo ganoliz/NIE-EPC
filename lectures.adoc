@@ -64,34 +64,34 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EW_DSYKl
 
 |9.
 |21.11.
+|_Lecture canceled_
+|
+
+|10.
+|28.11.
 |Templates, template instantiation, template argument deduction, template specialization, variadic templates, template parameter pack
 |link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EbWDP1mSV7tJgyqlFOiEWKIBA7UsDewNKYQP_GbcH3TR1g?e=oruRiP[epc_lecture_09_en_2023.pdf] +
 link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVeCHSYPcIdCmfPPWDykZGQBfARbF_F9XOzMN05Dro3p6w?e=haJm3z[epc_lecture_09_en_2023_bw.pdf]
 
-|10.
-|28.11.
+|11.
+|5.12.
 |Function parameter pack, concepts and constraints, SFINAE
 |
 //link:PDFs/epc_lecture_10_en_2021.pdf[epc_lecture_10_en_2021.pdf]
 //link:PDFs/epc_lecture_10_en_2021_handouts.pdf[epc_lecture_10_en_2021_handouts.pdf]
 
-|11.
-|5.12.
+|12.
+|12.12.
 |Exception safety, allocators, small buffer optimization, empty base optimization, type erasure
 |
 //link:PDFs/epc_lecture_11_en_2021.pdf[epc_lecture_11_en_2021.pdf]
 //link:PDFs/epc_lecture_11_en_2021_handouts.pdf[epc_lecture_11_en_2021_handouts.pdf]
 
-|12.
-|12.12.
+|13.
+|19.12.
 |Type erasure, std::function, any, variant, CRTP, swap, ADL
 |
 //link:PDFs/epc_lecture_12_en_2021.pdf[epc_lecture_12_en_2021.pdf]
 //link:PDFs/epc_lecture_12_en_2021_handouts.pdf[epc_lecture_12_en_2021_handouts.pdf]
-
-|13.
-|19.12.
-|_Reserve_
-|
 
 |===
