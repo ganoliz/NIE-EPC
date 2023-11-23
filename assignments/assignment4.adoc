@@ -248,7 +248,7 @@ A.6::
 [source,c++]
 ----
 vector(const vector& other)
-  : size_(other.size_), capacity_(other.capacity_), data(nullptr)
+  : size_(other.size_), capacity_(other.capacity_), data_(nullptr)
 {
   if (other.capacity_ == N) {
     data_ = reinterpret_cast<T*>(buffer_);
