@@ -282,7 +282,7 @@ A.8::
 ----
 vector(vector&& other) {
   if (other.is_short()) {  // helper function
-    data_ = nullptr;
+    data_ = reinterpret_cast<T*>(buffer_);
     capacity_ = N;
     size_ = other.size_;
 
