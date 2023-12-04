@@ -76,9 +76,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVeCHSYP
 |11.
 |5.12.
 |Function parameter pack, concepts and constraints, SFINAE
-|
-//link:PDFs/epc_lecture_10_en_2021.pdf[epc_lecture_10_en_2021.pdf]
-//link:PDFs/epc_lecture_10_en_2021_handouts.pdf[epc_lecture_10_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EZiYR7P-6ixMmwd4ztSimuMBYlV_Y59MMHndPm_3c5P8Cg?e=lRyprm[epc_lecture_10_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVURHGgQ0VlKlsv_vzk-u58B3bhontATg54U8-X60u8n8Q?e=U0rujV[epc_lecture_10_en_2023_bw.pdf]
 
 |12.
 |12.12.
