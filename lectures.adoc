@@ -82,9 +82,8 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/EVURHGgQ
 |12.
 |12.12.
 |Exception safety, allocators, small buffer optimization, empty base optimization, type erasure
-|
-//link:PDFs/epc_lecture_11_en_2021.pdf[epc_lecture_11_en_2021.pdf]
-//link:PDFs/epc_lecture_11_en_2021_handouts.pdf[epc_lecture_11_en_2021_handouts.pdf]
+|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/Ef2gWDzwHw5Ep0j8IkBfQxMBRbhphT06XpABlwp48sOyFw?e=UMBEww[epc_lecture_11_en_2023.pdf] +
+link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ER9HAznEir1BqniNly3xo0UBUkV_IpErcZ-MWMOnkKpNBQ?e=EaUpQA[epc_lecture_11_en_2023_bw.pdf]
 
 |13.
 |19.12.
