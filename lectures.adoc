@@ -88,7 +88,7 @@ link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ER9HAznE
 |13.
 |19.12.
 |Type erasure, std::function, any, variant, CRTP, swap, ADL
-|link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ETOrfM0enwlFonrrflBG3YcBRkOr7XXw3rp1\--6sSjqodw?e=3fZ0kf[epc_lecture_12_en_2023.pdf] +
+|link:++https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/ETOrfM0enwlFonrrflBG3YcBRkOr7XXw3rp1--6sSjqodw?e=3fZ0kf++[epc_lecture_12_en_2023.pdf] +
 link:https://campuscvut-my.sharepoint.com/:b:/g/personal/langrd_cvut_cz/Ec6EjQ2m99lJoHmkawVN0IEBGeyaimFIb4g4tdZLZmVoVw?e=qEDLPJ[epc_lecture_12_en_2023_bw.pdf]
 
 |===
