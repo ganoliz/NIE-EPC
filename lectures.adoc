@@ -12,7 +12,7 @@ IMPORTANT: Students are supposed to attend lectures primarily in person; if no s
 
 [WARNING]
 ====
-* According to the latest findings, links to the university SharePoint have hard set expiration dates and applied politics does not allow to extend them. As a consequence, the **links to lecture slides in the table below are becoming invalid**.
+* According to the latest findings, links to the university SharePoint have hard set expiration dates, and the applied politics does not allow to extend them. As a consequence, the **links to lecture slides in the table below are becoming invalid**.
 * A **new link to the folder with all the slides has been generated**; see link:https://campuscvut-my.sharepoint.com/:f:/g/personal/langrd_cvut_cz/EofUJb2_aatAp1X6Uc0gJq8BwUj5Nv6ZrUMmZf0vBDgPlA?e=btpMEs[Lecture slides].
 * This link should not expire; however, for access, it is necessary to use a university account.
 ====
