@@ -27,7 +27,7 @@ The NIE-EPC course in intended for students with *true interest* in programming 
 
 NIE-EPC follows the *BIE-PA1* and *BIE-PA2* courses and students are supposed to *perfectly master their material*. Besides, a selected knowledge from the *BIE-SAP* and *BIE-OSY* courses are required as well.
 
-WARNING: It is strongly recommended not enrolling this course **in case of no C++ basic knowledge and experience**.
+WARNING: It is strongly recommended not to enroll in this course **in case of no prior C++ knowledge and experience**.
 
 == Study materials
 
