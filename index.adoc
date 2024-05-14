@@ -2,11 +2,11 @@
 
 NIE-EPC course pages
 
-== News
+WARNING: *Course pages are being updated for the winter semester B241. The current information may not apply for this semester.*
 
-* **[21. 11. 2023]** The lecture schedule has been updated.
+// == News
 
-// WARNING: *Course pages are being updated for the winter semester 2023/2024.*
+// * **[21. 11. 2023]** The lecture schedule has been updated.
 
 == Annotation
 
