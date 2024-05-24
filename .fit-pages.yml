@@ -1,0 +1,12 @@
+domain: courses.fit.cvut.cz
+
+access:
+    master:
+        /index.html:
+            allow: [ANONYMOUS]
+        /:
+            allow: [AUTHENTICATED]
+
+    "*":
+        /:
+            allow: [AUTHENTICATED] 
